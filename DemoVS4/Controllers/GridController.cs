@@ -15,6 +15,7 @@ namespace DemoVS4.Controllers
         // GET: /Grid/
         DemoVS4.Core.DAL.dbTestDataContext ctx = new Core.DAL.dbTestDataContext();
         DemoVS4.Core.Manager.ProductManager PM = new ProductManager();
+
         public ActionResult Inline()
         {
             return View();
