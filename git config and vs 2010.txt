@@ -1,0 +1,44 @@
+bitbucket
+--Install git
+	--during installation select 2nd option in selection (windows command promate) 
+
+-Open git bash
+	--set Username and Email
+		$ git config --global user.name ""
+		$ git config --global user.email ""
+
+--In vs2010
+	--goto->tool->extension manager-->search online-->git contro service--> install
+	--goto-->tool-->option-->Source control--> select git service provider in dropdown
+
+	--create a project
+		--right click-->click create repository
+		--right click-->click pending repository --> commit
+		
+		--right click-->open git bash-->enter folloeing command
+						--$ git remote set-url origin https://.... (https://Tia-Demo@bitbucket.org/Tia-Demo/tia-projects.git)
+								--or git remote add origin https://
+						
+						--$ git push origin master (local copy of branch master is being push bto origin) 
+
+
+--clone
+	cd deskstop
+	git clone https://
+
+---Once created
+	Commit update repo by command $ git push origin master
+	checkout update repo by command $ git pull origin master
+
+
+
+
+
+
+
+
+
+
+
+
+link references:http://www.youtube.com/watch?v=HJKeb6b6ZKE
