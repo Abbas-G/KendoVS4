@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="test" Class="dbTestDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.Product" Member="Products">
+    <Type Name="Product">
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UnitPrice" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UnitsInStock" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Discontinued" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UniqueCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.spUpdateInsertProduct" Method="spUpdateInsertProduct">
+    <Parameter Name="ID" Parameter="iD" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ProductName" Parameter="productName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="UnitPrice" Parameter="unitPrice" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UnitsInStock" Parameter="unitsInStock" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Discontinued" Parameter="discontinued" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Category" Parameter="category" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="RetID" Parameter="retID" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>
