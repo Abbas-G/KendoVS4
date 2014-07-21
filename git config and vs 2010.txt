@@ -1,5 +1,5 @@
 bitbucket
---Install git
+--Install git (download from)
 	--during installation select 2nd option in selection (windows command promate) 
 
 -Open git bash
