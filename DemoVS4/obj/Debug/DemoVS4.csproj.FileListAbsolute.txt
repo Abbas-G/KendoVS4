@@ -1,0 +1,14 @@
+D:\abbas\kendo\mvc\mvc2\without_kendo_dll\DemoVS4\DemoVS4\bin\DemoVS4.dll
+D:\abbas\kendo\mvc\mvc2\without_kendo_dll\DemoVS4\DemoVS4\bin\DemoVS4.pdb
+D:\abbas\kendo\mvc\mvc2\without_kendo_dll\DemoVS4\DemoVS4\obj\Debug\ResolveAssemblyReference.cache
+D:\abbas\kendo\mvc\mvc2\without_kendo_dll\DemoVS4\DemoVS4\obj\Debug\DemoVS4.dll
+D:\abbas\kendo\mvc\mvc2\without_kendo_dll\DemoVS4\DemoVS4\obj\Debug\DemoVS4.pdb
+D:\abbas\kendo\mvc\mvc2\without_kendo_dll\DemoVS4\DemoVS4\bin\DemoVS4.Core.dll
+D:\abbas\kendo\mvc\mvc2\without_kendo_dll\DemoVS4\DemoVS4\bin\DemoVS4.Core.pdb
+D:\Workspace\RND\extras 2,3,4\mvc2\without_kendo_dll\DemoVS4\DemoVS4\bin\DemoVS4.dll
+D:\Workspace\RND\extras 2,3,4\mvc2\without_kendo_dll\DemoVS4\DemoVS4\bin\DemoVS4.pdb
+D:\Workspace\RND\extras 2,3,4\mvc2\without_kendo_dll\DemoVS4\DemoVS4\bin\DemoVS4.Core.dll
+D:\Workspace\RND\extras 2,3,4\mvc2\without_kendo_dll\DemoVS4\DemoVS4\bin\DemoVS4.Core.pdb
+D:\Workspace\RND\extras 2,3,4\mvc2\without_kendo_dll\DemoVS4\DemoVS4\obj\Debug\DemoVS4.csprojResolveAssemblyReference.cache
+D:\Workspace\RND\extras 2,3,4\mvc2\without_kendo_dll\DemoVS4\DemoVS4\obj\Debug\DemoVS4.dll
+D:\Workspace\RND\extras 2,3,4\mvc2\without_kendo_dll\DemoVS4\DemoVS4\obj\Debug\DemoVS4.pdb
