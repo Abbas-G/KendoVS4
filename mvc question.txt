@@ -43,7 +43,23 @@ RESTful services  vs restless
 
 Types of trigger
 	--After Triggers (For Triggers)
+		
+		CREATE TRIGGER trgAfterInsert ON [dbo].[Employee_Test] 
+		FOR INSERT/UPDATE/DELETE
+		AS
+		begin
+		end
+	
 	--Instead of trigger
+		CREATE TRIGGER trgAfterInsert ON [dbo].[Employee_Test] 
+		insted of INSERT/UPDATE/DELETE
+		AS
+		begin
+			if(sal>100)
+				rollback;
+			else
+				commmit;
+		end
 	
 --struck, classes and enumrator
 
