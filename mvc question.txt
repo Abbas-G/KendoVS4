@@ -23,6 +23,13 @@ RESTful services  vs restless
 
 --readonly vs static 
 	http://www.dotnet-tricks.com/Tutorial/csharp/FU4N141113-Difference-Between-Constant-and-ReadOnly-and-Static.html
+	
+	Connstant and ReadOnly keyword are used to make a field constant which value cannot be modified.
+	static can be modified
+	
+	Constant value must be assigned at the time of declaration (compile time)
+	Readonly value can be initialized either at the time of declaration or with in the constructor of same class (runtime)
+	
 
 --overriding and overloading
 	http://www.aspdotnet-suresh.com/2013/09/c-sharp-overloading-and-overriding-differences-with-example.html
@@ -34,7 +41,10 @@ RESTful services  vs restless
 	such as a database; they can take an action when data is changed, such as raising an event, 
 	or changing the value of other fields.
 
---Instead of trigger
+Types of trigger
+	--After Triggers (For Triggers)
+	--Instead of trigger
+	
 --struck, classes and enumrator
 
 http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-parallelism-using-linq-provider
