@@ -156,8 +156,8 @@
                             { field: "Category", title: "Category", filterable: { ui: GroupFilter}/*, editor: ColumnGroupFilter*/ },
                             { field: "CreatedDate", title: "Date", type: "date", format: "{0:MM/dd/yyyy}" },
                             { field: "Duration", width: "100px" },
-                            { command: ["edit"/*, "destroy"*/], title: "&nbsp;", width: "160px"},
-                            { command: [{ text: 'Delete', click: deleteItem}], title: 'Actions' }
+                            //{ command: ["edit", "destroy"], title: "Edit", width: "160px" },
+                            { command: [{ text: 'Delete', click: deleteItem }, { text: 'edit', click: editItem}], title: 'Action' }
                             ],
                         //editable: "popup",
                         editable: {
@@ -230,6 +230,14 @@
                        grid.dataSource.sync();
                        grid.refresh();
                    }
+               }
+
+               function editItem(e) {
+                   var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                       var grid = $("#grid").data("kendoGrid");
+                       grid.dataSource.edit(dataItem);
+                       grid.dataSource.sync();
+                       grid.refresh();
                }
             </script>
        <!-- this style is add to solve "validation msg hidding in the bottom of grid" by changing validation style-->          

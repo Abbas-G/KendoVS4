@@ -104,7 +104,7 @@
                             { field: "Category", title: "Category", filterable: { ui: GroupFilter }, editor: ColumnGroupFilter },
                             { field: "CreatedDate", title: "Date", type: "date", format: "{0:MM/dd/yyyy h:mm:ss tt}" },
                             { field: "Duration", width: "100px" },
-                            { command: ["edit"/*, "destroy"*/], title: "&nbsp;", width: "160px" },
+                            { command: ["edit"/*, "destroy"*/], title: "Edit", width: "160px" },
                             { command: [{ text: 'Delete', click: deleteItem}], title: 'Actions' }
                             ],
                  editable: "inline",
