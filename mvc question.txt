@@ -68,20 +68,56 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 
 --MS-SQL Server 2005,2008
 
---Difference between cast convert and parse
 
-	Casting is when you take a variable of one type and change it to a different type. You can only do that in some cases, like so:
+--Attributes in DAtaAnnotation
+	--Bind attributes
+		[bind(Exclude="CouponCode")] attribute will exclude an "CouponCode" property from being posted to server
 
-	string str = "Hello";
-	object o = str;
-	string str2 = (string)o;  // <-- This is casting  like (lisItem)viewbag,listItem
-	Casting does not change the variable's value - the value remains of the same type (the string "Hello").
+--What are attributes and filters in mvc
 
-	Converting is when you take a value from one type and convert it to a different type:
+	http://www.codeproject.com/Articles/577776/Filters-and-Attributes-in-ASPNET-MVC
 
-	 double d = 5.5;
-	 int i = (int)d;    // <---- d was converted to an integer like convert.toint32(string)
-	Note that in this case, the conversion was done in the form of casting.
+	types of filter
+		Authorization filter
+		Action filter
+		Result filter
+		Exception filter
 
-	Parsing is taking a string and converting it to a different type by understanding its content. For instance, 
-	converting the string "123" to the number 123, or the string "Saturday, September 22nd" to a DateTime.
+	Configuring Filters
+
+		Global level
+			protected void Application_Start()
+			{
+ 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+			}
+		Controller level
+			[Authorize(Roles="Admin")]
+			public class AdminController : Controller
+
+		Action level
+			[Authorize(Users="User1,User2")]
+ 			public ActionResult LinkLogin(string provider)
+
+
+--Diff betwn Html.Action() or Html.RenderAction()
+	The difference between the two is that 
+	Html.RenderAction will render the result directly to the Response
+	(which is more efficient if the action returns a large amount of HTML) 
+	whereas Html.Action returns a string with the result.
+
+--Diff betwn Html.Partial() or Html.RenderPartial()
+	same for partial
+	
+	eg
+	public static MvcHtmlString Partial(this HtmlHelper htmlHelper, string partialViewName, object model, ViewDataDictionary viewData)
+	{
+    	return mvcHtmlString; //encoded string
+	}
+
+	public static void RenderPartial(this HtmlHelper htmlHelper, string partialViewName)
+	{
+    	htmlHelper.RenderPartialInternal(partialViewName, htmlHelper.ViewData, null, htmlHelper.ViewContext.Writer, ViewEngines.Engines);
+	}
+
+--RenderPartial vs RenderAction vs Partial vs Action
+	http://www.dotnet-tricks.com/Tutorial/mvc/Q8V2130113-RenderPartial-vs-RenderAction-vs-Partial-vs-Action-in-MVC-Razor.html
