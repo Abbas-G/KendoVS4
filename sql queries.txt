@@ -1,0 +1,207 @@
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+USE [NHP]
+GO
+/****** Object:  StoredProcedure [dbo].[spSetPhoneDeviceToken]    Script Date: 03/10/2014 14:39:56 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[spSetPhoneDeviceToken]
+	@DeviceToken varchar(100),
+	@IsDeleted bit,
+	@ID int output
+AS
+BEGIN
+	SET NOCOUNT ON;
+	IF EXISTS(SELECT * FROM IPhoneDeviceToken WHERE DeviceToken=@DeviceToken)
+	BEGIN
+		UPDATE IPhoneDeviceToken
+		SET IsDeleted=@IsDeleted
+		WHERE DeviceToken=@DeviceToken
+
+		SET @ID=1
+		RETURN @ID
+	END
+
+	INSERT INTO IPhoneDeviceToken (DeviceToken, CreatedDateTime, IsDeleted , NotificationCounter)
+	VALUES(@DeviceToken, GETDATE(), @IsDeleted , 1)
+	
+	IF @@ERROR<>0
+	BEGIN
+		SET @ID=0
+	END
+
+	SET @ID=SCOPE_IDENTITY()
+
+	RETURN @ID
+END
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::;
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::;
+USE [NHPWHS2]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_InsertUpdate_WholesalerDetail]    Script Date: 03/10/2014 14:40:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[SP_InsertUpdate_WholesalerDetail] 
+	-- Add the parameters for the stored procedure here
+	@Id	INT
+	,@MasterId	INT
+	,@isMerchandise	BIT
+	,@Name	VARCHAR(500)
+	,@Value INT
+	,@description	VARCHAR(MAX)
+	,@isDelete	BIT
+	,@RetValue INT OUTPUT
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	
+	SET @RetValue = 0;
+	
+	IF @Id IS NULL
+	BEGIN
+		-- Insert statements for procedure here
+		INSERT INTO [WholesalerDetail]
+				([MasterId],	[isMerchandise],	[Name],[Value],
+				[description],	[isDelete])
+		 VALUES
+				(@MasterId,	@isMerchandise,		@Name,@Value,
+				@description,	@isDelete)	   
+		
+		IF @@ERROR <> 0
+			SET @RetValue = -1;			
+		ELSE	
+			SELECT @RetValue = SCOPE_IDENTITY()
+	END
+	ELSE
+	BEGIN
+		-- Update statements for procedure here
+		UPDATE [NHPWHS].[dbo].[WholesalerDetail]
+		   SET [MasterId] = @MasterId
+			  ,[isMerchandise] = @isMerchandise
+			  ,[Name] = @Name
+			  ,[Value]=@Value
+			  ,[description] = @description
+			  ,[isDelete] = @isDelete
+		WHERE [UploadDetailID] = @Id
+		
+		IF @@ERROR <> 0
+			SET @RetValue = -1;
+		ELSE	
+			SET @RetValue = @Id;
+	END	
+	 
+	--PRINT @RetValue
+	
+END
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::;
+USE [SJBros]
+GO
+/****** Object:  StoredProcedure [dbo].[DiamondSearch]    Script Date: 03/10/2014 14:41:54 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[DiamondSearch]
+				@shape VARCHAR(100)  = NULl,
+                @clarity   VARCHAR(100)  = NULL,
+                @cut   VARCHAR(100)  = NULL,
+                @polish   VARCHAR(100)  = NULL,
+                @Symm   VARCHAR(100)  = NULL,
+                @Greport  VARCHAR(100)  = NULL,
+                @Color  VARCHAR(100)  = NULL,
+                @Girdle VARCHAR(max)  = NULL,
+                @CuletCondition VARCHAR(max)  = NULL,
+                @CuletSize VARCHAR(max)  = NULL,
+                @FlourColor VARCHAR(max)  = NULL,
+                @FlourInten  VARCHAR(max)  = NULL,
+                @sizeFrom float,
+				@sizeTo float,
+				@depthFrom float,
+				@depthTo float,
+				@tableFrom float,
+				@tableTo float,
+				@mlenghtFrom float,
+				@mlenghtTo float,
+				@mWidthFrom float,
+				@mWidthTo float,
+				@mDepthFrom float,
+				@mDepthTo float,
+				@priceperFrom float,
+				@priceperTo float,
+				@pricetotalFrom float,
+				@pricetotalTo float
+				
+				    
+                
+AS
+  BEGIN
+	if(@sizeTo=0 And @sizeFrom!=0)
+	Begin
+	select top(1)@sizeTo=size from SearchTable order by Size desc 
+	end
+	
+	if(@depthTo=0 And @depthFrom!=0)
+	Begin
+	select top(1)@depthTo=Depth from SearchTable order by Depth desc 
+	end
+	
+	if(@tableTo=0 And @tableFrom!=0)
+	Begin
+	select top(1)@tableTo=TableIn from SearchTable order by TableIn desc 
+	end
+	
+	if(@mlenghtTo=0 And @mlenghtFrom!=0)
+	Begin
+	select top(1)@mlenghtTo=MeasureL from SearchTable order by MeasureL desc 
+	end
+	
+	if(@mWidthTo=0 And @mWidthFrom!=0)
+	Begin
+	select top(1)@mWidthTo=MeasureM from SearchTable order by MeasureM desc 
+	end
+	
+	if(@mDepthTo=0 And @mDepthFrom!=0)
+	Begin
+	select top(1)@mDepthTo=MeasureD from SearchTable order by MeasureD desc 
+	end
+	
+	if(@priceperTo=0 And @priceperFrom!=0)
+	Begin
+	select top(1)@priceperTo=PricePerCt from SearchTable order by PricePerCt desc 
+	end
+	
+	if(@pricetotalTo=0 And @pricetotalFrom!=0)
+	Begin
+	select top(1)@pricetotalTo=TotalPrice from SearchTable order by TotalPrice desc 
+	end
+	 
+	select * from SearchTable c where (c.Shape in (SELECT DATA FROM dbo.fnc_SplitString (@shape,',')) or @shape is null) 
+    and (c.Clarity in (SELECT DATA FROM dbo.fnc_SplitString (@clarity,',')) or @clarity is null)
+    and (c.Cut in (SELECT DATA FROM dbo.fnc_SplitString (@cut,',')) or @cut is null) 
+    and (c.Polish in (SELECT DATA FROM dbo.fnc_SplitString (@polish,',')) or @polish is null) 
+    and (c.Symm in (SELECT DATA FROM dbo.fnc_SplitString (@Symm,',')) or @Symm is null) 
+    and (c.GReprot in (select GReportName from GradianReport where GReportId in (SELECT DATA FROM dbo.fnc_SplitString (@Greport,','))) or @Greport is null)
+    and (c.Color in (SELECT DATA FROM dbo.fnc_SplitString (@Color,',')) or @Color is null)
+    and (c.Gridle in (SELECT DATA FROM dbo.fnc_SplitString (@Girdle,',')) or @Girdle is null)
+    and (c.CuletCondition in (SELECT DATA FROM dbo.fnc_SplitString (@CuletCondition,',')) or @CuletCondition is null)
+    and (c.CuletSize in (SELECT DATA FROM dbo.fnc_SplitString (@CuletSize,',')) or @CuletSize is null)
+    and (c.FlouColor in (SELECT DATA FROM dbo.fnc_SplitString (@FlourColor,',')) or @FlourColor is null)
+    and (c.FlouIntensity in (SELECT DATA FROM dbo.fnc_SplitString (@FlourInten,',')) or @FlourInten is null)
+    and ((c.Size >=@sizeFrom and c.Size<=@sizeTo ) or (@sizeFrom=0 and @sizeTo=0) )
+    and ((c.Depth >=@depthFrom and c.Depth<=@depthTo ) or (@depthFrom=0 and @depthTo=0) )
+    and ((c.TableIn >=@tableFrom and c.TableIn<=@tableTo ) or (@tableFrom=0 and @tableTo=0) )  
+    and ((c.MeasureL >=@mlenghtFrom and c.MeasureL<=@mlenghtTo ) or (@mlenghtFrom=0 and @mlenghtTo=0) )
+    and ((c.MeasureM >=@mWidthFrom and c.MeasureM<=@mWidthTo ) or (@mWidthFrom=0 and @mWidthTo=0) )
+	and ((c.MeasureD >=@mDepthFrom and c.MeasureD<=@mDepthTo ) or (@mDepthFrom=0 and @mDepthTo=0) )
+	and ((c.PricePerCt >=@priceperFrom and c.PricePerCt<=@priceperTo ) or (@priceperFrom=0 and @priceperTo=0) )
+	and ((c.TotalPrice >=@pricetotalFrom and c.TotalPrice<=@pricetotalTo ) or (@pricetotalFrom=0 and @pricetotalTo=0) )
+  END
+ 

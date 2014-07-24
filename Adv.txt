@@ -1,0 +1,209 @@
+﻿
+ALTER PROCEDURE [dbo].[spSetPhoneDeviceToken]
+	@DeviceToken varchar(100),
+	@IsDeleted bit,
+	@ID int output
+AS
+BEGIN
+	SET NOCOUNT ON;
+	IF EXISTS(SELECT * FROM IPhoneDeviceToken WHERE DeviceToken=@DeviceToken)
+	BEGIN
+		UPDATE IPhoneDeviceToken
+		SET IsDeleted=@IsDeleted
+		WHERE DeviceToken=@DeviceToken
+
+		SET @ID=1
+		RETURN @ID
+	END
+
+	INSERT INTO IPhoneDeviceToken (DeviceToken, CreatedDateTime, IsDeleted , NotificationCounter)
+	VALUES(@DeviceToken, GETDATE(), @IsDeleted , 1)
+	
+	IF @@ERROR<>0
+	BEGIN
+		SET @ID=0
+	END
+
+	SET @ID=SCOPE_IDENTITY()
+
+	RETURN @ID
+END
+
+public bool SavePhoneDeviceToken(string deviceToken)
+        {
+            int? icount = 0;
+            string token = deviceToken.Replace(" ", "").Replace("<", "").Replace(">", "");
+            if (!string.IsNullOrEmpty(token) && token.Length == 64)
+            {
+                ctx.spSetPhoneDeviceToken(token, false, ref icount);
+                if (icount > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+/*****************************************************/
+public JsonResult GetApplicantDetails()
+        {
+            List<TiaSolutions.Core.DAL.Application> list = AM.getApplicantDetail();
+
+            var ListWitoutFK = list.Select(x => new
+            {
+                ID = x.Id,
+                Name = x.FirstName+" "+x.LastName,
+                Resume=x.ResumeName,
+                City = x.City,
+                Education = x.Education,
+                Designation = x.Designation,
+                ExpInYr = x.TotalExperienceInYear,
+                ExpInMonth = x.TotalExperienceInMonth,
+                ExpInTotalMonth=x.TotalExperienceInYear*12+x.TotalExperienceInMonth,
+                ExpectedSalary=x.ExpectedSalaryInYear,
+                ModifiedDate = x.DateTime,
+                Age=x.Age,
+                Gender=x.Gender,
+                Tel=x.PhoneNo,
+                Email=x.Email,
+                NoticePeriod=x.NoticePeriodInWeek,
+                CurrentSalary=x.CurrentSalaryInYear
+            });
+
+            return Json(ListWitoutFK, JsonRequestBehavior.AllowGet); // when table as primary key foreign key relation at that time circular reference error arise when using jaso so create new obj and then send jason value
+        }
+/****************************************************/
+
+namespace NHP.Service
+{
+    /// <summary>
+    /// Summary description for NHPWebService
+    /// </summary>
+    [WebService(Namespace = "http://www.iprogrammer.com.au/nhpdemo/")]
+    [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
+    [System.ComponentModel.ToolboxItem(false)]
+    // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
+    // [System.Web.Script.Services.ScriptService]
+    public class NHPWebService : System.Web.Services.WebService
+    {
+
+        JavaScriptSerializer jSerializer = new JavaScriptSerializer();
+        [WebMethod(Description = "PDF deatil only")]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public string GetAllCatagoriesDetail(string date, string deviceTokenID)
+        {
+            using (CategoriesManager cm = new CategoriesManager())
+            {
+                if (date != "")
+                {
+                    DateTime b = Convert.ToDateTime(date);
+                    return jSerializer.Serialize(cm.getNewCategoriesByDate(b,deviceTokenID));
+                }
+                else
+                {
+                    return jSerializer.Serialize(cm.getNewCategoriesByNull(deviceTokenID));
+                }
+            }
+        }
+
+        [WebMethod(Description = "PDF and Video detail")]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public string GetAllCatagoriesDetailWithVideos(string date, string deviceTokenID)
+        {
+            using (CategoriesManager cm = new CategoriesManager())
+            {
+                if (date != "")
+                {
+                    DateTime b = Convert.ToDateTime(date);
+                    return jSerializer.Serialize(cm.getNewCategoriesByDateVideo(b, deviceTokenID));
+                }
+                else
+                {
+                    return jSerializer.Serialize(cm.getNewCategoriesByNullVideo(deviceTokenID));
+                }
+            }
+        }
+
+        [WebMethod(Description = "All Catagories Detail by start date,end date and by null")]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public string GetAllCatagoriesDetailForAndroid(string startDate, string EndDate)
+        {
+            using (CategoriesManager cm = new CategoriesManager())
+            {
+                return jSerializer.Serialize(cm.getNewCategoriesForAndroidByDate(startDate, EndDate));
+            }
+        }
+
+        //public string GetAllCatagoriesDetail(string date, string deviceTokenID)
+        //{
+        //    using (CategoriesManager cm = new CategoriesManager())
+        //    {
+        //        if (date != "")
+        //        {
+        //            DateTime b = Convert.ToDateTime(date);
+        //            return jSerializer.Serialize(cm.getNewCategoriesByDate(b, deviceTokenID));
+        //        }
+        //        else
+        //        {
+        //            return jSerializer.Serialize(cm.getNewCategoriesByNull(deviceTokenID));
+        //        }
+        //    }
+        //}
+
+        #region "Notification"
+
+        [WebMethod]
+        public bool SavePhoneDeviceToken(string devicetoken)
+        {
+            NHP.Core.Manager.DeviceToken coreDeviceToken = new NHP.Core.Manager.DeviceToken();
+            return coreDeviceToken.SavePhoneDeviceToken(devicetoken);
+        }
+
+        [WebMethod]
+        public bool SaveAndroidPhoneDeviceToken(string devicetoken)
+        {
+            NHP.Core.Manager.DeviceToken coreDeviceToken = new NHP.Core.Manager.DeviceToken();
+            return coreDeviceToken.SaveAndroidPhoneDeviceToken(devicetoken);
+        }
+
+        [WebMethod]
+        public string SendMessageToAndroidDevices(string Message)
+        {
+            NHP.Core.Manager.DeviceToken coreDeviceToken = new NHP.Core.Manager.DeviceToken();
+            return coreDeviceToken.SendAndroidMessage(Message);
+        }
+
+        [WebMethod]
+        public bool DeleteAllAndroidDevicesToken()
+        {
+            NHP.Core.Manager.DeviceToken coreDeviceToken = new NHP.Core.Manager.DeviceToken();
+            return coreDeviceToken.DeleteAllAndroidDevice();
+        }
+
+
+        #endregion
+
+    }
+}
+
+/**********************************************************************/
+ public void insertSubCategory(string subCategoryName, string SubCategoryimage, int catid)
+        {
+            NHP.Core.DAL.CategorySub data= new CategorySub();
+            data.CategoryName = subCategoryName;
+            data.ThumbnailUrl = SubCategoryimage;
+            data.ParentId = catid;
+            data.CreatedDate = System.DateTime.Now;
+            data.ModifiedDate = System.DateTime.Now;
+            data.IsDelete = false;
+            data.IsUpdate = false;
+            ctx.CategorySubs.InsertOnSubmit(data);
+            ctx.SubmitChanges();
+
+            NHP.Core.DAL.CategorySub parentdata = ctx.CategorySubs.Where(x => x.CategoryId == catid).FirstOrDefault();
+            if (parentdata != null)
+            {
+                parentdata.ModifiedDate = System.DateTime.Now;
+                ctx.SubmitChanges();
+            }
+
+        }
