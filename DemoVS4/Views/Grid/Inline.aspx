@@ -124,7 +124,8 @@
                          $(update).html('<span class="k-icon k-update"></span>Update');
                          $(cancel).html('<span class="k-icon k-cancel"></span>Cancel');
                      }
-                 }
+                 },
+                 save: onSave
              });
 
              $(".k-grid-my-create", grid.element).on("click", function (e) {
@@ -174,7 +175,21 @@
              grid.addRow();
          }
 
-
+         function onSave(e) {
+             if (e.model.ProductID != null) { }
+             else {
+                 var currentProductName = e.model.ProductName;
+                 var currentProductID = e.model.ProductID;
+                 var data = this.dataSource.data();
+                 for (item in data) {
+                     if (data[item].ProductName == currentProductName &&
+                                   data[item].ProductID != currentProductID) {
+                         e.preventDefault();
+                         alert("Duplicates not allowed");
+                     }
+                 }
+             }
+         }
          function ExportToCSV() {
              var dataSource = $("#grid").data("kendoGrid").dataSource;
              var filteredDataSource = new kendo.data.DataSource({

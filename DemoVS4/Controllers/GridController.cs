@@ -111,6 +111,19 @@ namespace DemoVS4.Controllers
             return Json(searchedFOOD);
         }
 
+        public JsonResult CheckDuplication(string ProductName) {
+            /*DemoVS4.Core.DAL.Product items = ctx.Products.Where(x => x.ProductName == ProductName).FirstOrDefault();
+            if (items!=null)
+                return Json(new { value = "true" });
+            else
+                return Json(new { value = "false" });
+             */
+
+            JavaScriptSerializer jSerializer = new JavaScriptSerializer();
+            var publicationTable = ctx.Products.OrderBy(x=>x.ProductName);
+            //return Json(publicationTable, JsonRequestBehavior.AllowGet);  //this statement allow to see records directly on browser , you need also to set get in place of post in javascript(.aspx page)
+            return Json(publicationTable);  // this statement wont allow to see records directly on browser
+        }
 
     }
 

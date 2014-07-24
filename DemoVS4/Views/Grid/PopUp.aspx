@@ -19,13 +19,20 @@
                 </div>
  </script>
 
+  <script type="text/x-kendo-template" id="AlertBoxDetail">
+                <div id="details-container">
+                    #= ProductName #
+                </div>
+    </script>
  
  <script id="popup_editor" type="text/x-kendo-template">
 			<p>Custom editor template</p>
+            <p><span id="spnDuplicate" style="color:red"></span></p>
+
 			<div class="k-edit-label">
 				<label>Product Name</label>
 			</div>
-			<input type="text" class="k-input k-textbox" name="ProductName" data-bind="value:ProductName" required/>
+			<input type="text" class="k-input k-textbox" id="ProductName" name="ProductName" data-bind="value:ProductName" required/>
 			<span class="k-invalid-msg" data-for="ProductName"></span>
 
             # if( UniqueCode!=null) {#
@@ -80,6 +87,8 @@
 			</div>
             <input type="text" name="Duration" data-type="number" data-bind="value:Duration" data-role="numerictextbox"  required  />
 			<span class="k-invalid-msg" data-for="Duration"></span>
+
+            
             <br/><br/><br/>
             
 		</script>
@@ -89,6 +98,7 @@
                 xhReq.send(null);
                 var GlobalSearchFOOD = JSON.parse(xhReq.responseText);
                 var record = 0;
+                var wnd, detailsTemplate;
 
                 $(document).ready(function () {
                     var crudServiceBaseUrl = '<%=Url.Content("~/Grid")%>',
@@ -135,7 +145,7 @@
                                         UnitsInStock: { type: "number", validation: { min: 0, required: true} },
                                         Category: { type: "string", validation: { required: true} },
                                         CreatedDate: { type: 'date', validation: { required: true} },
-                                        Duration: { type: "number", editable: false }
+                                        Duration: { type: "number", editable: true }
                                     }
                                 }
                             }
@@ -182,7 +192,8 @@
                             //popup templates width
                             /*var editWindow = this.editable.element.data("kendoWindow");
                             editWindow.wrapper.css({ width: 600 });*/
-                        }
+                        },
+                        save: onSave
                     });
 
                     $(".k-grid-my-create", grid.element).on("click", function (e) {
@@ -191,6 +202,16 @@
                         grid.dataSource.sort({});
                         grid.addRow();
                     });
+
+                    wnd = $("<div />").kendoWindow({
+                        title: "Alert Box",
+                        modal: true,
+                        visible: false,
+                        resizable: false,
+                        width: 300
+                    }).data("kendoWindow");
+
+                    detailsTemplate = kendo.template($("#AlertBoxDetail").html());
                 });
 
                 function ColumnGroupFilter(container, options) {
@@ -225,13 +246,14 @@
 
                function deleteItem(e) {
                    var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                   if (confirm('Are you sure you want to delete : ' + dataItem.name)) {
+                   if (confirm('Are you sure you want to delete : ' + dataItem.ProductName)) {
                        var grid = $("#grid").data("kendoGrid");
                        grid.dataSource.remove(dataItem);
                        grid.dataSource.sync();
                        grid.refresh();
                    }
                }
+               
 
                function editItem(e) {
                    var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
@@ -239,7 +261,53 @@
                        grid.dataSource.edit(dataItem);
                        grid.dataSource.sync();
                        grid.refresh();
-               }
+                   }
+
+              function onSave(e) {
+                       if (e.model.ProductID != null) { }
+                       else {
+                           var currentProductName = e.model.ProductName;
+                           /*$.ajax({
+                               url: '<%=Url.Content("~/Grid/CheckDuplication")%>'
+                               , type: "POST"
+                               , data: { ProductName: currentProductName }
+                               , success: function (result) {
+                                   if (result.value == 'true') {
+                                       e.preventDefault();
+                                       wnd.content(detailsTemplate({ ProductName: "Product Name '" + currentProductName + "' already exist" }));
+                                       wnd.center().open();
+                                       return false;
+                                   }
+                               }
+                           });*///ajax not working
+                           
+                           /*var xhReq = new XMLHttpRequest();
+                           xhReq.open("POST", '<%=Url.Content("~/Grid/CheckDuplication")%>', false);
+                           xhReq.send(null);
+                           var AllData = JSON.parse(xhReq.responseText);
+                           for (item in AllData) {
+                               if (AllData[item].ProductName == currentProductName) {
+                                   e.preventDefault();
+                                   wnd.content(detailsTemplate({ ProductName: "Product Name '" + currentProductName + "' already exist" }));
+                                   wnd.center().open();
+                               }
+                           }*/
+
+                           var currentProductID = e.model.ProductID;
+                           var data = this.dataSource.data();
+                           for (item in data) {
+                               if (data[item].ProductName == currentProductName &&
+                                   data[item].ProductID != currentProductID) {
+                                   e.preventDefault();
+                                   //alert("Duplicates not allowed");
+                                   //$("#spnDuplicate").val("Duplicates not allowed").change();
+                                   $("#spnDuplicate").text("Duplicates not allowed")
+                               }
+                           }
+                       }
+                   }
+                  
+
             </script>
        <!-- this style is add to solve "validation msg hidding in the bottom of grid" by changing validation style-->          
   <style>
