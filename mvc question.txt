@@ -74,13 +74,13 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 
 	string str = "Hello";
 	object o = str;
-	string str2 = (string)o;  // <-- This is casting
+	string str2 = (string)o;  // <-- This is casting  like (lisItem)viewbag,listItem
 	Casting does not change the variable's value - the value remains of the same type (the string "Hello").
 
 	Converting is when you take a value from one type and convert it to a different type:
 
 	 double d = 5.5;
-	 int i = (int)d;    // <---- d was converted to an integer
+	 int i = (int)d;    // <---- d was converted to an integer like convert.toint32(string)
 	Note that in this case, the conversion was done in the form of casting.
 
 	Parsing is taking a string and converting it to a different type by understanding its content. For instance, 
