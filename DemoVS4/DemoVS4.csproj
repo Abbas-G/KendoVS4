@@ -67,15 +67,18 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\GridController.cs" />
     <Compile Include="Controllers\PartialController.cs" />
     <Compile Include="Controllers\SimpleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\CustomLoader.css" />
     <Content Include="Content\kendo\js\console.js" />
     <Content Include="Content\kendo\js\jquery-1.8.3.min.js" />
     <Content Include="Content\kendo\js\jquery.min.js" />
@@ -104,9 +107,15 @@
     <Content Include="Content\kendo\style\kendo.default.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\CustomLoader.js" />
+    <Content Include="Views\Account\HtmlAjax.aspx" />
+    <Content Include="Views\Account\JSAjax.aspx" />
+    <Content Include="Views\Account\LogOn.ascx" />
     <Content Include="Views\Grid\Inline.aspx" />
     <Content Include="Views\Grid\PopUp.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -137,7 +146,6 @@
     <Folder Include="Content\kendo\style\CustomThemes\MetroBlack\" />
     <Folder Include="Content\kendo\style\CustomThemes\Moonlight\" />
     <Folder Include="Content\kendo\style\CustomThemes\textures\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>

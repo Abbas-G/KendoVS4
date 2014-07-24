@@ -12,3 +12,10 @@ D:\Workspace\RND\extras 2,3,4\mvc2\without_kendo_dll\DemoVS4\DemoVS4\bin\DemoVS4
 D:\Workspace\RND\extras 2,3,4\mvc2\without_kendo_dll\DemoVS4\DemoVS4\obj\Debug\DemoVS4.csprojResolveAssemblyReference.cache
 D:\Workspace\RND\extras 2,3,4\mvc2\without_kendo_dll\DemoVS4\DemoVS4\obj\Debug\DemoVS4.dll
 D:\Workspace\RND\extras 2,3,4\mvc2\without_kendo_dll\DemoVS4\DemoVS4\obj\Debug\DemoVS4.pdb
+C:\Users\LG\Desktop\KendoVS4\DemoVS4\bin\DemoVS4.dll
+C:\Users\LG\Desktop\KendoVS4\DemoVS4\bin\DemoVS4.pdb
+C:\Users\LG\Desktop\KendoVS4\DemoVS4\bin\DemoVS4.Core.dll
+C:\Users\LG\Desktop\KendoVS4\DemoVS4\bin\DemoVS4.Core.pdb
+C:\Users\LG\Desktop\KendoVS4\DemoVS4\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\LG\Desktop\KendoVS4\DemoVS4\obj\Debug\DemoVS4.dll
+C:\Users\LG\Desktop\KendoVS4\DemoVS4\obj\Debug\DemoVS4.pdb
