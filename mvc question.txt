@@ -10,16 +10,58 @@ http://stackoverflow.com/questions/2433306/whats-the-difference-between-iqueryab
 http://stackoverflow.com/questions/15434109/what-is-the-difference-between-an-iqueryables-contains-and-an-ienumerables-c
 http://www.codeproject.com/Articles/231163/IQueryable-Vs-IEnumerable-in-terms-of-LINQ-to-SQL
 
-diff http post and htp get
-diff varchar and nvarchar
+--diff http post and htp get
+--diff varchar and nvarchar
 --webform vs mvc
-		
+	http://www.codeproject.com/Articles/528117/WebForms-vs-MVC
+
+--RESTful services  vs restless
+
+--abstract class and interface
+	
+	http://www.c-sharpcorner.com/uploadfile/prasoonk/abstract-class-vs-interface/
+	http://www.codeproject.com/Articles/11155/Abstract-Class-versus-Interface
+	http://www.codeproject.com/Articles/6118/All-about-abstract-classes
+
+	abstract class cn not be sealed class
+	abstract method cannot be private.
+
+--sealed classes and sealed method
+	A sealed class cannot be used as a base class.
+	http://stackoverflow.com/questions/4152049/sealed-method-in-c-sharp
+
+--Difference between Virtual and Abstract Methods
+	
+	abstract == MustOverride (have only defination  no actual code )
+	virtual == Overridable (have actual code but says child class use mine functionality or you can overide me and provide ur own functionality)
+	
+	http://stackoverflow.com/questions/14728761/difference-between-virtual-and-abstract-methods
+	http://stackoverflow.com/questions/391483/what-is-the-difference-between-an-abstract-function-and-a-virtual-function
+
+
+--partial class	
+	defination of one file destributed over differ files and compile as single file	
+
+--overriding and overloading
+	http://www.aspdotnet-suresh.com/2013/09/c-sharp-overloading-and-overriding-differences-with-example.html
+
+--function and procedure
+	http://stackoverflow.com/questions/771949/what-is-the-difference-between-function-and-procedure-in-pl-sql
+
+--mvc2 vs mvc3
+
+--Route constraint	
+	Route Constraints allow us to apply a regular expression to a URL segment to restrict whether the route will match the request
+	http://www.itorian.com/2013/10/route-constraints-in-mvc.html
+
+--type of action result
+	http://mvc4beginner.com/Tutorial/Action-Result-Return-Type.html
 
 --razor vs aspx
 	http://www.dotnet-tricks.com/Tutorial/mvc/91JM151212-Difference-Between-Razor-View-Engine-and-ASPX-View-Engine.html
 
-mvc2 vs mvc3
-RESTful services  vs restless
+--bundles
+	http://www.codeproject.com/Tips/389545/ASP-NET-MVC-Bundling-and-Minification
 
 --readonly vs static 
 	http://www.dotnet-tricks.com/Tutorial/csharp/FU4N141113-Difference-Between-Constant-and-ReadOnly-and-Static.html
@@ -29,10 +71,7 @@ RESTful services  vs restless
 	
 	Constant value must be assigned at the time of declaration (compile time)
 	Readonly value can be initialized either at the time of declaration or with in the constructor of same class (runtime)
-	
 
---overriding and overloading
-	http://www.aspdotnet-suresh.com/2013/09/c-sharp-overloading-and-overriding-differences-with-example.html
 
 --c# get set properties
 	Properties are a way to control access to your private members
@@ -68,6 +107,8 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 
 --MS-SQL Server 2005,2008
 
+--Authentication attribute
+	http://codereview.stackexchange.com/questions/7234/mvc-custom-authentication-authorization-and-roles-implementation
 
 --Attributes in DAtaAnnotation
 	--Bind attributes
