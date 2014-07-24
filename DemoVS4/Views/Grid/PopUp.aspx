@@ -80,7 +80,8 @@
 			</div>
             <input type="text" name="Duration" data-type="number" data-bind="value:Duration" data-role="numerictextbox"  required  />
 			<span class="k-invalid-msg" data-for="Duration"></span>
-
+            <br/><br/><br/>
+            
 		</script>
             <script>
                 var xhReq = new XMLHttpRequest();
@@ -252,6 +253,14 @@
 #grid .k-callout {
     display: none;
 }
+   
+.k-widget.k-tooltip-validation {
+    background-color: #FFE4C4 !important;
+}
+/*.k-edit-form-container
+{
+    height: 600px;
+}*/
             </style>   
 </body>
 </html>
