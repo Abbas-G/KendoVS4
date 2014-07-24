@@ -67,3 +67,21 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 
 
 --MS-SQL Server 2005,2008
+
+--Difference between cast convert and parse
+
+	Casting is when you take a variable of one type and change it to a different type. You can only do that in some cases, like so:
+
+	string str = "Hello";
+	object o = str;
+	string str2 = (string)o;  // <-- This is casting
+	Casting does not change the variable's value - the value remains of the same type (the string "Hello").
+
+	Converting is when you take a value from one type and convert it to a different type:
+
+	 double d = 5.5;
+	 int i = (int)d;    // <---- d was converted to an integer
+	Note that in this case, the conversion was done in the form of casting.
+
+	Parsing is taking a string and converting it to a different type by understanding its content. For instance, 
+	converting the string "123" to the number 123, or the string "Saturday, September 22nd" to a DateTime.
