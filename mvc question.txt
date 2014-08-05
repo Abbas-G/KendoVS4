@@ -12,6 +12,8 @@ http://www.codeproject.com/Articles/231163/IQueryable-Vs-IEnumerable-in-terms-of
 
 --diff http post and htp get
 --diff varchar and nvarchar
+	An nvarchar column can store any Unicode data
+	
 --webform vs mvc
 	http://www.codeproject.com/Articles/528117/WebForms-vs-MVC
 
@@ -23,8 +25,14 @@ http://www.codeproject.com/Articles/231163/IQueryable-Vs-IEnumerable-in-terms-of
 	http://www.codeproject.com/Articles/11155/Abstract-Class-versus-Interface
 	http://www.codeproject.com/Articles/6118/All-about-abstract-classes
 
-	abstract class cn not be sealed class
+	abstract class can not be sealed class
 	abstract method cannot be private.
+	
+	A class can implement any number of interfaces but a subclass can at most use only one abstract class.
+	An abstract class can have non-abstract Methods(concrete methods) while in case of Interface all the methods has to be abstract.
+	An abstract class can declare or use any variables while an interface is not allowed to do so.
+	An abstract class can have constructor 
+	all the members of interface are implicitly public.
 
 --sealed classes and sealed method
 	A sealed class cannot be used as a base class.
@@ -44,9 +52,17 @@ http://www.codeproject.com/Articles/231163/IQueryable-Vs-IEnumerable-in-terms-of
 
 --overriding and overloading
 	http://www.aspdotnet-suresh.com/2013/09/c-sharp-overloading-and-overriding-differences-with-example.html
+	
+	-  Overloading (Called as Early Binding or Compile Time Polymorphism or static binding)
+       	-  Overriding (Called as Late Binding or Run Time Polymorphism or dynamic binding)
+       		We can override a method in base class by creating similar function in derived class
+       		this can be achieved by using inheritance principle and using “virtual & override” keywords.
 
 --function and procedure
 	http://stackoverflow.com/questions/771949/what-is-the-difference-between-function-and-procedure-in-pl-sql
+	http://www.dotnet-tricks.com/Tutorial/sqlserver/7EDL150912-Difference-between-Stored-Procedure-and-Function-in-SQL-Server.html
+--inline function
+	inline functions are parameterized views. By nature Views do not accept parameters in the search conditions.
 
 --mvc2 vs mvc3
 
