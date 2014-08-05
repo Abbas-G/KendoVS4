@@ -57,6 +57,14 @@ http://www.codeproject.com/Articles/231163/IQueryable-Vs-IEnumerable-in-terms-of
        	-  Overriding (Called as Late Binding or Run Time Polymorphism or dynamic binding)
        		We can override a method in base class by creating similar function in derived class
        		this can be achieved by using inheritance principle and using “virtual & override” keywords.
+	
+	-OVERLOADING (eg)
+		class Base {
+   			public virtual void Test() { ... }
+		}
+		class Subclass1 : Base {
+   			public override void Test() { ... }
+		}
 
 --function and procedure
 	http://stackoverflow.com/questions/771949/what-is-the-difference-between-function-and-procedure-in-pl-sql
