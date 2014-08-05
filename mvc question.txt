@@ -1,4 +1,4 @@
-http://jobsearch.about.com/od/morejobletters/a/jobappletter.htm
+﻿http://jobsearch.about.com/od/morejobletters/a/jobappletter.htm
 
 FirstOrDefault() 
 SingleOrDefault()
@@ -202,3 +202,16 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 
 --RenderPartial vs RenderAction vs Partial vs Action
 	http://www.dotnet-tricks.com/Tutorial/mvc/Q8V2130113-RenderPartial-vs-RenderAction-vs-Partial-vs-Action-in-MVC-Razor.html
+
+--cast vs conversion vs parse
+	Casting: Telling the compiler that an object is really something else without changing it (though some data loss may be incurred).
+
+		object obj_s= "12345";
+		string str_i = (string) obj; // "12345" as string, explicit
+
+	Parsing: Telling the program to interpret (on runtime) a string.
+
+		string int_s = "12345";
+		int i = int.Parse(int_s); // 12345 as int
+
+	Converting: Telling the program to use built in methods to try to change type for what may be not simply interchangeable.

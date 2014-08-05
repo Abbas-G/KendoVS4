@@ -208,10 +208,4 @@ namespace NHP.Service
 
         }
 
-/************************************************************/
-create table fktable
-(
-id int identity(1,1) primary key,
-name varchar(20) null,
-sid bigint references site2(siteid) 
-)
+

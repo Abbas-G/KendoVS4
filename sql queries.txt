@@ -204,4 +204,10 @@ AS
 	and ((c.PricePerCt >=@priceperFrom and c.PricePerCt<=@priceperTo ) or (@priceperFrom=0 and @priceperTo=0) )
 	and ((c.TotalPrice >=@pricetotalFrom and c.TotalPrice<=@pricetotalTo ) or (@pricetotalFrom=0 and @pricetotalTo=0) )
   END
- 
+ /************************************************************/
+create table fktable
+(
+id int identity(1,1) primary key,
+name varchar(20) null,
+sid bigint references site2(siteid) 
+)
