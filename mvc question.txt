@@ -145,6 +145,7 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	Html.RenderAction will render the result directly to the Response
 	(which is more efficient if the action returns a large amount of HTML) 
 	whereas Html.Action returns a string with the result.
+	This method result can be stored in a variable, since it returns string type value.
 
 --Diff betwn Html.Partial() or Html.RenderPartial()
 	same for partial
@@ -159,6 +160,13 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	{
     	htmlHelper.RenderPartialInternal(partialViewName, htmlHelper.ViewData, null, htmlHelper.ViewContext.Writer, ViewEngines.Engines);
 	}
+	
+--Partial And Action
+	Partial :Simple to use and no need to create any child action.
+		Html.Partial("_Comments")
+	actiom: we need to create a child action for the rendering the partial view.
+		@{Html.Action("Category","Home");} 
+
 
 --RenderPartial vs RenderAction vs Partial vs Action
 	http://www.dotnet-tricks.com/Tutorial/mvc/Q8V2130113-RenderPartial-vs-RenderAction-vs-Partial-vs-Action-in-MVC-Razor.html
