@@ -63,15 +63,27 @@ http://www.codeproject.com/Articles/231163/IQueryable-Vs-IEnumerable-in-terms-of
 --bundles
 	http://www.codeproject.com/Tips/389545/ASP-NET-MVC-Bundling-and-Minification
 
---readonly vs static 
+--readonly vs constant vs static 
 	http://www.dotnet-tricks.com/Tutorial/csharp/FU4N141113-Difference-Between-Constant-and-ReadOnly-and-Static.html
 	
-	Connstant and ReadOnly keyword are used to make a field constant which value cannot be modified.
+	Constant and ReadOnly keyword are used to make a field constant which value cannot be modified.
 	static can be modified
 	
 	Constant value must be assigned at the time of declaration (compile time)
 	Readonly value can be initialized either at the time of declaration or with in the constructor of same class (runtime)
-
+	
+	static 
+		static data member
+			A static member belongs to the class rather than to the objects of the class.
+			You can't use this keyword with static
+		static constructor
+			Static constructor can't be parameterized
+			Static Constructor is used to initialize static data members of the class.
+		Static Properties
+			Static properties are used to get or set the value of static data members of a class.
+		static method
+			Static methods only use static data members to perform calculation or processing.
+			called with the class name 
 
 --c# get set properties
 	Properties are a way to control access to your private members
@@ -117,6 +129,10 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 --What are attributes and filters in mvc
 
 	http://www.codeproject.com/Articles/577776/Filters-and-Attributes-in-ASPNET-MVC
+	
+	MVC provides a very clean way of injecting the pre-processing and post-processing logic for actions and controllers.
+	They way we can put the pre-processing and post-processing logic is by decorating the actions with attributes
+	which will invoke an attribute class implementing the filter's logic.
 
 	types of filter
 		Authorization filter
