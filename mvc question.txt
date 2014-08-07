@@ -45,12 +45,26 @@ http://www.codeproject.com/Articles/231163/IQueryable-Vs-IEnumerable-in-terms-of
 
 	abstract class can not be sealed class
 	abstract method cannot be private.
+	Abstract and Interfaces can’t be instantiated directly.
 	
 	A class can implement any number of interfaces but a subclass can at most use only one abstract class.
 	An abstract class can have non-abstract Methods(concrete methods) while in case of Interface all the methods has to be abstract.
 	An abstract class can declare or use any variables while an interface is not allowed to do so.
 	An abstract class can have constructor 
 	all the members of interface are implicitly public.
+
+	abstract class Can provide default behavior
+		public abstract class Employee
+			{
+			public virutal String CalculateSalary()
+				{
+					//Can provide default behavior
+				}
+			}
+
+
+	abstract class over interface
+		http://www.codeproject.com/Articles/258173/Interfaces-Vs-Abstract-Classes
 
 --sealed classes and sealed method
 	A sealed class cannot be used as a base class.
@@ -76,7 +90,7 @@ http://www.codeproject.com/Articles/231163/IQueryable-Vs-IEnumerable-in-terms-of
        		We can override a method in base class by creating similar function in derived class
        		this can be achieved by using inheritance principle and using “virtual & override” keywords.
 	
-	-OVERLOADING (eg)
+	-Overriding (eg)
 		class Base {
    			public virtual void Test() { ... }
 		}
@@ -91,6 +105,16 @@ http://www.codeproject.com/Articles/231163/IQueryable-Vs-IEnumerable-in-terms-of
 	inline functions are parameterized views. By nature Views do not accept parameters in the search conditions.
 
 --mvc2 vs mvc3
+	session
+		set session variable at session_start in method in global.asax.cs.You should not set session variables in Application_Start(), 
+		as that method is only called once
+		if you want to do something after session expired then write line of code within Session_End method in Global.asax.cs as below
+	
+	ViewData vs ViewBag vs TempData vs Session
+		http://www.dotnet-tricks.com/Tutorial/mvc/9KHW190712-ViewData-vs-ViewBag-vs-TempData-vs-Session.html
+
+	interview Question
+		http://www.codeproject.com/Articles/556995/MVC-interview-questions-with-answers
 
 --Route constraint	
 	Route Constraints allow us to apply a regular expression to a URL segment to restrict whether the route will match the request
@@ -265,3 +289,25 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 		there is no network traffic needed to commit code into source control
 
 		Git's repository and working directory sizes are extremely small when compared to SVN.
+
+--web api in mvc
+	-- see point at http://www.codeproject.com/Articles/556995/MVC-interview-questions-with-answers#How_to_implement_Ajax_in_MVC
+	--Output of WebAPI are simple string messages, JSON, simple XML format
+
+-- enable data annotation validation on client side
+	--1) 	<script src="<%= Url.Content("~/Scripts/jquery.validate.js") %>" type="text/javascript"></script>
+		<script src="<%= Url.Content("~/Scripts/jquery.validate.unobtrusive.js") %>" type="text/javascript">
+	--2)	<% Html.EnableClientValidation(); %>
+
+--session management in .net 
+	In-Proc.
+		 In-Proc session handling then all the session information will be stored in the server memory. 
+		This is the default session state in ASP.NET.
+	
+	StateServer.
+ 		session data will be stored in a separate computer(server) and the session data will be handled by a windows service.
+	
+	SQLServer.
+		session data will be stored in the SqlServer.
+		The benefit of having this scenario is that the data is stored in a centralized database rather than the server memory.
+	
