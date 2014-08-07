@@ -10,7 +10,21 @@ http://stackoverflow.com/questions/2433306/whats-the-difference-between-iqueryab
 http://stackoverflow.com/questions/15434109/what-is-the-difference-between-an-iqueryables-contains-and-an-ienumerables-c
 http://www.codeproject.com/Articles/231163/IQueryable-Vs-IEnumerable-in-terms-of-LINQ-to-SQL
 
---diff http post and htp get
+--diff http post and http get
+	http get
+		Data is visible to the user as it posts as query string.
+		It is not secure but fast and quick.
+		It use Stack method for passing form variable.
+		Data is limited to max length of query string.
+		It is good when you want user to bookmark page.
+	http post
+		Data is submitted in http request body.
+		Data is not visible in the url.
+		It is more secured but slower as compared to GET.
+		It use heap method for passing form variable
+		It can post unlimited form variables.
+		It is advisable for sending critical data which should not visible to users.
+
 --diff varchar and nvarchar
 	An nvarchar column can store any Unicode data
 	
@@ -18,6 +32,10 @@ http://www.codeproject.com/Articles/231163/IQueryable-Vs-IEnumerable-in-terms-of
 	http://www.codeproject.com/Articles/528117/WebForms-vs-MVC
 
 --RESTful services  vs restless
+
+--soap
+	 SOAP means sending SOAP messages using HTTP. The SOAP messages have a pre-defined standard.
+	 SOAP format is a kind of xml format.
 
 --abstract class and interface
 	
@@ -223,3 +241,27 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 		int i = int.Parse(int_s); // 12345 as int
 
 	Converting: Telling the program to use built in methods to try to change type for what may be not simply interchangeable.
+
+
+--git vs svn
+	http://mrbool.com/differences-between-git-and-svn/30636
+	http://agile.dzone.com/articles/version-control-git-vs-svn
+	https://git.wiki.kernel.org/index.php/GitSvnComparsion
+
+	svn
+		SVN has one central repository,
+
+		SVN if the central repository goes down or the code has broken the build 
+		then no other developers can commit there code until the repository is fixed.
+		
+		SVN if your working without an internet connection 
+		you have lost all the features of version control. 
+
+	git
+		GIT has multiple repositories,
+		one central repository but each developer has their own repository.		
+
+		benefit of having a local repository is that it is quick,
+		there is no network traffic needed to commit code into source control
+
+		Git's repository and working directory sizes are extremely small when compared to SVN.
