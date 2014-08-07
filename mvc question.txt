@@ -299,7 +299,7 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 		<script src="<%= Url.Content("~/Scripts/jquery.validate.unobtrusive.js") %>" type="text/javascript">
 	--2)	<% Html.EnableClientValidation(); %>
 
---session state management in .net 
+--Server Side State management:  http://www.c-sharpcorner.com/UploadFile/freelance91/ASPNETstatemanagementtechniques01012007212655PM/ASPNETstatemanagementtechniques.aspx
 	In-Proc.
 		 In-Proc session handling then all the session information will be stored in the server memory. 
 		This is the default session state in ASP.NET.
