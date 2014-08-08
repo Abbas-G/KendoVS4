@@ -30,6 +30,16 @@ http://www.codeproject.com/Articles/231163/IQueryable-Vs-IEnumerable-in-terms-of
 	
 --webform vs mvc
 	http://www.codeproject.com/Articles/528117/WebForms-vs-MVC
+	
+	difference between ASP.NET (stateful) and ASP.NET-MVC (stateless) can be isolated 
+	to the fact that the first provides server-side controls and the other do not.
+
+	Bandwidth is more as client side state management options like Cookies, QueryStrings (URL), Hidden fields,
+	View State and Control state involve in each roundtrip(as value posted to server)
+
+	Web Forms supports Rich server controls.
+	ASP.NET server control detects the browser and generates appropriate html and if required JavaScript also
+	Rapid application development 
 
 --RESTful services  vs restless
 
@@ -105,6 +115,14 @@ http://www.codeproject.com/Articles/231163/IQueryable-Vs-IEnumerable-in-terms-of
 	inline functions are parameterized views. By nature Views do not accept parameters in the search conditions.
 
 --mvc2 vs mvc3
+	http://onlydifferencefaqs.blogspot.in/2012/09/difference-between-mvc-2-and-mvc-3-in.html
+	
+	mvc3
+		support for Both Master Page (.master) and Layout Page (_Layout.cshtml)
+		razor introduce
+		ViewBag introduce
+
+	
 	session
 		set session variable at session_start in method in global.asax.cs.You should not set session variables in Application_Start(), 
 		as that method is only called once
@@ -125,6 +143,12 @@ http://www.codeproject.com/Articles/231163/IQueryable-Vs-IEnumerable-in-terms-of
 
 --razor vs aspx
 	http://www.dotnet-tricks.com/Tutorial/mvc/91JM151212-Difference-Between-Razor-View-Engine-and-ASPX-View-Engine.html
+	razor
+		--it is slow as compare aspx view
+		
+		--By default, Razor Engine prevents XSS attacks(Cross-Site Scripting Attacks)
+		  it encodes the script or html tags like <,> before rendering to view.
+		--Razor Engine support TDD (Test Driven Development) 
 
 --bundles
 	http://www.codeproject.com/Tips/389545/ASP-NET-MVC-Bundling-and-Minification
@@ -246,8 +270,14 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 --Partial And Action
 	Partial :Simple to use and no need to create any child action.
 		Html.Partial("_Comments")
-	actiom: we need to create a child action for the rendering the partial view.
+	action: we need to create a child action for the rendering the partial view.
 		@{Html.Action("Category","Home");} 
+
+	renderPartial and renderAction
+		here result will directly written to the HTTP response stream 
+	
+	Partial and Action
+		here result can be stored in a variable, since it returns string type value.
 
 
 --RenderPartial vs RenderAction vs Partial vs Action
@@ -299,9 +329,27 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 		<script src="<%= Url.Content("~/Scripts/jquery.validate.unobtrusive.js") %>" type="text/javascript">
 	--2)	<% Html.EnableClientValidation(); %>
 
+--Client side State management
+	cookies
+	query string
+	view state
+	hidden field
+
 --Server Side State management:  http://www.c-sharpcorner.com/UploadFile/freelance91/ASPNETstatemanagementtechniques01012007212655PM/ASPNETstatemanagementtechniques.aspx
+	Application object
+		Application object is used to store data which is visible 
+		across entire application and shared across multiple user sessions
+		like connection strung
+	
+	Session object:
+
+		--Session state can be configured using the <session State> section in the application's web.config file. 
+		--<sessionState mode = <"inproc" | "sqlserver" | "stateserver">
+ 		   cookieless = <"true" | "false">  
+		--Default session timeout value is 20 
+	
 	In-Proc.
-		 In-Proc session handling then all the session information will be stored in the server memory. 
+		In-Proc session handling then all the session information will be stored in the server memory.(w3wp.exe which is is a ISS Application Pool Process/worker process ) 
 		This is the default session state in ASP.NET.
 	
 	StateServer.
@@ -311,3 +359,50 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 		session data will be stored in the SqlServer.
 		The benefit of having this scenario is that the data is stored in a centralized database rather than the server memory.
 	
+--Asp.Net Web API VS Asp.Net MVC
+	http://www.dotnet-tricks.com/Tutorial/webapi/Y95G050413-Difference-between-ASP.NET-MVC-and-ASP.NET-Web-API.html
+	
+	Asp.Net MVC is used to create web applications that returns both views and data
+	but Asp.Net Web API is used to create full blown HTTP services with easy and simple way that returns only data not view.
+
+	Web API helps to build REST-ful services 
+
+--mvc3 vs mvc4
+	http://www.slideshare.net/umarali1981/difference-between-aspnet-mvc-3-and-aspnet-mvc-4	
+	mvc4
+		--Bundle and manificate
+		--its is possible to provide authentication using popular site twiiter facebook
+		  (by using OpenDotNetAuth library availbalein mvc4)
+		--Mobile project templates is available in mvc4
+		--we can place controller to custom location in mvc4 but in mvc3 2 controller is alway place inside controller folder
+		--Asynchronous(in parallel) Controller is difference
+		--webapi feature availble in mv4
+
+
+--Asynchronous(in parallel) Controller
+	http://www.codeproject.com/Tips/526099/Asynchronous-Controller-in-ASP-NET-MVC
+
+--jquery to hide all div by class name
+	$('.hide').hide();
+
+	show first div
+	$('.hide').eq(0).show();
+
+--ajax
+	$.ajax({
+  		url: o.url,
+  		type: 'post',
+  		contentType: "application/x-www-form-urlencoded",
+  		data: '{"method":"getStates", "program":"EXPLORE"}',
+  		success: function (data, status) {
+  		  	console.log("Success!!");
+  		  	console.log(data);
+  		  	console.log(status);
+  			},
+  		error: function (xhr, desc, err) {
+  		  	console.log(xhr);
+  		  	console.log("Desc: " + desc + "\nErr:" + err);
+  			}
+		});
+
+	http://code.tutsplus.com/tutorials/5-ways-to-make-ajax-calls-with-jquery--net-6289
