@@ -7,8 +7,8 @@ http://www.technicaloverload.com/linq-single-vs-singleordefault-vs-first-vs-firs
 
 iqueriable vs iEnumrearable
 http://stackoverflow.com/questions/2433306/whats-the-difference-between-iqueryable-and-ienumerable
-http://stackoverflow.com/questions/15434109/what-is-the-difference-between-an-iqueryables-contains-and-an-ienumerables-c
-http://www.codeproject.com/Articles/231163/IQueryable-Vs-IEnumerable-in-terms-of-LINQ-to-SQL
+http://rkandhal.com/09/06/ienumerable-vs-icollection-vs-iqueryable-vs-ilist/
+http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 
 --diff http post and http get
 	http get
