@@ -406,3 +406,11 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 		});
 
 	http://code.tutsplus.com/tutorials/5-ways-to-make-ajax-calls-with-jquery--net-6289
+
+--diiference arraylist and array
+
+--difference between for and foreach
+
+--use of var in c#
+
+--use of linQ over store procedure
