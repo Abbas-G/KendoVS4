@@ -156,7 +156,7 @@
          }
 
          function ProductChange() {
-             $.ajax({
+            /* $.ajax({
                  url: "/Grid/SearchFOODbyCategory"
                        , type: "POST"
                        , data: { searchString: $("#products").val() }
@@ -164,7 +164,20 @@
                            //$("#grid").data("kendoGrid").dataSource.data(JSON.parse(result)); //if return type is string
                            $("#grid").data("kendoGrid").dataSource.data(result);
                        }
-             });
+                   });*/
+
+                   /* client side*/
+
+                   //$("#grid").data("kendoGrid").dataSource.filter({ field: "ProductName", operator: "contains", value: $("#products").val()}); //one parameter
+
+                   var kgrid = $("#grid").data("kendoGrid");
+                   var orfilter = { logic: "or", filters: [] };
+                   var andfilter = { logic: "and", filters: [] };
+                   orfilter.filters.push({ field: "ProductName", operator: "contains", value: $("#products").val() },
+                                              { field: "Category", operator: "contains", value: $("#products").val() });
+                   //andfilter.filters.push(orfilter);
+                   //orfilter = { logic: "or", filters: [] };
+                   kgrid.dataSource.filter(orfilter);
          }
 
          function createNew() {
@@ -178,6 +191,17 @@
          function onSave(e) {
              if (e.model.ProductID != null) { }
              else {
+                 /*var currentProductName = e.model.ProductName;
+                 var currentProductID = e.model.ProductID;
+                 var data = this.dataSource.data();
+                 for (item in data) {
+                 if (data[item].ProductName == currentProductName &&
+                 data[item].ProductID != currentProductID) {
+                 e.preventDefault();
+                 alert("Duplicates not allowed");
+                 }
+                 }*/
+                 //cleint side
                  var currentProductName = e.model.ProductName;
                  var currentProductID = e.model.ProductID;
                  var data = this.dataSource.data();
@@ -186,6 +210,8 @@
                                    data[item].ProductID != currentProductID) {
                          e.preventDefault();
                          alert("Duplicates not allowed");
+                         //$("#spnDuplicate").val("Duplicates not allowed").change();
+                         //$("#spnDuplicate").text("Duplicates not allowed")
                      }
                  }
              }

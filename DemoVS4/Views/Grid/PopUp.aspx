@@ -12,6 +12,7 @@
 </head>
 <body>
      <div id="grid"></div>
+
 <script type="text/x-kendo-template" id="template">
                 <div class="toolbar">
                     <label for="products">Search Products by Category:</label><input id="products" class="k-textbox"/>
@@ -165,7 +166,7 @@
                             { field: "UnitsInStock", title: "Units In Stock", width: "150px" },
                             { field: "Discontinued", width: "100px" },
                             { field: "Category", title: "Category", filterable: { ui: GroupFilter}/*, editor: ColumnGroupFilter*/ },
-                            { field: "CreatedDate", title: "Date", type: "date", format: "{0:MM/dd/yyyy}" },
+                            { field: "CreatedDate", title: "Date", type: "date", format: "{0:MM/dd/yyyy}" /*,template: '#= kendo.toString(CreatedDate, "MM/dd/yyyy") #'*/ },
                             { field: "Duration", width: "100px" },
                             //{ command: ["edit", "destroy"], title: "Edit", width: "160px" },
                             { command: [{ text: 'Delete', click: deleteItem }, { text: 'edit', click: editItem}], title: 'Action' }
@@ -233,16 +234,31 @@
                 }
 
                 function ProductChange() {
-                    $.ajax({
-                        url: "/Grid/SearchFOODbyCategory"
-                       , type: "POST"
-                       , data: { searchString: $("#products").val() }
-                       , success: function (result) {
-                           //$("#grid").data("kendoGrid").dataSource.data(JSON.parse(result)); //if return type is string
-                           $("#grid").data("kendoGrid").dataSource.data(result);
-                       }
-                    });
-               }
+                    /*$.ajax({
+                    url: "/Grid/SearchFOODbyCategory"
+                    , type: "POST"
+                    , data: { searchString: $("#products").val() }
+                    , success: function (result) {
+                    //$("#grid").data("kendoGrid").dataSource.data(JSON.parse(result)); //if return type is string
+                    $("#grid").data("kendoGrid").dataSource.data(result);
+                    }
+                    });*/
+
+
+                    /* client side*/
+                    
+                    //$("#grid").data("kendoGrid").dataSource.filter({ field: "ProductName", operator: "contains", value: $("#products").val()}); //one parameter
+
+                    var kgrid = $("#grid").data("kendoGrid");
+                    var orfilter = { logic: "or", filters: [] };
+                    var andfilter = { logic: "and", filters: [] };
+                    orfilter.filters.push({ field: "ProductName", operator: "contains", value: $("#products").val() },
+                                              { field: "Category", operator: "contains", value: $("#products").val() });
+                    //andfilter.filters.push(orfilter);
+                    //orfilter = { logic: "or", filters: [] };
+                    kgrid.dataSource.filter(orfilter);
+
+                }
 
                function deleteItem(e) {
                    var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
