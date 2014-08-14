@@ -216,6 +216,14 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	--Bind attributes
 		[bind(Exclude="CouponCode")] attribute will exclude an "CouponCode" property from being posted to server
 
+--output cache attribute
+	understanding
+	--http://www.dotnet-tricks.com/Tutorial/mvc/4R5c050113-Understanding-Caching-in-Asp.Net-MVC-with-example.html
+
+	cache location abd varybyparam properties
+	--
+
+
 --What are attributes and filters in mvc
 
 	http://www.codeproject.com/Articles/577776/Filters-and-Attributes-in-ASPNET-MVC
@@ -408,9 +416,100 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	http://code.tutsplus.com/tutorials/5-ways-to-make-ajax-calls-with-jquery--net-6289
 
 --diiference arraylist and array
+	array
+		Array are strongly type collection and allow to store fixed length.
+
+	arraylist
+		Array lists are not strongly type collection. 
+		It will store values of different datatypes or same datatype. 
+		Array list size will increase or decrease dynamically it can take any size of values from any data type
 
 --difference between for and foreach
+	If you are iterating through a collection of items, and do not care about the index values
+	then foreach is more convenient, easier to write and safer: you can't get the number of items wrong.
+	You do not need to specify the loop bounds minimum or maximum.
+
+	Example
+		http://www.onlinebuff.com/article_difference-between-for-loop-and-for-each-loop-in-csharp_1.html
 
 --use of var in c#
+	-Var is an implicit type.Implicit means indirect way of defining variable types.
+	-by looking into left hand side right side datatype is deine.
+	-it is determine at compile time
+	-var isn't a type. The actual type is figured out at compile-time.
+	-the variable cannot be initialized to null
+	
+
+	-make code more readable and understandable.
+	-When you are using LINQ and anonymous types “Var” keyword reduces your code for creating special classes.
+	example
+	class MyData
+	{
+		public int Len;
+		public string Value;
+	}
+	
+	IEnumerable<MyData> obj = from x in Arr where x.Length > 5 select new { Len = x.Length, Value = x };
+	var obj = from x in Arr where x.Length > 5 select new { Len = x.Length, Value = x };
+
+
+	http://www.dotnetfunda.com/articles/show/1567/what-is-the-use-of-var-keyword-in-csharp
+
+--Implicit type var And Anonymous Type var
+	http://social.msdn.microsoft.com/Forums/vstudio/en-US/af2d0b6c-f1f3-4007-9f65-4418aa940c82/what-are-implicit-type-var-and-anonymous-types?forum=csharpgeneral
+
+--var vs dynamic VS object		
+	var:
+	-it is an implicit type but static (types are checked at compile time)
+
+	dynamic:
+	-it is an implicit type but Dynamic (types are checked at run time)
+
+	http://www.dotnet-tricks.com/Tutorial/csharp/5LQ6210314-Differences-between-Object,-Var-and-Dynamic-type.html
+	http://www.codeproject.com/Tips/460614/Difference-between-var-and-dynamic-in-Csharp
+
+	
+
+--var as return type in c#
+	
+
+
+--types of data type
+	Implicit types = var
+	Explicit types
+	http://www.udemy.com/blog/c-sharp-data-types/
 
 --use of linQ over store procedure
+	https://www.linkedin.com/groups/Which-is-better-using-LINQ-2366851.S.97395819
+	http://stackoverflow.com/questions/14250855/what-are-the-advantages-using-linq-than-stored-procedure
+	http://stackoverflow.com/questions/14530/linq-to-sql-vs-stored-procedures
+
+	realistically it depends.. Linq will send a complete query over the network to access the database, 
+	where as using sprocs is going to only transmit the relative name of the sproc you want to run. 
+	With that said you could say that if you are going to try and transmit a million linq requests 
+	over a standard 10/100 network then yes sprocs would be better, but over all it's not going 
+	to be enough to notice honestly.
+
+	The better question is what is the end goal? Linq has the advantage of being testable, 
+	and gives you the ability to secure it on the controller and view's ends 
+	so it allows better security. Also Linq is going to be Type Safe. 
+	Ultimately it's personal preference in my estimation.
+
+--linQ and pagination
+
+	int totalCount = from item in _dc.Items
+                 where item.Description.
+                 Contains(description).Count();
+
+	int numberOfPages = (int)(totalCount/pageSize);
+	
+	Query:
+	from item in _dc.Items
+          where item.Description.
+          Contains(description).
+          Skip((pageIndex - 1) * pageSize).
+          Take(pageSize);
+
+--use of lamba expression
+	http://weblogs.asp.net/scottgu/new-orcas-language-feature-lambda-expressions
+	http://www.developer.com/net/csharp/article.php/3598381/The-New-Lambda-Expressions-Feature-in-C-30.htm
