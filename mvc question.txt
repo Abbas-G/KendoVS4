@@ -43,6 +43,16 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 
 --RESTful services  vs restless
 
+--mvc flows
+	user make request
+	Routing engine determine which request will be handled by which controller.
+	Controller if required talk to model for data.
+	Model operates on database (or on some other data sources) and return data (in form of business objects) to controller.
+	Controller chooses the appropriate view (like say Customer view which will may contain some html tables, drop downs, textboxes…).
+	Controller passes the data (model data retrieved in step 4) to chosen view(in step 5), where data will be populated as per convenience.
+	Controller sends back view to the user.
+	
+
 --soap
 	 SOAP means sending SOAP messages using HTTP. The SOAP messages have a pre-defined standard.
 	 SOAP format is a kind of xml format.
@@ -145,7 +155,7 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 	http://www.dotnet-tricks.com/Tutorial/mvc/91JM151212-Difference-Between-Razor-View-Engine-and-ASPX-View-Engine.html
 	razor
 		--it is slow as compare aspx view
-		
+		--simple easy to understand and reduce typing
 		--By default, Razor Engine prevents XSS attacks(Cross-Site Scripting Attacks)
 		  it encodes the script or html tags like <,> before rendering to view.
 		--Razor Engine support TDD (Test Driven Development) 
@@ -157,7 +167,9 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 	http://www.dotnet-tricks.com/Tutorial/csharp/FU4N141113-Difference-Between-Constant-and-ReadOnly-and-Static.html
 	
 	Constant and ReadOnly keyword are used to make a field constant which value cannot be modified.
-	static can be modified
+	By default constant are static, hence you cannot define a constant type as static.
+	
+	The static keyword is used to specify a static member, which means static members are common to all the objects and they do not tied to a specific object
 	
 	Constant value must be assigned at the time of declaration (compile time)
 	Readonly value can be initialized either at the time of declaration or with in the constructor of same class (runtime)
@@ -229,7 +241,7 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	http://www.codeproject.com/Articles/577776/Filters-and-Attributes-in-ASPNET-MVC
 	
 	MVC provides a very clean way of injecting the pre-processing and post-processing logic for actions and controllers.
-	They way we can put the pre-processing and post-processing logic is by decorating the actions with attributes
+	We can put the pre-processing and post-processing logic is by decorating the actions with attributes
 	which will invoke an attribute class implementing the filter's logic.
 
 	types of filter
@@ -373,13 +385,15 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	Asp.Net MVC is used to create web applications that returns both views and data
 	but Asp.Net Web API is used to create full blown HTTP services with easy and simple way that returns only data not view.
 
+	In Web API the request are mapped to the actions based on HTTP verbs but in MVC it is mapped to actions name.
+	
 	Web API helps to build REST-ful services 
 
 --mvc3 vs mvc4
 	http://www.slideshare.net/umarali1981/difference-between-aspnet-mvc-3-and-aspnet-mvc-4	
 	mvc4
 		--Bundle and manificate
-		--its is possible to provide authentication using popular site twiiter facebook
+		--its is possible to provide authentication using popular site twiter facebook
 		  (by using OpenDotNetAuth library availbalein mvc4)
 		--Mobile project templates is available in mvc4
 		--we can place controller to custom location in mvc4 but in mvc3 2 controller is alway place inside controller folder
@@ -390,6 +404,10 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 --Asynchronous(in parallel) Controller
 	http://www.codeproject.com/Tips/526099/Asynchronous-Controller-in-ASP-NET-MVC
 
+--jquery means
+	it is a fast and concise JavaScript Library that simplifies HTML document traversing, 
+	event handling, animating, and Ajax interactions for rapid web development".
+	
 --jquery to hide all div by class name
 	$('.hide').hide();
 
@@ -468,7 +486,8 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	http://www.dotnet-tricks.com/Tutorial/csharp/5LQ6210314-Differences-between-Object,-Var-and-Dynamic-type.html
 	http://www.codeproject.com/Tips/460614/Difference-between-var-and-dynamic-in-Csharp
 
-	
+	object
+	Object is the base class for all derived classes. It provides some methods and capabilities. All derived types can be referenced through the object base type
 
 --var as return type in c#
 	
@@ -511,5 +530,13 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
           Take(pageSize);
 
 --use of lamba expression
+	allow code blocks to be written "in-line" where delegate values are expected.
+	they provide a very compact and type-safe way to write functions that can be passed as arguments for subsequent evaluation.
+	
 	http://weblogs.asp.net/scottgu/new-orcas-language-feature-lambda-expressions
 	http://www.developer.com/net/csharp/article.php/3598381/The-New-Lambda-Expressions-Feature-in-C-30.htm
+
+--delegates n c#
+	Delegate is a type which  holds the method(s) reference in an object. 
+	It is also referred to as a type safe function pointer.
+	http://www.tutorialspoint.com/csharp/csharp_delegates.htm
