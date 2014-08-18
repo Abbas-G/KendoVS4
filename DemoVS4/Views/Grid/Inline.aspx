@@ -59,7 +59,15 @@
                                     }
                                     //check dis for client to servrer data flow http://www.telerik.com/forums/best-strategies-for-datetime-handling-in-datasource-and-grid
                                 }
-                            },
+                            }/*,
+                            requestEnd: function (e) {
+                                var response = e.response;
+                                var type = e.type;
+                                //alert(type); // displays "read"
+                                if (type=="update")
+                                    e.sender.read();
+                            }*/
+                            ,
                             batch: true,
                             serverPaging: false,
                             pageSize: 5,
@@ -75,7 +83,7 @@
                                         UnitsInStock: { type: "number", validation: { min: 0, required: true} },
                                         Category: { type: "string", validation: { required: true} },
                                         CreatedDate: { type: 'date', validation: { required: true} },
-                                        Duration:{ type: "number", editable: false}
+                                        Duration: { type: "number", editable: false }
                                     }
                                 }
                             }

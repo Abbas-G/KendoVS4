@@ -58,6 +58,14 @@ namespace DemoVS4.Controllers
             }
             temp.ProductID = PM.insertUpdate(temp);
             temp.UniqueCode = PM.getUniqueCodeById(temp.ProductID.Value);
+            /*
+            DemoVS4.Core.DAL.Product l = ctx.Products.Where(x => x.ProductID == 3).FirstOrDefault();
+            if (l != null)
+            {
+                l.UnitPrice = 50;
+                ctx.SubmitChanges();
+            } 
+            */
             return Json(temp);
         }
 
