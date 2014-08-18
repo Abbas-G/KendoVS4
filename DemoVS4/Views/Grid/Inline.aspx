@@ -86,7 +86,13 @@
                                         Duration: { type: "number", editable: false }
                                     }
                                 }
+                            }/*, group: {
+                                field: "Category", aggregates: [
+                                        { field: "Category", aggregate: "count" }
+                                     ]
                             }
+
+                            , aggregate: [{ field: "UnitPrice", aggregate: "sum" }]*/ //use footerTemplate keyword in respected columns
                         });
 
              $("#grid").kendoGrid({
@@ -106,7 +112,7 @@
                             { title: "&nbsp;", template: "#= ++record #", width: 30 },
                             { field: "ProductName", title: "Product Name" },
                             { field: "UniqueCode", title: "Unique Code" },
-                            { field: "UnitPrice", title: "Unit Price", format: "{0:c}" },
+                            { field: "UnitPrice", title: "Unit Price"/*, footerTemplate: "Total: #=sum#"*/, format: "{0:c}" },
                             { field: "UnitsInStock", title: "Units In Stock" },
                             { field: "Discontinued", width: "100px" },
                             { field: "Category", title: "Category", filterable: { ui: GroupFilter }, editor: ColumnGroupFilter },
