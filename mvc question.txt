@@ -540,3 +540,6 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	Delegate is a type which  holds the method(s) reference in an object. 
 	It is also referred to as a type safe function pointer.
 	http://www.tutorialspoint.com/csharp/csharp_delegates.htm
+
+--Polymorphism
+	http://www.onlinebuff.com/article_oops-principle-polymorphism-in-c-with-an-example_17.html
