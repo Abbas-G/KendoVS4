@@ -43,6 +43,16 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 
 --RESTful services  vs restless
 
+--mvc flows
+	user make request
+	Routing engine determine which request will be handled by which controller.
+	Controller if required talk to model for data.
+	Model operates on database (or on some other data sources) and return data (in form of business objects) to controller.
+	Controller chooses the appropriate view (like say Customer view which will may contain some html tables, drop downs, textboxes…).
+	Controller passes the data (model data retrieved in step 4) to chosen view(in step 5), where data will be populated as per convenience.
+	Controller sends back view to the user.
+	
+
 --soap
 	 SOAP means sending SOAP messages using HTTP. The SOAP messages have a pre-defined standard.
 	 SOAP format is a kind of xml format.
@@ -110,7 +120,7 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 
 --function and procedure
 	http://stackoverflow.com/questions/771949/what-is-the-difference-between-function-and-procedure-in-pl-sql
-	http://www.dotnet-tricks.com/Tutorial/sqlserver/7EDL150912-Difference-between-Stored-Procedure-and-Function-in-SQL-Server.html
+	= http://www.dotnet-tricks.com/Tutorial/sqlserver/7EDL150912-Difference-between-Stored-Procedure-and-Function-in-SQL-Server.html
 --inline function
 	inline functions are parameterized views. By nature Views do not accept parameters in the search conditions.
 
@@ -145,7 +155,7 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 	http://www.dotnet-tricks.com/Tutorial/mvc/91JM151212-Difference-Between-Razor-View-Engine-and-ASPX-View-Engine.html
 	razor
 		--it is slow as compare aspx view
-		
+		--simple easy to understand and reduce typing
 		--By default, Razor Engine prevents XSS attacks(Cross-Site Scripting Attacks)
 		  it encodes the script or html tags like <,> before rendering to view.
 		--Razor Engine support TDD (Test Driven Development) 
@@ -157,7 +167,9 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 	http://www.dotnet-tricks.com/Tutorial/csharp/FU4N141113-Difference-Between-Constant-and-ReadOnly-and-Static.html
 	
 	Constant and ReadOnly keyword are used to make a field constant which value cannot be modified.
-	static can be modified
+	By default constant are static, hence you cannot define a constant type as static.
+	
+	The static keyword is used to specify a static member, which means static members are common to all the objects and they do not tied to a specific object
 	
 	Constant value must be assigned at the time of declaration (compile time)
 	Readonly value can be initialized either at the time of declaration or with in the constructor of same class (runtime)
@@ -183,6 +195,9 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 	or changing the value of other fields.
 
 Types of trigger
+
+	trigger is a special kind of a store procedure that executes in response to certain action
+	
 	--After Triggers (For Triggers)
 		
 		CREATE TRIGGER trgAfterInsert ON [dbo].[Employee_Test] 
@@ -216,12 +231,20 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	--Bind attributes
 		[bind(Exclude="CouponCode")] attribute will exclude an "CouponCode" property from being posted to server
 
+--output cache attribute
+	understanding
+	--http://www.dotnet-tricks.com/Tutorial/mvc/4R5c050113-Understanding-Caching-in-Asp.Net-MVC-with-example.html
+
+	cache location abd varybyparam properties
+	--
+
+
 --What are attributes and filters in mvc
 
 	http://www.codeproject.com/Articles/577776/Filters-and-Attributes-in-ASPNET-MVC
 	
 	MVC provides a very clean way of injecting the pre-processing and post-processing logic for actions and controllers.
-	They way we can put the pre-processing and post-processing logic is by decorating the actions with attributes
+	We can put the pre-processing and post-processing logic is by decorating the actions with attributes
 	which will invoke an attribute class implementing the filter's logic.
 
 	types of filter
@@ -282,7 +305,9 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 
 --RenderPartial vs RenderAction vs Partial vs Action
 	http://www.dotnet-tricks.com/Tutorial/mvc/Q8V2130113-RenderPartial-vs-RenderAction-vs-Partial-vs-Action-in-MVC-Razor.html
-
+	
+	result will be directly written to the HTTP response stream
+	
 --cast vs conversion vs parse
 	Casting: Telling the compiler that an object is really something else without changing it (though some data loss may be incurred).
 
@@ -369,13 +394,15 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	Asp.Net MVC is used to create web applications that returns both views and data
 	but Asp.Net Web API is used to create full blown HTTP services with easy and simple way that returns only data not view.
 
+	In Web API the request are mapped to the actions based on HTTP verbs but in MVC it is mapped to actions name.
+	
 	Web API helps to build REST-ful services 
 
 --mvc3 vs mvc4
 	http://www.slideshare.net/umarali1981/difference-between-aspnet-mvc-3-and-aspnet-mvc-4	
 	mvc4
 		--Bundle and manificate
-		--its is possible to provide authentication using popular site twiiter facebook
+		--its is possible to provide authentication using popular site twiter facebook
 		  (by using OpenDotNetAuth library availbalein mvc4)
 		--Mobile project templates is available in mvc4
 		--we can place controller to custom location in mvc4 but in mvc3 2 controller is alway place inside controller folder
@@ -386,6 +413,10 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 --Asynchronous(in parallel) Controller
 	http://www.codeproject.com/Tips/526099/Asynchronous-Controller-in-ASP-NET-MVC
 
+--jquery means
+	it is a fast and concise JavaScript Library that simplifies HTML document traversing, 
+	event handling, animating, and Ajax interactions for rapid web development".
+	
 --jquery to hide all div by class name
 	$('.hide').hide();
 
@@ -411,10 +442,143 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 
 	http://code.tutsplus.com/tutorials/5-ways-to-make-ajax-calls-with-jquery--net-6289
 
---diiference arraylist and array
+--difference arraylist and array
+	array
+		Array are strongly type collection and allow to store fixed length.
+
+	arraylist
+		Array lists are not strongly type collection. 
+		It will store values of different datatypes or same datatype. 
+		Array list size will increase or decrease dynamically it can take any size of values from any data type
 
 --difference between for and foreach
+	If you are iterating through a collection of items, and do not care about the index values
+	then foreach is more convenient, easier to write and safer: you can't get the number of items wrong.
+	You do not need to specify the loop bounds minimum or maximum.
+
+	Example
+		http://www.onlinebuff.com/article_difference-between-for-loop-and-for-each-loop-in-csharp_1.html
 
 --use of var in c#
+	-Var is an implicit type.Implicit means indirect way of defining variable types.
+	-by looking into left hand side right side datatype is deine.
+	-it is determine at compile time
+	-var isn't a type. The actual type is figured out at compile-time.
+	-the variable cannot be initialized to null
+	
+
+	-make code more readable and understandable.
+	-When you are using LINQ and anonymous types “Var” keyword reduces your code for creating special classes.
+	example
+	class MyData
+	{
+		public int Len;
+		public string Value;
+	}
+	
+	IEnumerable<MyData> obj = from x in Arr where x.Length > 5 select new { Len = x.Length, Value = x };
+	var obj = from x in Arr where x.Length > 5 select new { Len = x.Length, Value = x };
+
+
+	http://www.dotnetfunda.com/articles/show/1567/what-is-the-use-of-var-keyword-in-csharp
+
+--Implicit type var And Anonymous Type var
+	http://social.msdn.microsoft.com/Forums/vstudio/en-US/af2d0b6c-f1f3-4007-9f65-4418aa940c82/what-are-implicit-type-var-and-anonymous-types?forum=csharpgeneral
+
+--var vs dynamic VS object		
+	var:
+	-it is an implicit type but static (types are checked at compile time)
+
+	dynamic:
+	-it is an implicit type but Dynamic (types are checked at run time)
+
+	
+	http://www.codeproject.com/Tips/460614/Difference-between-var-and-dynamic-in-Csharp
+
+	object
+	Object is the base class for all derived classes. It provides some methods and capabilities. All derived types can be referenced through the object base type
+
+--var as return type in c#
+	
+
+
+--types of data type
+	Implicit types = var
+	Explicit types
+	http://www.udemy.com/blog/c-sharp-data-types/
 
 --use of linQ over store procedure
+	https://www.linkedin.com/groups/Which-is-better-using-LINQ-2366851.S.97395819
+	http://stackoverflow.com/questions/14250855/what-are-the-advantages-using-linq-than-stored-procedure
+	http://stackoverflow.com/questions/14530/linq-to-sql-vs-stored-procedures
+
+	realistically it depends.. Linq will send a complete query over the network to access the database, 
+	where as using sprocs is going to only transmit the relative name of the sproc you want to run. 
+	With that said you could say that if you are going to try and transmit a million linq requests 
+	over a standard 10/100 network then yes sprocs would be better, but over all it's not going 
+	to be enough to notice honestly.
+
+	The better question is what is the end goal? Linq has the advantage of being testable, 
+	and gives you the ability to secure it on the controller and view's ends 
+	so it allows better security. Also Linq is going to be Type Safe. 
+	Ultimately it's personal preference in my estimation.
+	
+	linq works in both DB server memory and web server memory so its being costly
+
+--use of linQ or Advantage
+	http://social.msdn.microsoft.com/Forums/en-US/cd952b8e-4bc6-4be9-87d3-cec7fbe7a0d8/advantages-disadvantages-of-linq?forum=linqtosql
+	http://careerride.com/LINQ-defined.aspx
+	http://www.c-sharpcorner.com/UploadFile/c5c6e2/using-linq-in-net/
+	
+	LINQ expressions are Strongly Typed.
+	Queries can be dynamically
+	Tables are automatically created into class
+	Columns are automatically created into properties
+	Relationship are automatically appeaded to classes
+	Lambda expressions are awesome
+	
+
+--linQ and pagination
+
+	int totalCount = from item in _dc.Items
+                 where item.Description.
+                 Contains(description).Count();
+
+	int numberOfPages = (int)(totalCount/pageSize);
+	
+	Query:
+	from item in _dc.Items
+          where item.Description.
+          Contains(description).
+          Skip((pageIndex - 1) * pageSize).
+          Take(pageSize);
+
+--use of lamba expression
+	allow code blocks to be written "in-line" where delegate values are expected.
+	they provide a very compact and type-safe way to write functions that can be passed as arguments for subsequent evaluation.
+	
+	http://weblogs.asp.net/scottgu/new-orcas-language-feature-lambda-expressions
+	http://www.developer.com/net/csharp/article.php/3598381/The-New-Lambda-Expressions-Feature-in-C-30.htm
+
+--delegates in c#
+	Delegate is a type which holds the method(s) reference in an object. 
+	It is also referred to as a type safe function pointer.
+	
+	//create delegate instances
+         NumberChanger nc1 = new NumberChanger(AddNum);
+         NumberChanger nc2 = new NumberChanger(MultNum);
+         //calling the methods using the delegate objects
+         nc1(25);
+         
+	http://www.tutorialspoint.com/csharp/csharp_delegates.htm
+	
+--Polymorphism
+	http://www.onlinebuff.com/article_oops-principle-polymorphism-in-c-with-an-example_17.html
+	
+--types of inhertence
+	http://programcall.com/20/csnet/types-of-inheritance-in-csnet.aspx
+	
+--string builder
+	http://www.codeproject.com/Articles/6771/String-Vs-StringBuilder-C
+	
+	big perormance issue: the concatenation will create a new string 

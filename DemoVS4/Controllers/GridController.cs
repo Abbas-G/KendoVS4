@@ -54,10 +54,18 @@ namespace DemoVS4.Controllers
             DridDataObj temp = new DridDataObj();
             foreach (DridDataObj m in persons)
             {
-                temp = new DridDataObj { ProductID = m.ProductID, ProductName = m.ProductName, UnitPrice = m.UnitPrice, UnitsInStock = m.UnitsInStock, Discontinued = m.Discontinued, Category = m.Category, CreatedDate = m.CreatedDate, Duration = 20 };
+                temp = new DridDataObj { ProductID = m.ProductID, ProductName = m.ProductName, UnitPrice = m.UnitPrice, UnitsInStock = m.UnitsInStock, Discontinued = m.Discontinued, Category = m.Category, CreatedDate = m.CreatedDate, Duration = 2};
             }
             temp.ProductID = PM.insertUpdate(temp);
             temp.UniqueCode = PM.getUniqueCodeById(temp.ProductID.Value);
+            /*
+            DemoVS4.Core.DAL.Product l = ctx.Products.Where(x => x.ProductID == 3).FirstOrDefault();
+            if (l != null)
+            {
+                l.UnitPrice = 50;
+                ctx.SubmitChanges();
+            } 
+            */
             return Json(temp);
         }
 

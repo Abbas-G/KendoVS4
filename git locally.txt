@@ -1,0 +1,108 @@
+
+--Install git (download from http://git-scm.com/)
+	--during installation select 2nd option in selection (windows command promate) 
+
+-Open git bash
+	--set Username and Email
+		$ git config --global user.name ""
+		$ git config --global user.email ""
+
+
+
+============locally
+creating git repository
+
+~/location/path $ git init --bare project.git
+add as remote  
+
+~/project  $ git remote add origin ~/location/path/project.git
+		--or  ~/project  $ git remote set-url origin ~/location/path/project.git
+
+
+pull
+	$ git pull origin master
+		$ git clone file:///z:/dotnet/dotproject.git
+
+push 
+	$ git push origin master
+
+
+
+reference
+	http://stackoverflow.com/questions/1960799/using-git-and-dropbox-together-effectively
+
+git repository over lan
+	http://serverfault.com/questions/463811/git-clone-pull-across-local-network
+
+=======================================
+
+
+
+
+============LAN
+creating git repository
+
+\\Tia7\e\Repository\dotnet $ git init --bare project.git
+
+
+
+add remote setup at one device
+	map network device like z: to \\Tia7\e\Repository\dotnet\dotproject.git
+
+	$ git remote add origin file:///z:/dotnet/dotproject.git
+
+clone it from another
+	$ git clone file:///z:/dotnet/dotproject.git
+
+pull
+	$ git pull origin master
+
+push 
+	$ git push origin master
+
+
+reference http://kozmic.net/2011/08/20/simple-guide-to-running-git-server-on-windows-in-local-network-kind-of/
+
+=======================================
+
+
+some command
+$ git init
+$ git add .
+$ git commit -m "first commit"
+$ git commit -am "first commit"
+
+
+$ git init --bare project.git
+$ cd ~/project
+
+$ git remote add origin ~/Dropbox/git/project.git
+$ git push -u origin master
+
+
+fixed conflict
+git commit -am "fixed conflict"
+
+clear command
+git clean-d -fx ""
+
+create branch
+$ git branch test
+
+switch between branch
+$ git checkout <name_of_your_new_branch>
+or
+$ git checkout -b <name_of_your_new_branch>
+
+branch list
+$ git branch
+
+list of file in branch
+$ ls
+
+---Palying with branch
+	http://www.gitguys.com/topics/creating-and-playing-with-branches/
+
+
+
+
