@@ -44,7 +44,7 @@ namespace DemoVS4.Controllers
                 Duration=2
             });
 
-            return Json(ListWitoutFK);  
+            return Json(ListWitoutFK,JsonRequestBehavior.AllowGet);  
         }
 
         public JsonResult GetJsonOutputForGridDataUpdatePopup(string models)

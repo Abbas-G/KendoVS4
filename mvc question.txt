@@ -329,9 +329,9 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 		<script src="<%= Url.Content("~/Scripts/jquery.validate.unobtrusive.js") %>" type="text/javascript">
 	--2)	<% Html.EnableClientValidation(); %>
 
-<<<<<<< HEAD
+
 --session state management in .net 
-=======
+
 --Client side State management
 	cookies
 	query string
@@ -351,7 +351,7 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
  		   cookieless = <"true" | "false">  
 		--Default session timeout value is 20 
 	
->>>>>>> 560b88501211331daca4168c87ad893993ab6656
+
 	In-Proc.
 		In-Proc session handling then all the session information will be stored in the server memory.(w3wp.exe which is is a ISS Application Pool Process/worker process ) 
 		This is the default session state in ASP.NET.
