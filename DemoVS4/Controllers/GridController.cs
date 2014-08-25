@@ -26,6 +26,12 @@ namespace DemoVS4.Controllers
             return View();
         }
 
+        public ActionResult Mix()
+        {
+            //reference link http://stackoverflow.com/questions/25451176/kendo-grid-can-you-add-row-with-a-popup-and-edit-inline
+            return View();
+        }
+
         public JsonResult GetJsonOutputForGridDataSelect()
         {
             JavaScriptSerializer jSerializer = new JavaScriptSerializer();
