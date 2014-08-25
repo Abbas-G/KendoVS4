@@ -106,10 +106,10 @@
                         dataSource = new kendo.data.DataSource({
 
                             transport: {
-                                read: {
-                                    url: crudServiceBaseUrl + "/GetJsonOutputForGridDataSelect",
-                                    dataType: "json",
-                                    type: "POST"
+                                 read: {
+                                url: crudServiceBaseUrl + "/GetJsonOutputForGridDataSelect",
+                                dataType: "json",
+                                type: "POST"
                                 },
                                 update: {
                                     url: crudServiceBaseUrl + "/GetJsonOutputForGridDataUpdatePopup",
@@ -168,8 +168,8 @@
                             { field: "Category", title: "Category", filterable: { ui: GroupFilter}/*, editor: ColumnGroupFilter*/ },
                             { field: "CreatedDate", title: "Date", type: "date", format: "{0:MM/dd/yyyy}" /*,template: '#= kendo.toString(CreatedDate, "MM/dd/yyyy") #'*/ },
                             { field: "Duration", width: "100px" },
-                            //{ command: ["edit", "destroy"], title: "Edit", width: "160px" },
-                            { command: [{ text: 'Delete', click: deleteItem }, { text: 'edit', click: editItem}], title: 'Action' }
+                        //{ command: ["edit", "destroy"], title: "Edit", width: "160px" },
+                            {command: [{ text: 'Delete', click: deleteItem }, { text: 'edit', click: editItem}], title: 'Action' }
                             ],
                         //editable: "popup",
                         editable: {

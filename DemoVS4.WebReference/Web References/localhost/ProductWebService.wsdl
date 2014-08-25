@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="ReadProduct">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AnyThing" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReadProductResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReadProductResult" type="tns:ArrayOfDridDataObj" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfDridDataObj">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DridDataObj" nillable="true" type="tns:DridDataObj" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DridDataObj">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ProductID" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProductName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UniqueCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UnitPrice" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UnitsInStock" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Discontinued" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Category" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CreatedDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Duration" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SecureReadProduct">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AnyThing" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SecureReadProductResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SecureReadProductResult" type="tns:ArrayOfDridDataObj" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthHeader" type="tns:AuthHeader" />
+      <s:complexType name="AuthHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="ArrayOfDridDataObj" nillable="true" type="tns:ArrayOfDridDataObj" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ReadProductSoapIn">
+    <wsdl:part name="parameters" element="tns:ReadProduct" />
+  </wsdl:message>
+  <wsdl:message name="ReadProductSoapOut">
+    <wsdl:part name="parameters" element="tns:ReadProductResponse" />
+  </wsdl:message>
+  <wsdl:message name="SecureReadProductSoapIn">
+    <wsdl:part name="parameters" element="tns:SecureReadProduct" />
+  </wsdl:message>
+  <wsdl:message name="SecureReadProductSoapOut">
+    <wsdl:part name="parameters" element="tns:SecureReadProductResponse" />
+  </wsdl:message>
+  <wsdl:message name="SecureReadProductAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="ReadProductHttpGetIn">
+    <wsdl:part name="AnyThing" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ReadProductHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfDridDataObj" />
+  </wsdl:message>
+  <wsdl:message name="SecureReadProductHttpGetIn">
+    <wsdl:part name="AnyThing" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecureReadProductHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfDridDataObj" />
+  </wsdl:message>
+  <wsdl:message name="ReadProductHttpPostIn">
+    <wsdl:part name="AnyThing" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ReadProductHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfDridDataObj" />
+  </wsdl:message>
+  <wsdl:message name="SecureReadProductHttpPostIn">
+    <wsdl:part name="AnyThing" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecureReadProductHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfDridDataObj" />
+  </wsdl:message>
+  <wsdl:portType name="ProductWebServiceSoap">
+    <wsdl:operation name="ReadProduct">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Read Product Detail</wsdl:documentation>
+      <wsdl:input message="tns:ReadProductSoapIn" />
+      <wsdl:output message="tns:ReadProductSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureReadProduct">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Secure Read Product Detail</wsdl:documentation>
+      <wsdl:input message="tns:SecureReadProductSoapIn" />
+      <wsdl:output message="tns:SecureReadProductSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ProductWebServiceHttpGet">
+    <wsdl:operation name="ReadProduct">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Read Product Detail</wsdl:documentation>
+      <wsdl:input message="tns:ReadProductHttpGetIn" />
+      <wsdl:output message="tns:ReadProductHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureReadProduct">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Secure Read Product Detail</wsdl:documentation>
+      <wsdl:input message="tns:SecureReadProductHttpGetIn" />
+      <wsdl:output message="tns:SecureReadProductHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ProductWebServiceHttpPost">
+    <wsdl:operation name="ReadProduct">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Read Product Detail</wsdl:documentation>
+      <wsdl:input message="tns:ReadProductHttpPostIn" />
+      <wsdl:output message="tns:ReadProductHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureReadProduct">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Secure Read Product Detail</wsdl:documentation>
+      <wsdl:input message="tns:SecureReadProductHttpPostIn" />
+      <wsdl:output message="tns:SecureReadProductHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ProductWebServiceSoap" type="tns:ProductWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ReadProduct">
+      <soap:operation soapAction="http://tempuri.org/ReadProduct" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureReadProduct">
+      <soap:operation soapAction="http://tempuri.org/SecureReadProduct" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SecureReadProductAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ProductWebServiceSoap12" type="tns:ProductWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ReadProduct">
+      <soap12:operation soapAction="http://tempuri.org/ReadProduct" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureReadProduct">
+      <soap12:operation soapAction="http://tempuri.org/SecureReadProduct" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SecureReadProductAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ProductWebServiceHttpGet" type="tns:ProductWebServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="ReadProduct">
+      <http:operation location="/ReadProduct" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureReadProduct">
+      <http:operation location="/SecureReadProduct" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ProductWebServiceHttpPost" type="tns:ProductWebServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="ReadProduct">
+      <http:operation location="/ReadProduct" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureReadProduct">
+      <http:operation location="/SecureReadProduct" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ProductWebService">
+    <wsdl:port name="ProductWebServiceSoap" binding="tns:ProductWebServiceSoap">
+      <soap:address location="http://localhost:8111/ProductWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ProductWebServiceSoap12" binding="tns:ProductWebServiceSoap12">
+      <soap12:address location="http://localhost:8111/ProductWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ProductWebServiceHttpGet" binding="tns:ProductWebServiceHttpGet">
+      <http:address location="http://localhost:8111/ProductWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ProductWebServiceHttpPost" binding="tns:ProductWebServiceHttpPost">
+      <http:address location="http://localhost:8111/ProductWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

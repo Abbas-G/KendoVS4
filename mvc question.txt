@@ -120,7 +120,7 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 
 --function and procedure
 	http://stackoverflow.com/questions/771949/what-is-the-difference-between-function-and-procedure-in-pl-sql
-	http://www.dotnet-tricks.com/Tutorial/sqlserver/7EDL150912-Difference-between-Stored-Procedure-and-Function-in-SQL-Server.html
+	= http://www.dotnet-tricks.com/Tutorial/sqlserver/7EDL150912-Difference-between-Stored-Procedure-and-Function-in-SQL-Server.html
 --inline function
 	inline functions are parameterized views. By nature Views do not accept parameters in the search conditions.
 
@@ -195,6 +195,9 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 	or changing the value of other fields.
 
 Types of trigger
+
+	trigger is a special kind of a store procedure that executes in response to certain action
+	
 	--After Triggers (For Triggers)
 		
 		CREATE TRIGGER trgAfterInsert ON [dbo].[Employee_Test] 
@@ -302,7 +305,9 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 
 --RenderPartial vs RenderAction vs Partial vs Action
 	http://www.dotnet-tricks.com/Tutorial/mvc/Q8V2130113-RenderPartial-vs-RenderAction-vs-Partial-vs-Action-in-MVC-Razor.html
-
+	
+	result will be directly written to the HTTP response stream
+	
 --cast vs conversion vs parse
 	Casting: Telling the compiler that an object is really something else without changing it (though some data loss may be incurred).
 
@@ -349,6 +354,9 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 		<script src="<%= Url.Content("~/Scripts/jquery.validate.unobtrusive.js") %>" type="text/javascript">
 	--2)	<% Html.EnableClientValidation(); %>
 
+
+--session state management in .net 
+
 --Client side State management
 	cookies
 	query string
@@ -368,6 +376,7 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
  		   cookieless = <"true" | "false">  
 		--Default session timeout value is 20 
 	
+
 	In-Proc.
 		In-Proc session handling then all the session information will be stored in the server memory.(w3wp.exe which is is a ISS Application Pool Process/worker process ) 
 		This is the default session state in ASP.NET.
@@ -433,7 +442,7 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 
 	http://code.tutsplus.com/tutorials/5-ways-to-make-ajax-calls-with-jquery--net-6289
 
---diiference arraylist and array
+--difference arraylist and array
 	array
 		Array are strongly type collection and allow to store fixed length.
 
@@ -483,7 +492,7 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	dynamic:
 	-it is an implicit type but Dynamic (types are checked at run time)
 
-	http://www.dotnet-tricks.com/Tutorial/csharp/5LQ6210314-Differences-between-Object,-Var-and-Dynamic-type.html
+	
 	http://www.codeproject.com/Tips/460614/Difference-between-var-and-dynamic-in-Csharp
 
 	object
@@ -513,6 +522,21 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	and gives you the ability to secure it on the controller and view's ends 
 	so it allows better security. Also Linq is going to be Type Safe. 
 	Ultimately it's personal preference in my estimation.
+	
+	linq works in both DB server memory and web server memory so its being costly
+
+--use of linQ or Advantage
+	http://social.msdn.microsoft.com/Forums/en-US/cd952b8e-4bc6-4be9-87d3-cec7fbe7a0d8/advantages-disadvantages-of-linq?forum=linqtosql
+	http://careerride.com/LINQ-defined.aspx
+	http://www.c-sharpcorner.com/UploadFile/c5c6e2/using-linq-in-net/
+	
+	LINQ expressions are Strongly Typed.
+	Queries can be dynamically
+	Tables are automatically created into class
+	Columns are automatically created into properties
+	Relationship are automatically appeaded to classes
+	Lambda expressions are awesome
+	
 
 --linQ and pagination
 
@@ -536,10 +560,25 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	http://weblogs.asp.net/scottgu/new-orcas-language-feature-lambda-expressions
 	http://www.developer.com/net/csharp/article.php/3598381/The-New-Lambda-Expressions-Feature-in-C-30.htm
 
---delegates n c#
-	Delegate is a type which  holds the method(s) reference in an object. 
+--delegates in c#
+	Delegate is a type which holds the method(s) reference in an object. 
 	It is also referred to as a type safe function pointer.
+	
+	//create delegate instances
+         NumberChanger nc1 = new NumberChanger(AddNum);
+         NumberChanger nc2 = new NumberChanger(MultNum);
+         //calling the methods using the delegate objects
+         nc1(25);
+         
 	http://www.tutorialspoint.com/csharp/csharp_delegates.htm
 
 --Polymorphism
 	http://www.onlinebuff.com/article_oops-principle-polymorphism-in-c-with-an-example_17.html
+	
+--types of inhertence
+	http://programcall.com/20/csnet/types-of-inheritance-in-csnet.aspx
+	
+--string builder
+	http://www.codeproject.com/Articles/6771/String-Vs-StringBuilder-C
+	
+	big perormance issue: the concatenation will create a new string 

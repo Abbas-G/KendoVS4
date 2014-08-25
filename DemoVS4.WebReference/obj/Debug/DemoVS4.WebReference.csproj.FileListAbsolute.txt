@@ -1,0 +1,7 @@
+C:\Users\LG\Desktop\KendoVS4\DemoVS4.WebReference\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\LG\Desktop\KendoVS4\DemoVS4.WebReference\bin\DemoVS4.WebReference.dll
+C:\Users\LG\Desktop\KendoVS4\DemoVS4.WebReference\bin\DemoVS4.WebReference.pdb
+C:\Users\LG\Desktop\KendoVS4\DemoVS4.WebReference\bin\DemoVS4.Core.dll
+C:\Users\LG\Desktop\KendoVS4\DemoVS4.WebReference\bin\DemoVS4.Core.pdb
+C:\Users\LG\Desktop\KendoVS4\DemoVS4.WebReference\obj\Debug\DemoVS4.WebReference.dll
+C:\Users\LG\Desktop\KendoVS4\DemoVS4.WebReference\obj\Debug\DemoVS4.WebReference.pdb

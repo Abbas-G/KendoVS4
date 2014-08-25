@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="D:\homeWork\ProductWebservice\VS1\" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="bin/DemoVS4.WebService.pdb" publishTime="08/24/2014 05:01:58" />
+    <file relUrl="Web.config" publishTime="08/24/2014 03:47:00" />
+    <file relUrl="bin/DemoVS4.WebService.dll" publishTime="08/24/2014 05:01:58" />
+    <file relUrl="bin/DemoVS4.Core.dll" publishTime="08/23/2014 22:44:03" />
+    <file relUrl="ProductWebService.asmx" publishTime="08/24/2014 03:22:57" />
+    <file relUrl="bin/DemoVS4.Core.pdb" publishTime="08/23/2014 22:44:03" />
+  </publishProfile>
+</publishData>
