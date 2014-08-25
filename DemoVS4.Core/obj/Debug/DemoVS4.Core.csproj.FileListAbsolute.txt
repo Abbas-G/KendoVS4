@@ -15,3 +15,8 @@ C:\Users\LG\Desktop\KendoVS4\DemoVS4.Core\bin\Debug\DemoVS4.Core.pdb
 C:\Users\LG\Desktop\KendoVS4\DemoVS4.Core\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\LG\Desktop\KendoVS4\DemoVS4.Core\obj\Debug\DemoVS4.Core.dll
 C:\Users\LG\Desktop\KendoVS4\DemoVS4.Core\obj\Debug\DemoVS4.Core.pdb
+D:\Workspace\RND\extras 2,3,4\workspace\KendoVS4\DemoVS4.Core\bin\Debug\DemoVS4.Core.dll.config
+D:\Workspace\RND\extras 2,3,4\workspace\KendoVS4\DemoVS4.Core\bin\Debug\DemoVS4.Core.dll
+D:\Workspace\RND\extras 2,3,4\workspace\KendoVS4\DemoVS4.Core\bin\Debug\DemoVS4.Core.pdb
+D:\Workspace\RND\extras 2,3,4\workspace\KendoVS4\DemoVS4.Core\obj\Debug\DemoVS4.Core.dll
+D:\Workspace\RND\extras 2,3,4\workspace\KendoVS4\DemoVS4.Core\obj\Debug\DemoVS4.Core.pdb

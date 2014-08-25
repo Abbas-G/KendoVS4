@@ -133,7 +133,30 @@ namespace DemoVS4.Controllers
             return Json(publicationTable);  // this statement wont allow to see records directly on browser
         }
 
+
+        public JsonResult JsonOutput()
+        {
+            Parent ob = new Parent();
+            List<Sub> objsub = new List<Sub>();
+            objsub.Add(new Sub { securityCode = "CBA"});
+            objsub.Add(new Sub { securityCode = "BHP"});
+
+            ob.securityCodes = objsub;
+
+            if (Request.HttpMethod.ToUpperInvariant() == "GET")
+                return Json(ob,JsonRequestBehavior.AllowGet);
+            else
+                return Json(ob);            
+        }
     }
 
+    public class Parent
+    {
+        public List<Sub> securityCodes { get; set; }
+    }
 
+    public class Sub
+    {
+        public string securityCode;
+    }
 }

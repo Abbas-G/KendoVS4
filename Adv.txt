@@ -1,5 +1,4 @@
-﻿
-ALTER PROCEDURE [dbo].[spSetPhoneDeviceToken]
+﻿ALTER PROCEDURE [dbo].[spSetPhoneDeviceToken]
 	@DeviceToken varchar(100),
 	@IsDeleted bit,
 	@ID int output
@@ -207,5 +206,3 @@ namespace NHP.Service
             }
 
         }
-
-
