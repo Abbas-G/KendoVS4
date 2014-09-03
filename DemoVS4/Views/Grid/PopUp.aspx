@@ -156,6 +156,7 @@
                         dataSource: dataSource,
                         pageable: true,
                         resizable: true,
+                        filterable: { extra: false },
                         toolbar: [{
                             name: "my-create",
                             text: "Add new record"
@@ -213,6 +214,11 @@
                     }).data("kendoWindow");
 
                     detailsTemplate = kendo.template($("#AlertBoxDetail").html());
+                    
+                    $("#grid").data("kendoGrid").thead.prepend(
+                    "<tr >" +
+                        "<th colspan='8' >Title</th>"+
+                    "</tr>");
                 });
 
                 function ColumnGroupFilter(container, options) {
@@ -235,17 +241,22 @@
 
                 function ProductChange() {
                     /*$.ajax({
-                    url: "/Grid/SearchFOODbyCategory"
-                    , type: "POST"
-                    , data: { searchString: $("#products").val() }
-                    , success: function (result) {
-                    //$("#grid").data("kendoGrid").dataSource.data(JSON.parse(result)); //if return type is string
-                    $("#grid").data("kendoGrid").dataSource.data(result);
-                    }
-                    });*/
+                        url: "/Grid/SearchFOODbyCategory"
+                        , type: "POST"
+                        , data: { searchString: $("#products").val() }
+                        , async: false
+                        , success: function (result) {
+                            //alert(result);
+                            // $("#grid").data("kendoGrid").dataSource.data(JSON.parse(result)); //if return type is string
+                            var grid = $("#grid").data("kendoGrid");
+                            grid.dataSource.filter({});
+                            grid.dataSource.sort({});
+                            grid.dataSource.data(result);
+                        }
+                    });*///working
 
 
-                    /* client side*/
+                    /* //client side*/
                     
                     //$("#grid").data("kendoGrid").dataSource.filter({ field: "ProductName", operator: "contains", value: $("#products").val()}); //one parameter
 
@@ -257,7 +268,6 @@
                     //andfilter.filters.push(orfilter);
                     //orfilter = { logic: "or", filters: [] };
                     kgrid.dataSource.filter(orfilter);
-
                 }
 
                function deleteItem(e) {
@@ -283,20 +293,20 @@
                        if (e.model.ProductID != null) { }
                        else {
                            var currentProductName = e.model.ProductName;
-                           /*$.ajax({
+                           $.ajax({
                                url: '<%=Url.Content("~/Grid/CheckDuplication")%>'
                                , type: "POST"
                                , data: { ProductName: currentProductName }
+                               , async:false
                                , success: function (result) {
                                    if (result.value == 'true') {
                                        e.preventDefault();
-                                       wnd.content(detailsTemplate({ ProductName: "Product Name '" + currentProductName + "' already exist" }));
-                                       wnd.center().open();
-                                       return false;
+                                       $("#spnDuplicate").text("Duplicates not allowed");
                                    }
                                }
-                           });*///ajax not working
+                           }); //ajax now working using async:false
                            
+                           //without ajax
                            /*var xhReq = new XMLHttpRequest();
                            xhReq.open("POST", '<%=Url.Content("~/Grid/CheckDuplication")%>', false);
                            xhReq.send(null);
@@ -309,7 +319,9 @@
                                }
                            }*/
 
-                           var currentProductID = e.model.ProductID;
+
+                           //client side
+                          /* var currentProductID = e.model.ProductID;
                            var data = this.dataSource.data();
                            for (item in data) {
                                if (data[item].ProductName == currentProductName &&
@@ -319,10 +331,9 @@
                                    //$("#spnDuplicate").val("Duplicates not allowed").change();
                                    $("#spnDuplicate").text("Duplicates not allowed")
                                }
-                           }
+                           }*/
                        }
                    }
-                  
 
             </script>
        <!-- this style is add to solve "validation msg hidding in the bottom of grid" by changing validation style-->          

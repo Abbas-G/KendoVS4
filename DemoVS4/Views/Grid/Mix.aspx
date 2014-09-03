@@ -223,6 +223,13 @@
                          $(update).html('<span class="k-icon k-update"></span>Update');
                          $(cancel).html('<span class="k-icon k-cancel"></span>Cancel');
                      }
+
+                     //to hide delete button on cancel
+                     $(".k-grid-cancel").on("click", function () {
+                         setTimeout(function () {
+                             $("#grid").data("kendoGrid").trigger("dataBound");
+                         });
+                     });
                  },
                  save: onSave
              });
@@ -268,15 +275,21 @@
          }
 
          function ProductChange() {
-             /* $.ajax({
+             /*$.ajax({
              url: "/Grid/SearchFOODbyCategory"
              , type: "POST"
              , data: { searchString: $("#products").val() }
+             , async: false
              , success: function (result) {
-             //$("#grid").data("kendoGrid").dataSource.data(JSON.parse(result)); //if return type is string
-             $("#grid").data("kendoGrid").dataSource.data(result);
+             //alert(result);
+             // $("#grid").data("kendoGrid").dataSource.data(JSON.parse(result)); //if return type is string
+             var grid = $("#grid").data("kendoGrid");
+             grid.dataSource.filter({});
+             grid.dataSource.sort({});
+             grid.dataSource.data(result);
              }
              });*/
+             //working
 
              /* client side*/
 
@@ -315,17 +328,21 @@
 
                  if (e.model.ProductID != null) { }
                  else {
-                     /*var currentProductName = e.model.ProductName;
-                     var currentProductID = e.model.ProductID;
-                     var data = this.dataSource.data();
-                     for (item in data) {
-                     if (data[item].ProductName == currentProductName &&
-                     data[item].ProductID != currentProductID) {
-                     e.preventDefault();
-                     alert("Duplicates not allowed");
-                     }
-                     }*/
-                     //cleint side
+                    /* var currentProductName = e.model.ProductName;
+                     $.ajax({
+                         url: '<%=Url.Content("~/Grid/CheckDuplication")%>'
+                               , type: "POST"
+                               , data: { ProductName: currentProductName }
+                               , async: false
+                               , success: function (result) {
+                                   if (result.value == 'true') {
+                                       e.preventDefault();
+                                       alert("Duplicates not allowed");
+                                   }
+                               }
+                           }); //ajax now working using async:false*/
+
+                     /*//cleint side
                      var currentProductName = e.model.ProductName;
                      var currentProductID = e.model.ProductID;
                      var data = this.dataSource.data();
@@ -337,7 +354,7 @@
                              //$("#spnDuplicate").val("Duplicates not allowed").change();
                              //$("#spnDuplicate").text("Duplicates not allowed")
                          }
-                     }
+                     }*/
                  }
              }
          }

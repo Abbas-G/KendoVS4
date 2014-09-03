@@ -116,7 +116,7 @@
                             { field: "UnitsInStock", title: "Units In Stock" },
                             { field: "Discontinued", width: "100px" },
                             { field: "Category", title: "Category", filterable: { ui: GroupFilter }, editor: ColumnGroupFilter },
-                            { field: "CreatedDate", title: "Date", type: "date", format: "{0:MM/dd/yyyy h:mm:ss tt}" },
+                            { field: "CreatedDate", title: "Date", type: "date", format: "{0:MM/dd/yyyy}" /* format: "{0:MM/dd/yyyy h:mm:ss tt}"*/ },
                             { field: "Duration", width: "100px" },
                             { command: ["edit"/*, "destroy"*/], title: "Edit", width: "160px" },
                             { command: [{ text: 'Delete', click: deleteItem}], title: 'Actions' }
@@ -170,17 +170,22 @@
          }
 
          function ProductChange() {
-            /* $.ajax({
-                 url: "/Grid/SearchFOODbyCategory"
-                       , type: "POST"
-                       , data: { searchString: $("#products").val() }
-                       , success: function (result) {
-                           //$("#grid").data("kendoGrid").dataSource.data(JSON.parse(result)); //if return type is string
-                           $("#grid").data("kendoGrid").dataSource.data(result);
-                       }
-                   });*/
+                /* $.ajax({
+                     url: "/Grid/SearchFOODbyCategory"
+                            , type: "POST"
+                            , data: { searchString: $("#products").val() }
+                            , async: false
+                            , success: function (result) {
+                                //alert(result);
+                                // $("#grid").data("kendoGrid").dataSource.data(JSON.parse(result)); //if return type is string
+                                var grid = $("#grid").data("kendoGrid");
+                                grid.dataSource.filter({});
+                                grid.dataSource.sort({});
+                                grid.dataSource.data(result);
+                            }
+                 });*///working
 
-                   /* client side*/
+                   // client side
 
                    //$("#grid").data("kendoGrid").dataSource.filter({ field: "ProductName", operator: "contains", value: $("#products").val()}); //one parameter
 
@@ -205,17 +210,22 @@
          function onSave(e) {
              if (e.model.ProductID != null) { }
              else {
-                 /*var currentProductName = e.model.ProductName;
-                 var currentProductID = e.model.ProductID;
-                 var data = this.dataSource.data();
-                 for (item in data) {
-                 if (data[item].ProductName == currentProductName &&
-                 data[item].ProductID != currentProductID) {
-                 e.preventDefault();
-                 alert("Duplicates not allowed");
-                 }
-                 }*/
-                 //cleint side
+                 var currentProductName = e.model.ProductName;
+                 $.ajax({
+                     url: '<%=Url.Content("~/Grid/CheckDuplication")%>'
+                               , type: "POST"
+                               , data: { ProductName: currentProductName }
+                               , async: false
+                               , success: function (result) {
+                                   if (result.value == 'true') {
+                                       e.preventDefault();
+                                       alert("Duplicates not allowed");
+                                   }
+                               }
+                           });
+
+
+                 /*//cleint side
                  var currentProductName = e.model.ProductName;
                  var currentProductID = e.model.ProductID;
                  var data = this.dataSource.data();
@@ -227,7 +237,7 @@
                          //$("#spnDuplicate").val("Duplicates not allowed").change();
                          //$("#spnDuplicate").text("Duplicates not allowed")
                      }
-                 }
+                 }*/
              }
          }
          function ExportToCSV() {
