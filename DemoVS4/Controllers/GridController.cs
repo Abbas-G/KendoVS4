@@ -16,27 +16,12 @@ namespace DemoVS4.Controllers
         DemoVS4.Core.DAL.dbTestDataContext ctx = new Core.DAL.dbTestDataContext();
         DemoVS4.Core.Manager.ProductManager PM = new ProductManager();
 
-        public ActionResult Inline()
-        {
-            return View();
-        }
-
-        public ActionResult PopUp()
-        {
-            return View();
-        }
-
-        public ActionResult Mix()
-        {
-            //reference link http://stackoverflow.com/questions/25451176/kendo-grid-can-you-add-row-with-a-popup-and-edit-inline
-            return View();
-        }
-
+        #region Jsonp demo
         [JsonpFilter]
         public ActionResult Foo() //cross domain check using jsonp attribute
         {
             var Data = new { Prop1 = "Abbas", Prop2 = "Galiyakotwala" };
-            return Json(Data, JsonRequestBehavior.AllowGet); 
+            return Json(Data, JsonRequestBehavior.AllowGet);
         }
         #region use below client code in cross domain
         //$.getJSON('http://localhost:3373/grid/foo?callback=?', function (data) {
@@ -44,6 +29,9 @@ namespace DemoVS4.Controllers
         //});
         #endregion
 
+        #endregion
+
+        #region Model into kendo grid
         public ActionResult GridFromModel()
         {
             List<DemoVS4.Core.DAL.Product> List = ctx.Products.ToList();
@@ -58,6 +46,24 @@ namespace DemoVS4.Controllers
                 Category = x.Category
             });
             ViewData["JsonData"] = serializer.Serialize(ListWitoutFK);
+            return View();
+        }
+        #endregion
+
+
+        public ActionResult Inline()
+        {
+            return View();
+        }
+
+        public ActionResult PopUp()
+        {
+            return View();
+        }
+
+        public ActionResult Mix()
+        {
+            //reference link http://stackoverflow.com/questions/25451176/kendo-grid-can-you-add-row-with-a-popup-and-edit-inline
             return View();
         }
 
