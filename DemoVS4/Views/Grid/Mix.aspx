@@ -68,7 +68,7 @@
 				data-value-field="Category" 
 				data-text-field="Category" 
 				data-source="GlobalSearchFOOD" 
-				data-role="combobox"  required="required"/>	                                <!- dropdownlist , combobox-->
+				data-role="dropdownlist" data-option-label="--Select--" required="required"/>	                                <!- dropdownlist , combobox dont have data-option-label-->
 		    <span class="k-invalid-msg" data-for="Category"></span>
 				<br/>
 

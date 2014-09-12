@@ -65,7 +65,7 @@
                                 var type = e.type;
                                 //alert(type); // displays "read"
                                 if (type=="update")
-                                    e.sender.read();
+                                    e.sender.read();  //or $("#grid").data("kendoGrid").dataSource.read(); 
                             }*/
                             ,
                             batch: true,

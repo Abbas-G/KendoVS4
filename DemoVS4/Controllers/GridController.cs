@@ -67,6 +67,32 @@ namespace DemoVS4.Controllers
             return View();
         }
 
+        #region Incell with addnew through popup
+        public ActionResult InCell()
+        {
+            return View();
+        }
+
+        public JsonResult GetJsonOutputForGridDataUpdateIncell(string models)
+        {
+            JavaScriptSerializer jSerializer = new JavaScriptSerializer();
+            IList<DridDataObj> persons = new JavaScriptSerializer().Deserialize<IList<DridDataObj>>(models);
+            List<DridDataObj> tempItems = new List<DridDataObj>();
+            foreach (DridDataObj m in persons)
+            {
+                DridDataObj temp = new DridDataObj();
+                temp = new DridDataObj { ProductID = m.ProductID, ProductName = m.ProductName, UnitPrice = m.UnitPrice, UnitsInStock = m.UnitsInStock, Discontinued = m.Discontinued, Category = m.Category, CreatedDate = m.CreatedDate, Duration = 2 };
+                temp.ProductID = PM.insertUpdate(temp);
+                temp.UniqueCode = PM.getUniqueCodeById(temp.ProductID.Value);
+                tempItems.Add(temp);
+
+            }
+
+
+            return Json(tempItems);
+        }
+        #endregion
+
         public JsonResult GetJsonOutputForGridDataSelect()
         {
             JavaScriptSerializer jSerializer = new JavaScriptSerializer();
