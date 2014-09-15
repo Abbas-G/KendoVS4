@@ -21,7 +21,7 @@ namespace DemoVS4.Controllers
             return View();
         }
 
-        public JsonResult GetJsonOutputForGridDataSelect(int skip, int take, int page, int pageSize, string group)
+        public JsonResult GetJsonOutputForGridDataSelect(int? skip, int? take, int? page, int? pageSize, string group)
         {
             var sorterCollection = KendoGridSorterCollection.BuildCollection(Request);
             var filterCollection = KendoGridFilterCollection.BuildCollection(Request);
@@ -33,7 +33,6 @@ namespace DemoVS4.Controllers
             {
                 ProductID = x.ProductID,
                 ProductName = x.ProductName,
-                UniqueCode = x.UniqueCode,
                 UnitPrice = x.UnitPrice,
                 UnitsInStock = x.UnitsInStock,
                 Discontinued = x.Discontinued,
@@ -44,28 +43,47 @@ namespace DemoVS4.Controllers
             var filteredItems = ListWitoutFK.MultipleFilter(filterCollection.Filters);
             var sortedItems = filteredItems.MultipleSort(sorterCollection.Sorters).ToList();
             var count = sortedItems.Count();
-            var data = (from v in sortedItems.Skip((page - 1) * pageSize)
-                            .Take(pageSize)
-                        select v).ToList();
 
-            return Json(
+            if (page.HasValue)
+            {
+                var data = (from v in sortedItems.Skip((page.Value - 1) * pageSize.Value)
+                                .Take(pageSize.Value)
+                            select v).ToList();
+
+                return Json(
                 new
                 {
                     File = data,
                     TotalCount = count
                 },
-                JsonRequestBehavior.AllowGet); //alow get while using server grid
+                JsonRequestBehavior.AllowGet);
+            }
+            else {
+                var data = (from v in sortedItems.Skip((1 - 1) * 5)
+                                .Take(5)
+                            select v).ToList();
+
+                return Json(
+                new
+                {
+                    File = data,
+                    TotalCount = count
+                },
+                JsonRequestBehavior.AllowGet);
+            
+            }
+
+            
         }
 
         public JsonResult GetJsonOutputForGridDataUpdatePopup(string models)
         {
             JavaScriptSerializer jSerializer = new JavaScriptSerializer();
-            IList<DridDataObj> persons = new JavaScriptSerializer().Deserialize<IList<DridDataObj>>(models);
+            DridDataObj m = new JavaScriptSerializer().Deserialize<DridDataObj>(models);
             DridDataObj temp = new DridDataObj();
-            foreach (DridDataObj m in persons)
-            {
+
                 temp = new DridDataObj { ProductID = m.ProductID, ProductName = m.ProductName, UnitPrice = m.UnitPrice, UnitsInStock = m.UnitsInStock, Discontinued = m.Discontinued, Category = m.Category, CreatedDate = m.CreatedDate };
-            }
+
             temp.ProductID = PM.insertUpdate(temp);
             temp.UniqueCode = PM.getUniqueCodeById(temp.ProductID.Value);
             /*
@@ -76,35 +94,33 @@ namespace DemoVS4.Controllers
                 ctx.SubmitChanges();
             } 
             */
-            return Json(temp,JsonRequestBehavior.AllowGet);
+            return Json(temp);
         }
 
         public JsonResult GetJsonOutputForGridDataDeletePopup(string models)
         {
             JavaScriptSerializer jSerializer = new JavaScriptSerializer();
-            IList<DridDataObj> persons = new JavaScriptSerializer().Deserialize<IList<DridDataObj>>(models);
+            DridDataObj m = new JavaScriptSerializer().Deserialize<DridDataObj>(models);
             DridDataObj temp = new DridDataObj();
-            foreach (DridDataObj m in persons)
-            {
-                temp = new DridDataObj { ProductID = m.ProductID, ProductName = m.ProductName, UnitPrice = m.UnitPrice, UnitsInStock = m.UnitsInStock, Discontinued = m.Discontinued, Category = m.Category, CreatedDate = m.CreatedDate };
-            }
+
+            temp = new DridDataObj { ProductID = m.ProductID, ProductName = m.ProductName, UnitPrice = m.UnitPrice, UnitsInStock = m.UnitsInStock, Discontinued = m.Discontinued, Category = m.Category, CreatedDate = m.CreatedDate };
+
             PM.DeleteRecordById(temp.ProductID);
-            return Json(new { value = "success" }, JsonRequestBehavior.AllowGet);
+            return Json(new { value = "success" });
         }
 
         public JsonResult GetJsonOutputForGridDataCreatePopup(string models)
         {
             JavaScriptSerializer jSerializer = new JavaScriptSerializer();
-            IList<DridDataObj> persons = new JavaScriptSerializer().Deserialize<IList<DridDataObj>>(models);
+            DridDataObj m = new JavaScriptSerializer().Deserialize<DridDataObj>(models);
             DridDataObj temp = new DridDataObj();
-            foreach (DridDataObj m in persons)
-            {
-                temp = new DridDataObj { ProductID = 0, ProductName = m.ProductName, UnitPrice = m.UnitPrice, UnitsInStock = m.UnitsInStock, Discontinued = m.Discontinued, Category = m.Category, CreatedDate = m.CreatedDate };
-            }
+
+            temp = new DridDataObj { ProductID = m.ProductID, ProductName = m.ProductName, UnitPrice = m.UnitPrice, UnitsInStock = m.UnitsInStock, Discontinued = m.Discontinued, Category = m.Category, CreatedDate = m.CreatedDate };
+
             temp.ProductID = PM.insertUpdate(temp);
             temp.UniqueCode = PM.getUniqueCodeById(temp.ProductID.Value);
 
-            return Json(temp, JsonRequestBehavior.AllowGet);
+            return Json(temp);
         }
 
         public JsonResult GetJsonOutputForFoodUniqueCategory()
@@ -157,4 +173,6 @@ namespace DemoVS4.Controllers
         }
 
     }
+
 }
+

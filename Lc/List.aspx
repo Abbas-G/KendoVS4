@@ -16,7 +16,9 @@
     <div id="grid"></div>
     </div>
 
-
+    <div id="popup_name" class="popup_block">
+        <div class="k-loading-image"></div>
+    </div>
     <script type="text/x-kendo-template" id="template">
                 <div class="toolbar">
                     <label for="Routes">Search:</label><input id="Routes" class="k-textbox" onChange="RouteChange()"/>
@@ -55,10 +57,17 @@
                                     type: "POST"
                                 },
                                 parameterMap: function (options, operation) {
+                                    fadeinout();
                                     if (operation !== "read" && options.models) {
                                         return { models: kendo.stringify(options.models) };
                                     }
                                 }
+                            },
+                            requestStart: function (e) {
+                                fadeinout(); //fire oinly on read function, for update delete create put ltjis line of code under parameterMap function
+                            },
+                            requestEnd: function (e) {
+                                fadeover(); //fire on all server request
                             },
                             batch: true,
                             serverPaging: false,
@@ -70,8 +79,8 @@
                                         RouteID: { editable: false, nullable: true },
                                         RouteName: { validation: { required: true, validationMessage: "Please enter Route Name"} },
                                         RouteBrief: { validation: { required: true, validationMessage: "Please enter Route Brief"} },
-                                        CreatedDate: { type: 'date',  editable: false, nullable: true  },
-                                        ModifiedDate: { type: 'date',  editable: false, nullable: true },
+                                        CreatedDate: { type: 'date', editable: false, nullable: true },
+                                        ModifiedDate: { type: 'date', editable: false, nullable: true },
                                         IsActive: { type: "boolean" }
                                     }
                                 }
@@ -81,8 +90,8 @@
              $("#grid").kendoGrid({
                  dataSource: dataSource,
                  pageable: {
-                 input: true,
-                 numeric: true
+                     input: true,
+                     numeric: true
                  },
                  pageable: {
                      refresh: true,
@@ -100,8 +109,8 @@
                             { field: "RouteName", title: "Route Name" },
                             { field: "RouteBrief", title: "Route Brief", editor: textEditorInitialize },
                             { field: "IsActive", title: "IsActive" },
-                            { field: "CreatedDate", title: "Created Date" , type: "date",  format: "{0:MM/dd/yyyy h:mm:ss tt}"},
-                            { field: "ModifiedDate", title: "Modified Date", type: "date", format: "{0:MM/dd/yyyy h:mm:ss tt}" },       
+                            { field: "CreatedDate", title: "Created Date", type: "date", format: "{0:MM/dd/yyyy h:mm:ss tt}" },
+                            { field: "ModifiedDate", title: "Modified Date", type: "date", format: "{0:MM/dd/yyyy h:mm:ss tt}" },
                             { command: ["edit", "destroy"], title: "&nbsp;", width: "172px"}],
                  editable: "inline",
                  dataBinding: function () {
@@ -180,6 +189,7 @@
          function onSave(e) {
              if (e.model.RouteID != null) { }
              else {
+                 
                 /* var currentProductName = e.model.ProductName;
                  $.ajax({
                      url: '<%=Url.Content("~/Grid/CheckDuplication")%>'

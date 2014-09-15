@@ -10,10 +10,16 @@
     <script src="<%= Url.Content("~/Content/kendo/js/jquery.min.js")%>"></script>
     <script src="<%= Url.Content("~/Content/kendo/js/kendo.all.min2.js")%>"></script>
     <%--<script src="<%= Url.Content("~/Content/kendo/js/kendo.web.min.js")%>"></script>--%>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="<%= Url.Content("~/Content/CustomLoader.css")%>" />
+    <script src="<%= Url.Content("~/Scripts/CustomLoader.js") %>" type="text/javascript"></script>
 </head>
 <body>
     <div id="grid"></div>
-    
+    <div id="popup_name" class="popup_block">
+        <div class="k-loading-image"></div>
+    </div>
+  
     <script type="text/x-kendo-template" id="template">
                 <div class="toolbar">
                     <label for="products">Search Products by Category:</label><input id="products" class="k-textbox"/>
@@ -122,20 +128,19 @@
                                     type: "POST"
                                 },
                                 parameterMap: function (options, operation) {
+                                    fadeinout();
                                     if (operation !== "read" && options.models) {
                                         return { models: kendo.stringify(options.models) };
                                     }
                                     //check dis for client to servrer data flow http://www.telerik.com/forums/best-strategies-for-datetime-handling-in-datasource-and-grid
                                 }
-                            }/*,
+                            },
+                            requestStart: function (e) {
+                                fadeinout(); //fire oinly on read function, for update delete create put ltjis line of code under parameterMap function
+                            },
                             requestEnd: function (e) {
-                                var response = e.response;
-                                var type = e.type;
-                                //alert(type); // displays "read"
-                                if (type=="update")
-                                    e.sender.read();
-                            }*/
-                            ,
+                                fadeover(); //fire on all server request
+                            },
                             batch: true,
                             serverPaging: false,
                             pageSize: 5,

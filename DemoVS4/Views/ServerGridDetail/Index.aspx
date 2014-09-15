@@ -1,28 +1,28 @@
 ﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<dynamic>" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" >
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Index</title>
     <link href="<%= Url.Content("~/Content/kendo/style/kendo.common.min.css")%>" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" title="custom_black"  href="<%= Url.Content("~/Content/kendo/style/CustomThemes/custom_black.css")%>"  id="stylesheet"/>
+    <link rel="stylesheet" type="text/css" title="custom_black" href="<%= Url.Content("~/Content/kendo/style/CustomThemes/custom_black.css")%>"
+        id="stylesheet" />
     <script src="<%= Url.Content("~/Content/kendo/js/jquery.min.js")%>"></script>
     <script src="<%= Url.Content("~/Content/kendo/js/kendo.all.min2.js")%>"></script>
     <%--<script src="<%= Url.Content("~/Content/kendo/js/kendo.web.min.js")%>"></script>--%>
 </head>
 <body>
     <div>
-        <div id="grid" >
+        <div id="grid">
         </div>
     </div>
-     <script type="text/x-kendo-template" id="template">
+    <script type="text/x-kendo-template" id="template">
                 <div class="toolbar">
                     <label for="products">Search Products by Category:</label><input id="products" class="k-textbox"/>
                     <input type="button" value="search" onClick="ProductChange()" class="k-button"/>
                 </div>     
                 <button type="button" id="btnExport"  class="k-button" onClick="ExportToCSV()" >Export to csv!</button>
- </script>
+    </script>
     <script>
         //reference link http://blog.longle.net/tag/server-side-paging/
         var xhReq = new XMLHttpRequest();
@@ -34,11 +34,11 @@
             $("#grid").kendoGrid({
                 dataSource: {
                     type: "json",
-                    serverPaging: true,
-                    serverFiltering: true,
-                    serverSorting: true,
                     pageSize: 3,
-                    transport: { read: { url: "/ServerGridDetail/GetJsonOutputForGridDataSelect", dataType: "json" }/*,
+                    transport: {
+                        read: { url: "/ServerGridDetail/GetJsonOutputForGridDataSelect",
+                            dataType: "json"
+                        },
                         update: {
                             url: "/ServerGridDetail/GetJsonOutputForGridDataUpdatePopup",
                             dataType: "json",
@@ -55,44 +55,46 @@
                             type: "POST"
                         },
                         parameterMap: function (options, operation) {
-                            if (operation !== "read" && options.models) {
-                                return { models: kendo.stringify(options.models) };
+                            if (operation != "read") {
+                                return { models: kendo.stringify(options) };
                             }
-                            //check dis for client to servrer data flow http://www.telerik.com/forums/best-strategies-for-datetime-handling-in-datasource-and-grid
-                        } */
-                    },
-                    schema: { data: "File", total: "TotalCount", model: {
-                        id: "ProductID",
-                        fields: {
-                            ProductID: { editable: false, nullable: true },
-                            UniqueCode: { editable: false, nullable: true },
-                            ProductName: { validation: { required: true, validationMessage: "Please enter time"} },
-                            UnitPrice: { type: "number", validation: { required: true, min: 1} },
-                            Discontinued: { type: "boolean" },
-                            UnitsInStock: { type: "number", validation: { min: 0, required: true} },
-                            Category: { type: "string", validation: { required: true} },
-                            CreatedDate: { type: 'date', validation: { required: true} },
-                            Duration: { type: "number", editable: false }
+                            return options;
                         }
-                    }
+                    },
+                    serverPaging: true,
+                    serverFiltering: true,
+                    serverSorting: true,
+                    schema: {
+                        data: "File", total: "TotalCount",
+                        model: {
+                            id: "ProductID",
+                            fields: {
+                                ProductID: { editable: false, nullable: true },
+                                ProductName: { validation: { required: true, validationMessage: "Please enter time"} },
+                                UnitPrice: { type: "number", validation: { required: true, min: 1} },
+                                Discontinued: { type: "boolean" },
+                                UnitsInStock: { type: "number", validation: { min: 0, required: true} },
+                                Category: { type: "string", validation: { required: true} },
+                                CreatedDate: { type: 'date', validation: { required: true} }
+                            }
+                        }
                     }
                 },
                 pageable: true,
-               /* toolbar: [{
+                toolbar: [{
                     name: "my-create",
                     text: "Add new record"
-                }],*/
+                }],
                 columns: [
                             { title: "&nbsp;", template: "#= ++record #", width: 30 },
                             { field: "ProductName", title: "Product Name" },
-                            { field: "UniqueCode", title: "Unique Code" },
                             { field: "UnitPrice", title: "Unit Price"/*, footerTemplate: "Total: #=sum#"*/, format: "{0:c}" },
                             { field: "UnitsInStock", title: "Units In Stock" },
                             { field: "Discontinued", width: "100px" },
                             { field: "Category", title: "Category", filterable: { ui: GroupFilter }, editor: ColumnGroupFilter },
                             { field: "CreatedDate", title: "Date", type: "date", format: "{0:MM/dd/yyyy}" /* format: "{0:MM/dd/yyyy h:mm:ss tt}"*/ }
-                            //,{ command: ["edit"/*, "destroy"*/], title: "Edit", width: "160px" },
-                            //{ command: [{ text: 'Delete', click: deleteItem}], title: 'Actions' }
+                , { command: ["edit"/*, "destroy"*/], title: "Edit", width: "160px" },
+                { command: [{ text: 'Delete', click: deleteItem}], title: 'Actions' }
                             ],
                 editable: "inline",
                 dataBinding: onDataBinding,
@@ -162,11 +164,11 @@
         }
 
         function onSave(e) {
-             if (e.model.ProductID != null) { }
-             else {
-                 var currentProductName = e.model.ProductName;
-                 $.ajax({
-                     url: '<%=Url.Content("~/ServerGridDetail/CheckDuplication")%>'
+            if (e.model.ProductID != null) { }
+            else {
+                var currentProductName = e.model.ProductName;
+                $.ajax({
+                    url: '<%=Url.Content("~/ServerGridDetail/CheckDuplication")%>'
                                , type: "POST"
                                , data: { ProductName: currentProductName }
                                , async: false
@@ -176,19 +178,19 @@
                                        alert("Duplicates not allowed");
                                    }
                                }
-                           });
-             }
-         }
+                });
+            }
+        }
 
-         function deleteItem(e) {
-             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-             if (confirm('Are you sure you want to delete : ' + dataItem.name)) {
-                 var grid = $("#grid").data("kendoGrid");
-                 grid.dataSource.remove(dataItem);
-                 grid.dataSource.sync();
-                 grid.refresh();
-             }
-         }
+        function deleteItem(e) {
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            if (confirm('Are you sure you want to delete : ' + dataItem.name)) {
+                var grid = $("#grid").data("kendoGrid");
+                grid.dataSource.remove(dataItem);
+                grid.dataSource.sync();
+                grid.refresh();
+            }
+        }
     </script>
 </body>
 </html>
