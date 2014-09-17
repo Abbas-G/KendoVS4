@@ -582,3 +582,9 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	http://www.codeproject.com/Articles/6771/String-Vs-StringBuilder-C
 	
 	big perormance issue: the concatenation will create a new string 
+
+--Web api self hosting
+	http://www.dotnetcurry.com/showarticle.aspx?ID=896
+
+--part time work site
+	https://in.finance.yahoo.com/news/55-best-companies-freelancers-155000285.html
