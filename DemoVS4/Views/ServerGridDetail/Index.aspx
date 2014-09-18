@@ -76,15 +76,26 @@
                                 UnitsInStock: { type: "number", validation: { min: 0, required: true} },
                                 Category: { type: "string", validation: { required: true} },
                                 CreatedDate: { type: 'date', validation: { required: true} }
+                                /*
+                                ModifiedDate: {
+                                                editable: false,
+                                                type: "date",
+                                                parse: function (value) {
+                                                    var dt = new Date(value);
+                                                    return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+                                                }
+                                */
                             }
                         }
                     }
                 },
                 pageable: true,
+                toolbar: ["create"],
+                /*or
                 toolbar: [{
                     name: "my-create",
                     text: "Add new record"
-                }],
+                }]*/
                 columns: [
                             { title: "&nbsp;", template: "#= ++record #", width: 30 },
                             { field: "ProductName", title: "Product Name" },
@@ -106,7 +117,7 @@
                 },
                 filterable: true,
                 sortable: true,
-                selectable: true,
+                //selectable: true,
                 edit: function (e) {
                     var title = $(e.container).parent().find(".k-window-title");
                     var update = $(e.container).parent().find(".k-grid-update");
@@ -123,12 +134,12 @@
                 save: onSave
             });
 
-            $(".k-grid-my-create", grid.element).on("click", function (e) {
+            /*$(".k-grid-my-create", grid.element).on("click", function (e) {
                 var grid = $("#grid").data("kendoGrid");
                 grid.dataSource.filter({});
                 grid.dataSource.sort({});
                 grid.addRow();
-            });
+            });*/
         });
 
         function onChange(arg) {
