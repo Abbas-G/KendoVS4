@@ -492,7 +492,7 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	dynamic:
 	-it is an implicit type but Dynamic (types are checked at run time)
 
-	
+	where to use? http://www.codeproject.com/Articles/393229/dynamic-type-in-Csharp-Where-and-how-to-use-Ho	
 	http://www.codeproject.com/Tips/460614/Difference-between-var-and-dynamic-in-Csharp
 
 	object
@@ -582,3 +582,23 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	http://www.codeproject.com/Articles/6771/String-Vs-StringBuilder-C
 	
 	big perormance issue: the concatenation will create a new string 
+
+--Web api self hosting
+	http://www.dotnetcurry.com/showarticle.aspx?ID=896
+
+--whats javascript protocol
+	http://crisp.tweakblogs.net/blog/313/the-useless-javascript-pseudo-protocol.html
+	http://stackoverflow.com/questions/10068781/what-does-the-javascript-pseudo-protocol-actually-do
+
+-- return false vs preventdefault
+
+--cluster and non-cluster index
+
+--delete vs drop in sql server
+	Drop table..it will delete complete table from the Database.it can not retrieved bak 
+	Delete is used to deleting data from the table.. data can be retrieved using ROLLBAck.
+
+--differnce between RANK and DENSE_RANK  function
+	http://stackoverflow.com/questions/12739208/how-to-use-rank-in-sql-server
+
+
