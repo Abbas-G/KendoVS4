@@ -1,0 +1,13 @@
+http://stackoverflow.com/questions/15478257/kendo-ui-grid-pagination-server-side
+
+http://www.telerik.com/forums/kendo-grid-server-paging-not-working
+
+
+main
+	http://blog.longle.net/tag/server-side-paging/
+	http://stackoverflow.com/questions/12928744/how-to-implement-server-side-paging-in-client-side-kendo-ui-grid-in-asp-net-mvc
+
+
+open source helper for kendo server side filter, paginagtion, sorting
+	http://blogs.telerik.com/kendoui/posts/14-01-02/kendo-ui-open-sources-dynamic-linq-helpers
+

@@ -1,0 +1,1 @@
+http://stackoverflow.com/questions/24423662/when-should-a-page-use-a-layout-in-mvc

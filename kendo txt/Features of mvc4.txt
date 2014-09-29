@@ -1,0 +1,11 @@
+--Asp.net eb Api
+
+--using Bundling and Minification (please check some example)
+	http://www.codeproject.com/Tips/389545/ASP-NET-MVC-Bundling-and-Minification
+	http://www.asp.net/mvc/tutorials/mvc-4/bundling-and-minification
+
+--Adding Controller to other project folder (please refer some example)
+
+--Task Support for Asynchronous Controllers (refer some example)
+
+-- Enabling Logins from Facebook and Other Sites Using OAuth and OpenID

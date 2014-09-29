@@ -1,0 +1,2 @@
+http://jsfiddle.net/Eh8GL/151/
+http://stackoverflow.com/questions/23067930/kendo-ui-grid-conditional-editing

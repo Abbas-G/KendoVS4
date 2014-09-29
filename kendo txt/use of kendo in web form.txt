@@ -1,0 +1,1 @@
+http://stackoverflow.com/questions/21428552/kendo-grouping-not-working --see code

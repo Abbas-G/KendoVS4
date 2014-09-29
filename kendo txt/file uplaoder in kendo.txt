@@ -1,0 +1,3 @@
+httpstackoverflow.comquestions21704508kendo-ui-upload-inside-grid
+http://www.telerik.com/forums/form-elements
+http://www.telerik.com/forums/upload-control-in-kendo-grid-batch-edit
