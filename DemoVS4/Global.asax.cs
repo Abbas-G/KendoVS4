@@ -19,8 +19,16 @@ namespace DemoVS4
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
-               // new { controller = "Grid", action = "inline", id = UrlParameter.Optional } // Parameter defaults
+                //new { controller = "Grid", action = "inline", id = UrlParameter.Optional } // Parameter defaults
                 new { controller = "Grid", action = "PopUp", id = UrlParameter.Optional } 
+                //new { controller = "Grid", action = "Mix", id = UrlParameter.Optional } 
+                //new { controller = "Grid", action = "GridFromModel", id = UrlParameter.Optional } 
+                
+                  //new { controller = "ServerGrid", action = "Index", id = UrlParameter.Optional } 
+                  //  new { controller = "ServerGridDetail", action = "Index", id = UrlParameter.Optional } 
+                   // new { controller = "Grid", action = "InCell", id = UrlParameter.Optional } 
+
+                   //new { controller = "GridMultiDropdown", action = "Index", id = UrlParameter.Optional } 
             );
 
         }

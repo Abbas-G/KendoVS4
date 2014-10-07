@@ -214,11 +214,8 @@
                     }).data("kendoWindow");
 
                     detailsTemplate = kendo.template($("#AlertBoxDetail").html());
-                    
-                    $("#grid").data("kendoGrid").thead.prepend(
-                    "<tr >" +
-                        "<th colspan='8' >Title</th>"+
-                    "</tr>");
+
+                    $("#grid").data("kendoGrid").thead.prepend("<tr ><td colspan='4' >Product</td><td colspan='1' >Category</td><td colspan='2' >Timespan</td><td colspan='1' >Command</td></tr>");
                 });
 
                 function ColumnGroupFilter(container, options) {

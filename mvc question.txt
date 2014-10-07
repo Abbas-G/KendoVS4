@@ -593,6 +593,7 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 -- return false vs preventdefault
 
 --cluster and non-cluster index
+	http://www.codeproject.com/Articles/173275/Clustered-and-Non-Clustered-Index-in-SQL
 
 --delete vs drop in sql server
 	Drop table..it will delete complete table from the Database.it can not retrieved bak 

@@ -77,7 +77,19 @@
                                     fields: {
                                         ProductID: { editable: false, nullable: true },
                                         UniqueCode: { editable: false, nullable: true },
-                                        ProductName: { validation: { required: true, validationMessage: "Please enter time"} },
+                                        ProductName: {
+                                            validation: {
+                                                required: true,
+                                                productnamevalidation: function (input) {
+                                                    if (input.is("[name='ProductName']") && input.val() != "") {
+                                                        input.attr("data-productnamevalidation-msg", "Product Name should start with capital letter");
+                                                        return /^[A-Z]/.test(input.val());
+                                                    }
+
+                                                    return true;
+                                                }
+                                            }
+                                        },
                                         UnitPrice: { type: "number", validation: { required: true, min: 1} },
                                         Discontinued: { type: "boolean" },
                                         UnitsInStock: { type: "number", validation: { min: 0, required: true} },
@@ -92,7 +104,8 @@
                                      ]
                             }
 
-                            , aggregate: [{ field: "UnitPrice", aggregate: "sum" }]*/ //use footerTemplate keyword in respected columns
+                            , aggregate: [{ field: "UnitPrice", aggregate: "sum" }]*/
+                            //use footerTemplate keyword in respected columns
                         });
 
              $("#grid").kendoGrid({
