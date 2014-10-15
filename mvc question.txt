@@ -612,5 +612,8 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 
 --differnce between RANK and DENSE_RANK  function
 	http://stackoverflow.com/questions/12739208/how-to-use-rank-in-sql-server
+	
+--SQL query to find Nth highest salary from a salary table
+	http://stackoverflow.com/questions/3850034/sql-query-to-find-nth-highest-salary-from-a-salary-table
 
 
