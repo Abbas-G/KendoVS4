@@ -615,5 +615,12 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	
 --SQL query to find Nth highest salary from a salary table
 	http://stackoverflow.com/questions/3850034/sql-query-to-find-nth-highest-salary-from-a-salary-table
+	
+	SELECT Salary
+	FROM (
+    		SELECT row_number() OVER (ORDER BY Salary DESC) as SalaryRank, Salary
+    		FROM Salaries
+	) as SalaryCTE
+	WHERE SalaryRank = @N
 
 
