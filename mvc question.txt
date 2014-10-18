@@ -594,6 +594,17 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 
 --cluster and non-cluster index
 	http://www.codeproject.com/Articles/173275/Clustered-and-Non-Clustered-Index-in-SQL
+	
+	awsm = https://www.youtube.com/watch?v=ITcOiLSfVJQ
+	
+	primary key generate cluster index
+	unique key generate non cluster index
+	
+	A table has many non clustered indexes
+	A table can contain only one clustered indexes
+	
+	Cluster index generate a binary tree
+	while in non cluster index all information are store at leaf node
 
 --delete vs drop in sql server
 	Drop table..it will delete complete table from the Database.it can not retrieved bak 
@@ -601,5 +612,15 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 
 --differnce between RANK and DENSE_RANK  function
 	http://stackoverflow.com/questions/12739208/how-to-use-rank-in-sql-server
+	
+--SQL query to find Nth highest salary from a salary table
+	http://stackoverflow.com/questions/3850034/sql-query-to-find-nth-highest-salary-from-a-salary-table
+	
+	SELECT Salary
+	FROM (
+    		SELECT row_number() OVER (ORDER BY Salary DESC) as SalaryRank, Salary
+    		FROM Salaries
+	) as SalaryCTE
+	WHERE SalaryRank = @N
 
 
