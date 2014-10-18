@@ -8,4 +8,14 @@ inherit static abstract class
 linq change data type dynamic
 Debugging linq
 
+Equality in JavaScript: === versus ==
+	--http://stackoverflow.com/questions/359494/does-it-matter-which-equals-operator-vs-i-use-in-javascript-comparisons
+	
+	The == operator will compare for equality after doing any necessary type conversions. 
+	The === operator will not do the conversion, so if two values are not the same type === will simply return false. 
+	It's this case where === will be faster, and may return a different result than ==. In all other cases performance will be the same.
 
+
+Difference between && and &, || and |
+	--http://www.codeproject.com/Articles/662248/Difference-between-and-and
+	--http://stackoverflow.com/questions/1279217/difference-between-and-or-and-for-comparison
