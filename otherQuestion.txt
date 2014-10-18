@@ -1,0 +1,11 @@
+SQLServer:dirty reads
+nocount
+type of temp table and it scope
+
+mvc: what we have in app class
+customize controller base  class
+inherit static abstract class
+linq change data type dynamic
+Debugging linq
+
+
