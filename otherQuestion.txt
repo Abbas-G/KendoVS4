@@ -19,3 +19,6 @@ Equality in JavaScript: === versus ==
 Difference between && and &, || and |
 	--http://www.codeproject.com/Articles/662248/Difference-between-and-and
 	--http://stackoverflow.com/questions/1279217/difference-between-and-or-and-for-comparison
+
+differ betwn view() redirectoaction() redirecttoroute()		
+	http://www.dotnet-tricks.com/Tutorial/mvc/4XDc110313-return-View()-vs-return-RedirectToAction()-vs-return-Redirect()-vs-return-RedirectToRoute().html
