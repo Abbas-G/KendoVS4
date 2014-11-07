@@ -159,7 +159,8 @@
                         filterable: { extra: false },
                         toolbar: [{
                             name: "my-create",
-                            text: "Add new record"
+                            text: "Add new record",
+                            iconClass: "k-icon k-add"
                         }, { text: "", template: kendo.template($("#template").html())}],
                         columns: [
                             { field: "ProductName", title: "Product Name" },

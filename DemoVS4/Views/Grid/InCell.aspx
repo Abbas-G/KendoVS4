@@ -287,6 +287,7 @@
                 grid.addRow();
             }
 
+
             function onSave(e) {
                 if (e.model) { //e.model value would be null on popup add in this mix example
                     if (e.model.ProductID != null) { }
@@ -301,6 +302,7 @@
                                    if (result.value == 'true') {
                                        e.preventDefault();
                                        alert("Duplicates not allowed");
+                                       
                                    }
                                }
                         });

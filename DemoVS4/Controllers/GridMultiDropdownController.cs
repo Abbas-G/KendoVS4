@@ -30,16 +30,24 @@ namespace DemoVS4.Controllers
         [HttpPost]
         public ActionResult AddNewForm(DemoVS4.Core.Manager.DridDataObj temp, FormCollection result)
         {
-            temp.Category= result["Category"].ToString();
-            temp.ProductName = result["ProductName"].ToString();
-            temp.Discontinued = Convert.ToBoolean(result["Discontinued"].ToString());
-            temp.UnitsInStock = Convert.ToInt32(result["UnitsInStock"].ToString());
-            temp.UnitPrice = Convert.ToInt32(result["UnitPrice"].ToString());
-            temp.CreatedDate = Convert.ToDateTime(result["CreatedDate"].ToString());
-            //ViewData["Msg"] = "Success";
-            //temp.ProductID = PM.insertUpdate(temp);
-            //temp.UniqueCode = PM.getUniqueCodeById(temp.ProductID.Value);
-            return Content("Success");
+            try
+            {
+                temp.Category = result["Category"].ToString();
+                temp.ProductName = result["ProductName"].ToString();
+                temp.Discontinued = (result["Discontinued"].ToString() == "false") ? false : true; //Html.CheckBoxFor() is wired, its send two value on server if true i.e "true,false" and if fasle send one value i.e "false"
+                temp.UnitsInStock = Convert.ToInt32(result["UnitsInStock"].ToString());
+                temp.UnitPrice = Convert.ToInt32(result["UnitPrice"].ToString());
+                temp.CreatedDate = Convert.ToDateTime(result["CreatedDate"].ToString());
+                //ViewData["Msg"] = "Success";
+                temp.ProductID = PM.insertUpdate(temp);
+                temp.UniqueCode = PM.getUniqueCodeById(temp.ProductID.Value);
+                //return Content("Success");
+
+                return JavaScript("document.getElementById('status').innerHTML = 'Success';setTimeout(function(){$('#AddNew').data('kendoWindow').close();},1000)");
+            }
+            catch (Exception e) {
+                return Content("Server Error!"); ;
+            }
         }
 
         public JsonResult GetJsonOutputForGridDataSelect()

@@ -186,7 +186,7 @@
             $('#AddNew').parent().css("left", "10%");
             $("#AddNew").data("kendoWindow").close();*/
 
-            $("#AddNew").kendoWindow({
+            var window= $("#AddNew").kendoWindow({
                 title: "Add New Product",
                 modal: true, //fade popup
                 //position: { top: 100, left: 100 },
@@ -204,6 +204,9 @@
 
             $('#AddNew').parent().css("top", "20%");
             $('#AddNew').parent().css("left", "20%");
+
+            var title = '<i class="k-icon k-add"></i> Add New Product'; // add images to the title of custom window
+            window.wrapper.find('.k-window-title').html(title) //or speficy in declaration like title: "Add New Product"
 
             /***end**/
 
@@ -289,12 +292,13 @@
             // client side
 
             //$("#grid").data("kendoGrid").dataSource.filter({ field: "ProductName", operator: "contains", value: $("#products").val()}); //one parameter
-
             var kgrid = $("#grid").data("kendoGrid");
             var orfilter = { logic: "or", filters: [] };
             var andfilter = { logic: "and", filters: [] };
-            orfilter.filters.push({ field: "ProductName", operator: "contains", value: $("#products").val() },
-                                              { field: "Category", operator: "contains", value: $("#products").val() });
+            orfilter.filters.push(          
+                                              { field: "ProductName", operator: "contains", value: $("#products").val() }//,
+            // { field: "Category", operator: "contains", value: $("#products").val() } //category would not be use bcoz its type=string being remove  as we need to use array for multiselect
+                                  );
             //andfilter.filters.push(orfilter);
             //orfilter = { logic: "or", filters: [] };
             kgrid.dataSource.filter(orfilter);

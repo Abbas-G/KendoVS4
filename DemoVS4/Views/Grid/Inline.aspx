@@ -28,6 +28,28 @@
          var GlobalSearchFOOD = JSON.parse(xhReq.responseText);
          var record = 0;
 
+         document.onkeydown = function KeyPress(e) {
+             var evtobj = window.event ? event : e;
+             //alert(evtobj.keyCode);
+             //if (evtobj.keyCode == 68 && evtobj.ctrlKey) alert("Ctrl+d");
+             /*if (evtobj.keyCode == 18 && evtobj.keyCode == 65) { //altr+a
+             alert("add");
+             }*/
+             if (evtobj.keyCode == 81 && evtobj.ctrlKey) //Ctrl+q
+             {
+                 var grid = $("#grid").data("kendoGrid");
+                 //grid.dataSource.filter({}); /*insert at first*/
+                 //grid.dataSource.sort({});
+                 //grid.addRow();
+
+                 var dataSource = grid.dataSource; /*insert at last*/
+                 var total = dataSource.data().length;
+                 dataSource.insert(total, {});
+                 dataSource.page(dataSource.totalPages());
+                 grid.editRow(grid.tbody.children().last());
+             }
+         };
+
          $(document).ready(function () {
              var crudServiceBaseUrl = '<%=Url.Content("~/Grid")%>',
 
@@ -102,9 +124,9 @@
                                 field: "Category", aggregates: [
                                         { field: "Category", aggregate: "count" }
                                      ]
-                            }
+                            }*/
 
-                            , aggregate: [{ field: "UnitPrice", aggregate: "sum" }]*/
+                            , aggregate: [{ field: "UnitPrice", aggregate: "sum" }]
                             //use footerTemplate keyword in respected columns
                         });
 
@@ -119,13 +141,14 @@
                  sortable: true,
                  toolbar: [{
                      name: "my-create",
-                     text: "Add new record"
+                     text: "Add new record",
+                     iconClass: "k-icon k-add"
                  }, { text: "", template: kendo.template($("#template").html())}],
                  columns: [
                             { title: "&nbsp;", template: "#= ++record #", width: 30 },
                             { field: "ProductName", title: "Product Name" },
                             { field: "UniqueCode", title: "Unique Code" },
-                            { field: "UnitPrice", title: "Unit Price"/*, footerTemplate: "Total: #=sum#"*/, format: "{0:c}" },
+                            { field: "UnitPrice", title: "Unit Price", footerTemplate: "Total: #=sum#", format: "{0:c}" },
                             { field: "UnitsInStock", title: "Units In Stock" },
                             { field: "Discontinued", width: "100px" },
                             { field: "Category", title: "Category", filterable: { ui: GroupFilter }, editor: ColumnGroupFilter },
@@ -220,6 +243,21 @@
              grid.addRow();
          }
 
+         /**************KendoAlert*******************/
+         window.kendoAlert = function (msg) {
+             // create modal window on the fly
+             var win = $("<div>").kendoWindow({
+                 modal: true
+             }).getKendoWindow();
+
+             // set the content
+             win.content(msg);
+
+             // center it and open it
+             win.center().open();
+         };
+         /****************************************/
+
          function onSave(e) {
              if (e.model.ProductID != null) { }
              else {
@@ -232,7 +270,8 @@
                                , success: function (result) {
                                    if (result.value == 'true') {
                                        e.preventDefault();
-                                       alert("Duplicates not allowed");
+                                       //alert("Duplicates not allowed");
+                                       kendoAlert("Duplicates not allowed!");
                                    }
                                }
                            });

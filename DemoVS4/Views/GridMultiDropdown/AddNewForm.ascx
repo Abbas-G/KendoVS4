@@ -37,7 +37,8 @@
             <tr>
             <td><label for="Discontinuedform">Discontinued :</label></td>
             <td>
-            <%=Html.CheckBoxFor(x => x.Discontinued)%>
+            <%=Html.CheckBoxFor(x=>x.Discontinued)%>   <%--Html.CheckBoxFor() is wired, its send two value on server if true i.e "true,false" and if fasle send one value i.e "false" --%>
+            <%--<input type="checkbox" name="Discontinued" />--%>
             <%--<input type="email" id="email" name="Email" class="k-textbox" placeholder="e.g. myname@example.net"  required data-email-msg="Email format is not valid" />--%>
             </td>
             <td></td>
@@ -79,7 +80,7 @@
             <script>
 
                 $(document).ready(function () {
-
+                    
                     $("#UnitPrice").kendoNumericTextBox();
                     $("#UnitsInStock").kendoNumericTextBox();
                     $("#CreatedDate").kendoDatePicker({
@@ -95,7 +96,7 @@
 
                     var multiSelect = $("#Category").data("kendoMultiSelect");
 
-                    if (multiSelect.value()!="")
+                    if (multiSelect.value() != "")
                         multiSelect.value($("#Category").val().split(", "));
 
 

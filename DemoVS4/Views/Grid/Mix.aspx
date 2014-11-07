@@ -150,7 +150,7 @@
                                     fields: {
                                         ProductID: { editable: false, nullable: true },
                                         UniqueCode: { editable: false, nullable: true },
-                                        ProductName: { validation: { required: true, validationMessage: "Please enter time"} },
+                                        ProductName: { validation: { required: true, validationMessage: "Please enter time" } },
                                         UnitPrice: { type: "number", validation: { required: true, min: 1} },
                                         Discontinued: { type: "boolean" },
                                         UnitsInStock: { type: "number", validation: { min: 0, required: true} },
@@ -186,7 +186,7 @@
                  }, { text: "", template: kendo.template($("#template").html())}],
                  columns: [
                             { title: "&nbsp;", template: "#= ++record #", width: 30 },
-                            { field: "ProductName", title: "Product Name" },
+                            { field: "ProductName", title: "Product Name", template: "<a onclick='alert(this.id)' id=\"#= ProductID #\" href='\\#'>#= ProductName #</a>" },
                             { field: "UniqueCode", title: "Unique Code" },
                             { field: "UnitPrice", title: "Unit Price"/*, footerTemplate: "Total: #=sum#"*/, format: "{0:c}" },
                             { field: "UnitsInStock", title: "Units In Stock" },
