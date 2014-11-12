@@ -139,6 +139,7 @@
                  //height: 430,
                  filterable: { extra: false },
                  sortable: true,
+                 navigatable: true,
                  toolbar: [{
                      name: "my-create",
                      text: "Add new record",
