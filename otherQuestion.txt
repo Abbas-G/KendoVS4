@@ -1,10 +1,32 @@
-SQLServer:dirty reads
-nocount
-type of temp table and it scope
+SQLServer:
+	dirty reads
+		http://www.jguru.com/faq/view.jsp?EID=721
+		Quite often in database processing, we come across the situation wherein one transaction can change a value, and a second transaction can 			read this value before the original change has been committed or rolled back
+		
+		NOLOCK
+			http://www.techrepublic.com/article/using-nolock-and-readpast-table-hints-in-sql-server/
+			also known as READUNCOMMITTED, is applicable to SELECT statements only. NOLOCK indicates that no shared locks are issued against the 				table that would prohibit other transactions from modifying the data in the table.
+
+		READPAST
+
+			http://sqldbpool.com/2013/10/16/table-hints-nolock-vs-readpast/		
+
+	nocount
+		what is its use : 
+		SET NOCOUNT ON.  This one line of code, put at the top of a stored procedure turns off the messages that SQL Server sends back 			to the client after each T-SQL statement is executed.  This is performed for all SELECT, INSERT, UPDATE, and DELETE statements. Having		this information is handy when you run a T-SQL statement in a query window, but when stored procedures are run there is no need for this		information to be passed back to the client.
+
+
+	type of temp table and it scope
+		1. http://databases.aspfaq.com/database/should-i-use-a-temp-table-or-a-table-variable.html
+		2. (nyc) http://www.dotnet-tricks.com/Tutorial/sqlserver/X517150913-Difference-between-CTE-and-Temp-Table-and-Table-Variable.html
+		3. http://blog.sqlauthority.com/2009/12/28/sql-server-difference-temp-table-and-table-variable-effect-of-transaction/
+		
 
 mvc: what we have in app class
 customize controller base  class
 inherit static abstract class
+	http://stackoverflow.com/questions/774181/why-cant-i-inherit-static-classes	
+
 linq change data type dynamic
 Debugging linq
 
@@ -22,3 +44,11 @@ Difference between && and &, || and |
 
 differ betwn view() redirectoaction() redirecttoroute()		
 	http://www.dotnet-tricks.com/Tutorial/mvc/4XDc110313-return-View()-vs-return-RedirectToAction()-vs-return-Redirect()-vs-return-RedirectToRoute().html
+
+
+
+
+=================
+http://templates.entheosweb.com/template_number/live_demo.asp?TemplateID=16064
+
+http://stackoverflow.com/questions/26947306/can-i-use-old-kendoui-gpl-license-v3-in-open-source-project-that-provide-payment
