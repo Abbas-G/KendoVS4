@@ -46,7 +46,7 @@
             });
 
             $('.demo4').bootpag({
-                total: 50,
+                total: <%=ViewData["PageNumber"]  %>,
                 //page: 2,
                 maxVisible: 5,
                 leaps: true,
@@ -59,7 +59,7 @@
                 fadeinout();
                 $.ajax({
                     url: '<%= Url.Content("~/ServerJqPaging/getPage") %>',
-                    data: { "page": num, "total": document.getElementById("hdntotal").value },
+                    data: { "page": num },
                     type: "POST",
                     cache: false,
                     success: function (html, textStatus, XMLHttpRequest) {
