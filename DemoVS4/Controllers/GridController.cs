@@ -56,6 +56,11 @@ namespace DemoVS4.Controllers
             return View();
         }
 
+        public ActionResult InlineCommandImage()
+        {
+            return View();
+        }
+
         public ActionResult PopUp()
         {
             return View();
