@@ -15,3 +15,37 @@
 <input type="submit" class="btn btn-default" onclick="fadeinout();" value="Login">
 
 <%} %>
+
+
+
+<%--<% using (Html.BeginForm("Foo", "Bar", FormMethod.Post, new { @class = "myclass"})) { %>
+                            <label style="color:red;"><%= Html.ValidationSummary(true, "") %></label>
+                            <table style="width:300px;border:0" >
+                            <tr>
+                                <td>
+                                     <label>
+                                    Username</label>
+                                </td>
+                                <td>
+                                     <%= Html.TextBoxFor(m => m.UserName, new { Style="color: rgb(150, 150, 150);" }) %> 
+                                </td>
+                            </tr>
+                                 <tr>
+                                <td>
+                                     <label>
+                                    Password</label>
+                                </td>
+                                <td> <%= Html.PasswordFor(m => m.Password, new { Style = "color: rgb(150, 150, 150);" })%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="color:Red">
+                                   <%= Html.ValidationMessageFor(m => m.UserName) %><br />
+                            <%= Html.ValidationMessageFor(m => m.Password) %>
+                                </td>
+                            </tr>
+                            </table>
+                           
+                           
+                            <input type="submit" value="Login">
+                               <% } %>  --%>

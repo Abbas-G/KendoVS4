@@ -70,5 +70,12 @@ namespace DemoVS4.Controllers
             // If we got this far, something failed, redisplay form
             return PartialView("LogOn", model);
         }
+
+        public ActionResult LogOff()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("LogOn", "Account");
+
+        }
     }
 }
