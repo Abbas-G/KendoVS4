@@ -49,7 +49,7 @@
                 total: <%=ViewData["PageNumber"]  %>,
                 //page: 2,
                 maxVisible: 5,
-                leaps: true,
+                leaps: false,
                 firstLastUse: true,
                 //href: '#page-{{number}}',
                 first: 'First',
