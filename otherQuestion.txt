@@ -46,7 +46,9 @@ differ betwn view() redirectoaction() redirecttoroute()
 	http://www.dotnet-tricks.com/Tutorial/mvc/4XDc110313-return-View()-vs-return-RedirectToAction()-vs-return-Redirect()-vs-return-RedirectToRoute().html
 
 
-
+---describe xml and json
+---describe #table, collection
+--css3 html5
 
 =================
 http://templates.entheosweb.com/template_number/live_demo.asp?TemplateID=16064

@@ -14,6 +14,7 @@
 <body>
     <div id="grid"></div>
 
+    <input type="button" value="check ajax" onclick="checkAjaxBybutton()" />
      <script>
          var record = 0;
 
@@ -187,6 +188,22 @@
                  grid.dataSource.sync();
                  grid.refresh();
              }
+         }
+
+         function checkAjaxBybutton() {
+             $.ajax({
+                 type: "POST",
+                 url: '/MyWebService.asmx/checkBool',
+                 contenttype: "application/json; charset=utf-8",
+                 data: { text: 'aass' },
+                 datatype: 'json',
+                 success: function (data) {
+                     alert(data);
+                     if (data) {
+                         alert('inside');
+                     }
+                 }
+             });
          }
             
             </script>
