@@ -1,11 +1,13 @@
 SQLServer:
 	dirty reads
 		http://www.jguru.com/faq/view.jsp?EID=721
-		Quite often in database processing, we come across the situation wherein one transaction can change a value, and a second transaction can 			read this value before the original change has been committed or rolled back
+		Quite often in database processing, we come across the situation wherein one transaction can change a value, and a second transaction can 			
+		read this value before the original change has been committed or rolled back
 		
 		NOLOCK
 			http://www.techrepublic.com/article/using-nolock-and-readpast-table-hints-in-sql-server/
-			also known as READUNCOMMITTED, is applicable to SELECT statements only. NOLOCK indicates that no shared locks are issued against the 				table that would prohibit other transactions from modifying the data in the table.
+			also known as READUNCOMMITTED, is applicable to SELECT statements only. NOLOCK indicates that no shared locks are issued against the 	
+			table that would prohibit other transactions from modifying the data in the table.
 
 		READPAST
 
@@ -13,14 +15,83 @@ SQLServer:
 
 	nocount
 		what is its use : 
-		SET NOCOUNT ON.  This one line of code, put at the top of a stored procedure turns off the messages that SQL Server sends back 			to the client after each T-SQL statement is executed.  This is performed for all SELECT, INSERT, UPDATE, and DELETE statements. Having		this information is handy when you run a T-SQL statement in a query window, but when stored procedures are run there is no need for this		information to be passed back to the client.
+		SET NOCOUNT ON.  This one line of code, put at the top of a stored procedure turns off the messages that SQL Server sends back 			
+	to the client after each T-SQL statement is executed.  This is performed for all SELECT, INSERT, UPDATE, and DELETE statements. Having		
+this information is handy when you run a T-SQL statement in a query window, but when stored procedures are run there is no need for this		
+information to be passed back to the client.
 
 
 	type of temp table and it scope
 		1. http://databases.aspfaq.com/database/should-i-use-a-temp-table-or-a-table-variable.html
 		2. (nyc) http://www.dotnet-tricks.com/Tutorial/sqlserver/X517150913-Difference-between-CTE-and-Temp-Table-and-Table-Variable.html
 		3. http://blog.sqlauthority.com/2009/12/28/sql-server-difference-temp-table-and-table-variable-effect-of-transaction/
-		
+
+	Temp Table or Table variable or CTE are commonly used for storing data temporarily in SQL Server.
+	
+	CtE Common Table expressions:
+		It was introduced with SQL Server 2005. It is a temporary result set and typically it may be a result of complex sub-query. 
+		Unlike temporary table its life is limited to the current query. It is defined by using WITH statement.
+
+		;With CTE1(Address, Name, Age)--Column names for CTE, which are optional
+		AS
+		(
+		SELECT Addr.Address, Emp.Name, Emp.Age from Address Addr
+		INNER JOIN EMP Emp ON Emp.EID = Addr.EID
+		)
+		SELECT * FROM CTE1 --Using CTE 
+		WHERE CTE1.Age > 50
+		ORDER BY CTE1.NAME
+
+		This is used to store result of a complex sub query for further use.
+		This is also used to create a recursive query.
+	
+	Temporary Tables
+		Local Temp Table
+
+			Local temp tables are only available to the SQL Server session or connection (means single user) that created the tables. 
+			These are automatically deleted when the session that created the tables has been closed. Local 
+
+			temporary table name is stared with single hash ("#") sign.
+
+			CREATE TABLE #LocalTemp
+			(
+ 				UserID int,
+ 				Name varchar(50), 
+ 				Address varchar(150)
+			)
+			GO
+			insert into #LocalTemp values ( 1, 'Shailendra','Noida');
+			GO
+			Select * from #LocalTemp
+
+		The scope of Local temp table exist to the current session of current user means to the current query window. If you will close the current query window or open a new query window and will try to find above created temp table, it will give you the error.
+
+		Global Temp Table
+			Global temp tables are available to all SQL Server sessions or connections (means all the user). 
+			Global temporary table name is stared with double hash ("##") sign.
+
+			CREATE TABLE ##GlobalTemp(...)
+
+	Table Variable
+		This acts like a variable and exists for a particular batch of query execution
+		it gets dropped once it comes out of batch. 
+
+		 GO
+ 		DECLARE @TProduct TABLE
+ 		(
+		 SNo INT IDENTITY(1,1),
+		 ProductID INT,
+		 Qty INT
+ 		) 
+ 		--Insert data to Table variable @Product 
+ 		INSERT INTO @TProduct(ProductID,Qty)
+ 		SELECT DISTINCT ProductID, Qty FROM ProductsSales ORDER BY ProductID ASC 
+		 --Select data
+		 Select * from @TProduct
+ 
+ 		--Next batch
+ 		GO
+ 		Select * from @TProduct --gives error in next batch
 
 mvc: what we have in app class
 customize controller base  class
@@ -47,7 +118,28 @@ differ betwn view() redirectoaction() redirecttoroute()
 
 
 ---describe xml and json
----describe #table, collection
+	Extensible Markup Language (XML)
+	JavaScript Object Notation (JSON)
+	
+	XML is easily readable by both humans and machines
+		JSON is easier to read for both humans and machines.
+	
+	XML is object-oriented
+		Actually, XML is document-oriented. JSON is data-oriented. JSON can be mapped more easily to object-oriented systems.
+
+	XML is being widely adopted by the computer industry
+		JSON is just beginning to become known. Its simplicity and the ease of converting XML to JSON makes JSON ultimately more adoptable.
+	
+	They are two formats of representation of information. While JSON was designed to be more compact, XML was design to be more readable.
+
+---describe #table,
+
+--c# collection
+	http://www.dotnetperls.com/collections
+
+--Generics and Collections
+	http://www.dotnet-tricks.com/Tutorial/csharp/U08E301212-Difference-between-Generics-and-Collections-with-example.html
+
 --css3 html5
 
 =================

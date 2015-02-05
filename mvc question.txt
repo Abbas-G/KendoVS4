@@ -80,7 +80,7 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 				{
 					//Can provide default behavior
 				}
-			}
+ 			}
 
 
 	abstract class over interface
@@ -164,7 +164,7 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 	http://www.codeproject.com/Tips/389545/ASP-NET-MVC-Bundling-and-Minification
 
 --readonly vs constant vs static 
-	http://www.dotnet-tricks.com/Tutorial/csharp/FU4N141113-Difference-Between-Constant-and-ReadOnly-and-Static.html
+	  
 	
 	Constant and ReadOnly keyword are used to make a field constant which value cannot be modified.
 	By default constant are static, hence you cannot define a constant type as static.
@@ -313,6 +313,7 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 
 		object obj_s= "12345";
 		string str_i = (string) obj; // "12345" as string, explicit
+		Boxing and Unboxing
 
 	Parsing: Telling the program to interpret (on runtime) a string.
 
@@ -488,6 +489,7 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 --var vs dynamic VS object		
 	var:
 	-it is an implicit type but static (types are checked at compile time)
+	type of variable declared is decided by the compiler at compile time
 
 	dynamic:
 	-it is an implicit type but Dynamic (types are checked at run time)
@@ -496,7 +498,8 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	http://www.codeproject.com/Tips/460614/Difference-between-var-and-dynamic-in-Csharp
 
 	object
-	Object is the base class for all derived classes. It provides some methods and capabilities. All derived types can be referenced through the object base type
+	Object is the base class for all derived classes. It provides some methods and capabilities. 
+	All derived types can be referenced through the object base type
 
 --var as return type in c#
 	
@@ -530,7 +533,7 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	http://careerride.com/LINQ-defined.aspx
 	http://www.c-sharpcorner.com/UploadFile/c5c6e2/using-linq-in-net/
 	
-	LINQ expressions are Strongly Typed.
+	LINQ expressions are Strongly Typed.Linq has the advantage of being testable
 	Queries can be dynamically
 	Tables are automatically created into class
 	Columns are automatically created into properties
@@ -573,6 +576,7 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	http://www.tutorialspoint.com/csharp/csharp_delegates.htm
 
 --Polymorphism
+	
 	http://www.onlinebuff.com/article_oops-principle-polymorphism-in-c-with-an-example_17.html
 	
 --types of inhertence
@@ -581,7 +585,37 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 --string builder
 	http://www.codeproject.com/Articles/6771/String-Vs-StringBuilder-C
 	
-	big perormance issue: the concatenation will create a new string 
+	big perormance issue: the concatenation will create a new string
+
+	string returnNumber = "";
+	for(int i = 0; i<1000; i++)
+	{ 
+  		  returnNumber = returnNumber + i.ToString();
+	}
+
+	in the loop we are concatenating the old one with the new to get a string. like assigning 999 new strings
+
+	StringBuilder returnNumber = new StringBuilder(10000);
+	for(int i = 0; i<1000; i++)
+	{ 
+	    returnNumber.Append(i.ToString());
+	}
+
+ 	In my personal experience, a StringBuilder can be used where more than four or more string concatenations take place
+	 must be careful to guess the size of StringBuilder. If the size which we are going to get is more than what is assigned, 
+	it must increase the size. This will reduce its performance
+
+	------DIFF---
+	Both String and StringBuilder are classes used to handle the strings.
+
+	String are Immutable (Not Modifiable). If you try to modify the string it actually creates a new string and the old 
+	string will be then ready for garbage collection.
+
+	StringBuilder when instantiated, creates a new string with predefined capacity and upto that capacity it can 
+	accodomate string without needing to create a new memory location for the string....i mean it is mutable and can 
+	also grow as and when needed. 	
+
+	When the string needs to be modified frequently, preferably use StringBuilder as its optimized for such situations
 
 --Web api self hosting
 	http://www.dotnetcurry.com/showarticle.aspx?ID=896
@@ -612,6 +646,9 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 
 --differnce between RANK and DENSE_RANK  function
 	http://stackoverflow.com/questions/12739208/how-to-use-rank-in-sql-server
+
+	Dense_rank
+	Returns the rank of rows within the partition of a result set, without any gaps in the ranking. 
 	
 --SQL query to find Nth highest salary from a salary table
 	http://stackoverflow.com/questions/3850034/sql-query-to-find-nth-highest-salary-from-a-salary-table
