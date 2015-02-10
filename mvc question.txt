@@ -661,3 +661,6 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	WHERE SalaryRank = @N
 
 
+--diff between RedirectToRoute and RedirectToAction with example
+
+
