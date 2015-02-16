@@ -664,3 +664,5 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 --diff between RedirectToRoute and RedirectToAction with example
 
 
+--Concurrency in linq to sql
+	http://www.codeproject.com/Articles/38299/How-To-Handle-Concurrency-in-LINQ-to-SQL
