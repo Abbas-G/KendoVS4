@@ -11,7 +11,8 @@ namespace DemoVS4.Controllers
     {
         //
         // GET: /ServerGrid/
-        private const string startFolder = @"D:\Workspace\RND\extras 2,3,4\workspace\KendoVS4\DemoVS4\Content\kendo\peoples";
+        //private const string startFolder = @"D:\Workspace\RND\extras 2,3,4\workspace\KendoVS4\DemoVS4\Content\kendo\peoples";
+        private const string startFolder = @"D:\eabsolute\kendovs4\KendoVS4\DemoVS4\Content\kendo\peoples";
         public ActionResult Index()
         {
             return View();
