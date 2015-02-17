@@ -34,12 +34,24 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 	difference between ASP.NET (stateful) and ASP.NET-MVC (stateless) can be isolated 
 	to the fact that the first provides server-side controls and the other do not.
 
+	In ASP.NET MVC, Views and logic are kept separately.
+	In ASP.NET Web Form, Web Forms (ASPX) i.e. views are tightly coupled to Code behind (ASPX.CS) i.e. logic.
+
 	Bandwidth is more as client side state management options like Cookies, QueryStrings (URL), Hidden fields,
 	View State and Control state involve in each roundtrip(as value posted to server)
 
 	Web Forms supports Rich server controls.
 	ASP.NET server control detects the browser and generates appropriate html and if required JavaScript also
 	Rapid application development 
+
+	Separation of concern : MVC design pattern divides the ASP.NET MVC application into three main aspects
+	TDD
+	Full control over application behaviour - MVC framework doesn’t use View State or server based forms like Web Forms.
+	ASP.NET features are supported
+		such as the providers architecture, authentication and authorization scenarios, membership and roles, caching, session and more.
+	URL routing mechanism
+		This mechanism helps to the application to be more addressable from the eyes of search engines and clients and can help in search engine optimization.
+
 
 --RESTful services  vs restless
 
@@ -56,6 +68,23 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 --soap
 	 SOAP means sending SOAP messages using HTTP. The SOAP messages have a pre-defined standard.
 	 SOAP format is a kind of xml format.
+	--Soap
+		SOAP stands for Simple Object Access Protocol
+		It is an XML based protocol built on the top of HTTP or sometimes TCP/IP, SMTP.
+		SOAP enforces message format as XML.
+		The SOAP message consists of an envelope which includes SOAP headers and body to store the actual information you want to send.
+		Performance is slow as compared to REST.
+
+	--rest
+		REST stands for REpresentational State Transfer.
+		REST is not a protocol but it is an architectural style i.e. resource-based architecture.
+		REST does not enforces message format as XML or JSON.
+		REST uses the HTTP build-in headers and use the GET, POST, PUT and DELETE verbs to perform CRUD operations
+		REST is fast as compared to SOAP.
+
+		REST is a set of principles that define how Web standards, such as HTTP and URIs, are supposed to be used. 
+		Cacheable - Clients should be able to cache the responses for further use.
+
 
 --abstract class and interface
 	
@@ -117,6 +146,7 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 		class Subclass1 : Base {
    			public override void Test() { ... }
 		}
+
 
 --function and procedure
 	http://stackoverflow.com/questions/771949/what-is-the-difference-between-function-and-procedure-in-pl-sql

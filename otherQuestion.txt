@@ -1,3 +1,11 @@
+
+--Passing lists to SQL Serve
+	Passing lists to SQL Server 2005 with XML Parameters
+		http://weblogs.asp.net/jongalloway//passing-lists-to-sql-server-2005-with-xml-parameters
+		http://www.codeproject.com/Articles/20847/Passing-Arrays-in-SQL-Parameters-using-XML-Data-Ty
+
+--Normalization and denormalization
+
 SQLServer:
 	dirty reads
 		http://www.jguru.com/faq/view.jsp?EID=721
@@ -141,6 +149,8 @@ differ betwn view() redirectoaction() redirecttoroute()
 	http://www.dotnet-tricks.com/Tutorial/csharp/U08E301212-Difference-between-Generics-and-Collections-with-example.html
 
 --css3 html5
+
+
 
 =================
 http://templates.entheosweb.com/template_number/live_demo.asp?TemplateID=16064
