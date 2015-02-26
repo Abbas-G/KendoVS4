@@ -5,6 +5,22 @@
 		http://www.codeproject.com/Articles/20847/Passing-Arrays-in-SQL-Parameters-using-XML-Data-Ty
 
 --Normalization and denormalization
+	http://www.c-sharpcorner.com/Interviews/answer/2054/what-is-denormalization-and-difference-between-normalization
+	http://www.ovaistariq.net/199/databases-normalization-or-denormalization-which-is-the-better-technique/
+
+--Cursor and pointer in sql server
+	http://stackoverflow.com/questions/4222868/what-is-exact-use-of-cursor-in-sql-server
+	http://www.mssqlcity.com/Articles/General/UseCursor.htm
+
+--looping in sql server procedure
+	--throuh cursor
+	--Variable loop: http://www.sqlusa.com/bestpractices/whilelooptablevariable/
+
+--joins in sqlserver
+	http://stackoverflow.com/questions/406294/left-join-and-left-outer-join-in-sql-server
+
+--joins in linq
+	http://stackoverflow.com/questions/4813968/linq-query-joins
 
 SQLServer:
 	dirty reads
@@ -37,8 +53,15 @@ information to be passed back to the client.
 	Temp Table or Table variable or CTE are commonly used for storing data temporarily in SQL Server.
 	
 	CtE Common Table expressions:
+
+		Cannot have constraints(primarykey, identity)	
+		Persist only until the next query is run	
+
 		It was introduced with SQL Server 2005. It is a temporary result set and typically it may be a result of complex sub-query. 
 		Unlike temporary table its life is limited to the current query. It is defined by using WITH statement.
+
+		This is used to store result of a complex sub query for further use.
+		This is also used to create a recursive query.
 
 		;With CTE1(Address, Name, Age)--Column names for CTE, which are optional
 		AS
@@ -50,8 +73,7 @@ information to be passed back to the client.
 		WHERE CTE1.Age > 50
 		ORDER BY CTE1.NAME
 
-		This is used to store result of a complex sub query for further use.
-		This is also used to create a recursive query.
+		
 	
 	Temporary Tables
 		Local Temp Table
@@ -81,6 +103,9 @@ information to be passed back to the client.
 			CREATE TABLE ##GlobalTemp(...)
 
 	Table Variable
+
+		user define function(imp): Table variables are the only way you can use DML statements (INSERT, UPDATE, DELETE) on temporary data within a user-defined function			
+
 		This acts like a variable and exists for a particular batch of query execution
 		it gets dropped once it comes out of batch. 
 
@@ -149,7 +174,6 @@ differ betwn view() redirectoaction() redirecttoroute()
 	http://www.dotnet-tricks.com/Tutorial/csharp/U08E301212-Difference-between-Generics-and-Collections-with-example.html
 
 --css3 html5
-
 
 
 =================
