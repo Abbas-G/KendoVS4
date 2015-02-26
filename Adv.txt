@@ -206,3 +206,16 @@ namespace NHP.Service
             }
 
         }
+
+public bool DeleteRecordById(int? id)
+        {
+            DemoVS4.Core.DAL.Product l = ctx.Products.Where(x => x.ProductID == id).FirstOrDefault();
+            if (l != null)
+            {
+                ctx.Products.DeleteOnSubmit(l);
+                ctx.SubmitChanges();
+                return true;
+            }
+            else
+                return false;
+        }

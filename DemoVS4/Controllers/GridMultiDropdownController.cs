@@ -20,6 +20,31 @@ namespace DemoVS4.Controllers
             return View();
         }
 
+        #region Mutliselect text value
+        public ActionResult multiform() {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult multiform(FormCollection result)
+        {
+            string cat = result["Category"].ToString();
+            return JavaScript("document.getElementById('status').innerHTML = 'Success';");
+        }
+        public JsonResult GetJsonOutputItem()
+        {
+            JavaScriptSerializer jSerializer = new JavaScriptSerializer();
+            var publicationTable = (from c in ctx.Products.ToList()
+                                    group c by c.Category into d
+                                    select new
+                                    {
+                                        Text = d.Key
+                                    }); //groupby Food by category
+            
+            return Json(publicationTable);
+        }
+        #endregion
+
+
         public PartialViewResult AddNewForm()
         {
             DridDataObj temp = new DridDataObj();
