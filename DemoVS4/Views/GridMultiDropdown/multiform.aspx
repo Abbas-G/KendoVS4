@@ -43,10 +43,10 @@
         $(document).ready(function () {
             $("#Category").kendoMultiSelect({
                 placeholder: "Select Category...",
-                //dataSource: GlobalSearchFOOD
                 dataTextField: "Text",
                 dataValueField: "Value",
-                dataSource: data
+               // dataSource: data
+                dataSource: GlobalSearchFOOD
             });
 
             var multiSelect = $("#Category").data("kendoMultiSelect");

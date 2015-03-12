@@ -115,6 +115,11 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 	abstract class over interface
 		http://www.codeproject.com/Articles/258173/Interfaces-Vs-Abstract-Classes
 
+--when to use abbstract class?
+	http://www.codeproject.com/Questions/382073/Where-to-Use-Abstact-Class-and-Where-to-Use-Interf
+	http://www.codeproject.com/Questions/43970/Real-world-examples-of-abstract-classes-and-interf
+	
+
 --sealed classes and sealed method
 	A sealed class cannot be used as a base class.
 	http://stackoverflow.com/questions/4152049/sealed-method-in-c-sharp
@@ -156,12 +161,20 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 
 --mvc2 vs mvc3
 	http://onlydifferencefaqs.blogspot.in/2012/09/difference-between-mvc-2-and-mvc-3-in.html
+
+	mvc2
+		Strongly typed HTML helpers means lambda expression based Html Helpers
+		Support for DataAnnotations
+		Areas for partitioning
+		Asynchronous controllers
 	
 	mvc3
 		support for Both Master Page (.master) and Layout Page (_Layout.cshtml)
 		razor introduce
 		ViewBag introduce
-
+		Use of NuGet
+		Output Caching
+		Better JavaScript support with unobtrusive JavaScript, jQuery Validation, and JSON binding
 	
 	session
 		set session variable at session_start in method in global.asax.cs.You should not set session variables in Application_Start(), 
@@ -352,6 +365,9 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 
 	Converting: Telling the program to use built in methods to try to change type for what may be not simply interchangeable.
 
+--Boxing / Unboxing
+	Implicit conversion of a value type (int, char etc.) to a reference type (object), is known as Boxing. 
+	Explicit conversion of same reference type (which is being created by boxing process); back to a value type is known as unboxing
 
 --git vs svn
 	http://mrbool.com/differences-between-git-and-svn/30636
@@ -439,7 +455,7 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 		--we can place controller to custom location in mvc4 but in mvc3 2 controller is alway place inside controller folder
 		--Asynchronous(in parallel) Controller is difference
 		--webapi feature availble in mv4
-
+		--appstart folder 
 
 --Asynchronous(in parallel) Controller
 	http://www.codeproject.com/Tips/526099/Asynchronous-Controller-in-ASP-NET-MVC
@@ -481,6 +497,8 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 		Array lists are not strongly type collection. 
 		It will store values of different datatypes or same datatype. 
 		Array list size will increase or decrease dynamically it can take any size of values from any data type
+
+--arraylist and list
 
 --difference between for and foreach
 	If you are iterating through a collection of items, and do not care about the index values
@@ -586,6 +604,7 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
           Skip((pageIndex - 1) * pageSize).
           Take(pageSize);
 
+
 --use of lamba expression
 	allow code blocks to be written "in-line" where delegate values are expected.
 	they provide a very compact and type-safe way to write functions that can be passed as arguments for subsequent evaluation.
@@ -690,6 +709,30 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	) as SalaryCTE
 	WHERE SalaryRank = @N
 
+--sql pagination
+	SELECT * FROM (
+             SELECT ROW_NUMBER() OVER(ORDER BY ID_EXAMPLE) AS NUMBER,
+                    ID_EXAMPLE, NM_EXAMPLE, DT_CREATE FROM TB_EXAMPLE
+               ) AS TBL
+	WHERE NUMBER BETWEEN ((@PageNumber - 1) * @RowspPage + 1) AND (@PageNumber * @RowspPage)
+	ORDER BY ID_EXAMPLE
+
+
+--linq query
+	DataContext context = new DataContext(); 
+	var q= context.tblEmployee.GroupBy(ord => ord.Salary) .OrderByDescending(f => f.Key) 
+		.Skip(1) //second, third ..nth highest salary where n=1,2...n-1 
+		.First() 
+		.Select(ord=>ord.Salary)
+		.Distinct();
+
+--sql server 2012 
+	 --Suppose Employee tables has 500 records
+	--Below query skip 200 rows and fetch the next 20 records
+	SELECT EmpID, EmpName, Salary FROM dbo.Employee
+	ORDER BY EmpID
+	OFFSET 200 ROWS
+	FETCH NEXT 20 ROWS ONLY 
 
 --diff between RedirectToRoute and RedirectToAction with example
 

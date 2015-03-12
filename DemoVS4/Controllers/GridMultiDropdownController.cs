@@ -37,7 +37,8 @@ namespace DemoVS4.Controllers
                                     group c by c.Category into d
                                     select new
                                     {
-                                        Text = d.Key
+                                        Text = d.Key,
+                                        value=d
                                     }); //groupby Food by category
             
             return Json(publicationTable);

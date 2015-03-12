@@ -20,7 +20,201 @@
 	http://stackoverflow.com/questions/406294/left-join-and-left-outer-join-in-sql-server
 
 --joins in linq
+	linq ebook
 	http://stackoverflow.com/questions/4813968/linq-query-joins
+
+--stored procedures re-used the cached execution plan
+	http://www.sqlhammer.com/blog/stored-procedures-dynamic-sql-and-execution-plans/
+
+--jsonp
+	
+--when static constructor are call/ initialize??
+	When the class is accessed for the first time.
+	
+	A static constructor is used to initialize any static data, or to perform a particular action that needs performed once only. 
+	It is called automatically before the first instance is created or any static members are referenced
+
+--use of finally block
+	Code in finally blocks is always executed.
+	if we want to call any fuction,closs connection , release memory aftr catching exception
+
+		   try
+ 		    {
+		    //throw exption
+		    }
+		    catch
+		    {
+		    //return from here if finally block is not available 
+		    //if available execute finally block and return
+		    }
+		  finally
+ 		  {
+  		  //below statement surly gets executed
+  		  Other_Function(); 
+  		  }
+
+	http://www.codeproject.com/Questions/193183/whats-the-use-of-finally-block
+
+--finally and destructor
+
+-Difference Between Finalize and Dispose Method
+	http://www.dotnet-tricks.com/Tutorial/netframework/P1MK271013-Difference-Between-Finalize-and-Dispose-Method.html
+
+--access modifier
+	http://www.c-sharpcorner.com/uploadfile/puranindia/what-are-access-modifiers-in-C-Sharp/
+
+--limit of namespace
+	
+--access modifier of namespace
+	Namespace will not have access modifier.
+	http://stackoverflow.com/questions/10711513/access-modifier-for-namespace
+	http://www.c-sharpcorner.com/Interviews/answer/5746/what-is-the-default-access-specifier-within-the-namespaces-i
+
+--if having 2 assemblies with same class then??
+	this can be achieve by extern alias
+	http://blogs.msdn.com/b/ansonh/archive/2006/09/27/774692.aspx
+	http://stackoverflow.com/questions/3018419/class-with-same-name-in-two-assemblies-intentionally
+
+--assemblies in asp.net
+
+	When you compile an application, the MSIL code created is stored in an assembly . 
+	Assemblies include both executable application files that you can run directly from Windows 
+	without the need for any other programs (these have a .exe file extension), and libraries (which have a .dll extension)
+	for use by other applications.
+
+	Assembly is the smallest unit of deployment of a .net application. It can be a dll or an exe.
+	There are mainly two types to it:
+
+	Private Assembly: The dll or exe which is sole property of one application only. It is generally stored in application root folder
+
+	Public/Shared assembly: It is a dll which can be used by multiple applications at a time. A shared assembly is stored in GAC i.e Global Assembly Cache.
+
+	Sounds difficult? Naa....
+	GAC is simply C:\Windows\Assembly folder where you can find the public assemblies/dlls of all the softwares installed in your PC.--get numbers of users session in iis
+
+--sql server 2012 over sqlserver 2008
+	http://www.dotnet-tricks.com/Tutorial/sqlserver2012/W4b4021012-SQL-Server-2012-New-Features-and-Programmability-Enhancements.html
+
+	Conversion Functions
+	SQL Serve 2012 has support for new conversion functions TRY_CONVERT, and TRY_PARSE for convering numeric, date, and time values to desired format.
+	These functions are very helpful while programming T-SQL.
+
+	T-SQL built-in pagination
+	SQL Server 2012 also supports built-in pagination with the help of OFFSET and FETCH like MySQL
+		--Suppose Employee tables has 500 records
+		--Below query skip 200 rows and fetch the next 20 records
+		SELECT EmpID, EmpName, Salary FROM dbo.Employee
+		ORDER BY EmpID
+		OFFSET 200 ROWS
+		FETCH NEXT 20 ROWS ONLY 
+
+	Create Sequence object
+		 --Create Sequence object
+		CREATE SEQUENCE objSequence
+		START WITH 1
+		INCREMENT BY 1;
+		 --Create Employee object
+		DECLARE @Employee TABLE
+		(
+		ID int NOT NULL PRIMARY KEY,
+		FullName nvarchar(100) NOT NULL
+		)
+		 --Insert values
+		INSERT @Employee (ID, FullName)
+		VALUES (NEXT VALUE FOR objSequence, 'Mohan'),
+		(NEXT VALUE FOR objSequence, 'Deepak'),
+		(NEXT VALUE FOR objSequence, 'Pavan');
+ 		--Show data
+		SELECT * FROM @Employee 
+
+--sql server 2008 over 2005
+	awsom http://sqlhints.com/2011/09/11/new-features-in-sql-server-2008/
+
+	1 Variable declaration allows initialization:
+		sqlserver 2008:  DECLARE @COUNT INT
+				 SET @COUNT =100
+		sqlserver 2012 : DECLARE @COUNT INT =100
+
+	2 Insert multiple rows using single INSERT Statement
+		sqlserver 2008 : INSERT INTO dbo.Employee VALUES(1,'Basavaraj')
+				 INSERT INTO dbo.Employee VALUES(2,'Shashank')
+		sqlserver 2012 : INSERT INTO dbo.Employee 
+					VALUES(1,'Basavaraj') ,
+				       (2,'Shashank') ,
+				       (3,'Monty')
+
+	3 Arithematic Assignment Operators
+		sqlserver 2012 : SET @x+=@y 
+
+	4 Table-Valued Parameters in Sql Server:
+		http://sqlhints.com/2011/09/09/table-valued-parameters-in-sql-server/
+
+	5 Sparse Column
+		http://sqlhints.com/2011/11/12/sparse-columns-in-sql-server-2008/
+
+	6 datetime2
+		http://sqlhints.com/2011/09/09/table-valued-parameters-in-sql-server/
+
+	7 Filtered Indexes
+		http://sqlhints.com/2014/10/06/a-z-of-filtered-indexes-with-examples-in-sql-server/
+
+--excutions plan
+	An execution plan is composed of primitive operations. Examples of primitive operations are: 
+	reading a table completely, using an index, performing a nested loop or a hash join,... 	
+	
+	The component of the database server that is responsible for computing the optimal execution plan is called the optimizer. 
+	The optimizer bases its decision on its knowledge of the database content.
+
+	Query Execution Plan : the query compilation process happens in three phases; Parsing, Binding and Optimization.
+
+		Parsing, is a process to check the syntax
+		Binding, is a process done by algebrizer. It checks weather query semantics are correct or not; 
+			 for example, whether the specified two tables joined in the FROM clause are really tables or not
+		Optimization,  attempts to determine the most efficient way to execute a given query. 
+				The optimizer always tries to find the way to process/execute a query in the minimum amount of time; 
+				it compares several options, with putting all possible permutations and combinations
+
+	store procedure reused excution plan which are cache and thus process fast
+
+--sql views
+	Views are logical table or say virtual tables that are compiled at run time. 
+	The data associated with views are not physically stored in the view, but it is stored in the base tables of the view. 
+
+	In Sql Server we make views for security purpose since it restricts the user to view some columns/fields of the table(s). 
+
+	ex
+		 CREATE VIEW view_name
+		 AS
+ 		 select_statement[] 
+
+	type of view
+			
+		System Defined Views
+			System defined Views are predefined Views that already exist in the Master database of Sql Server. 
+			select * from sys.tables 
+
+		User Defined Views
+			view on single table or multiple table
+	
+	http://www.dotnet-tricks.com/Tutorial/sqlserver/b4H8260312-Different-Types-of-SQL-Server-Views.html
+
+--Difference between Primary Key and Foreign Key
+	http://www.dotnet-tricks.com/Tutorial/sqlserver/TENc260912-Difference-between-Primary-Key-and-Foreign-Key.html
+
+--Difference between Primary Key and Unique Key	
+	http://www.dotnet-tricks.com/Tutorial/sqlserver/V2bS260912-Difference-between-Primary-Key-and-Unique-Key.html
+
+--get running session 
+	
+	--global.aspx
+		If you want to track the number of active session, you can use the session_start and session_end methods of the globals.asax file. 
+		You can have a simple counter that increments on start and decrements on end.
+		http://stackoverflow.com/questions/5281960/the-number-of-users-online-and-number-of-active-session
+
+	--THROUGH POWERSHELL SCRIPT
+		http://www.trycatchfinally.net/2012/04/powershell-command-to-get-current-sessions-on-an-iis-site/
+		http://kb.paessler.com/en/topic/22633-how-to-monitor-active-sessions-users-for-iis-7-0
+		http://windowsitpro.com/powershell/running-powershell-scripts-easy-1-2-3
 
 SQLServer:
 	dirty reads
@@ -28,13 +222,15 @@ SQLServer:
 		Quite often in database processing, we come across the situation wherein one transaction can change a value, and a second transaction can 			
 		read this value before the original change has been committed or rolled back
 		
-		NOLOCK
+		 
 			http://www.techrepublic.com/article/using-nolock-and-readpast-table-hints-in-sql-server/
 			also known as READUNCOMMITTED, is applicable to SELECT statements only. NOLOCK indicates that no shared locks are issued against the 	
 			table that would prohibit other transactions from modifying the data in the table.
+			 read a record that was not yet committed
 
 		READPAST
-
+			the record I am updating is locked, it is ignored by the READPAST 
+			ignored a record that was not yet committed
 			http://sqldbpool.com/2013/10/16/table-hints-nolock-vs-readpast/		
 
 	nocount
