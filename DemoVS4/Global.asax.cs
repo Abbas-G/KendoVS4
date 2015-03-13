@@ -20,7 +20,7 @@ namespace DemoVS4
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 //new { controller = "Grid", action = "inline", id = UrlParameter.Optional } // Parameter defaults
-                new { controller = "Grid", action = "PopUp", id = UrlParameter.Optional } 
+                //new { controller = "Grid", action = "PopUp", id = UrlParameter.Optional } 
                 //new { controller = "Grid", action = "Mix", id = UrlParameter.Optional } 
                 //new { controller = "Grid", action = "GridFromModel", id = UrlParameter.Optional } 
                 
@@ -29,6 +29,11 @@ namespace DemoVS4
                    // new { controller = "Grid", action = "InCell", id = UrlParameter.Optional } 
 
                    //new { controller = "GridMultiDropdown", action = "Index", id = UrlParameter.Optional } 
+                   //new { controller = "GridMultiDropdown", action = "multiform", id = UrlParameter.Optional } 
+                      // new { controller = "AjaxUploader", action = "Index", id = UrlParameter.Optional } 
+                    //new { controller = "TVP", action = "xml", id = UrlParameter.Optional } 
+                     // new { controller = "ServerInline", action = "Index", id = UrlParameter.Optional } 
+                     new { controller = "Link", action = "Index", id = UrlParameter.Optional } 
             );
 
         }

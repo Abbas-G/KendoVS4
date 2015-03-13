@@ -1,0 +1,88 @@
+procedure oriented and oops
+	--
+		In procedural programing our code is organised into small "procedures"
+		The design method used in procedural programming is called Top Down Design.
+
+	--
+		The object-oriented approach lets you create classes and objects that model real world objects. 
+		
+
+	http://www.ctp.bilkent.edu.tr/~russell/java/LectureNotes/1_OOConcepts.htm
+	http://objectorientedcoldfusion.org/procedural-vs-object-oriented.html
+
+Benefits of Object Oriented Programming
+ 
+1.      Modularity: The source code for a class can be written and maintained independently of the source code for other classes. Once created, an object can be easily passed around inside the system.
+2.      Information-hiding: By interacting only with an object's methods, the details of its internal implementation remain hidden from the outside world.
+3.      Code re-use: If a class already exists, you can use objects from that class in your program. This allows programmers to implement/test/debug complex, task-specific objects, which you can then use in your own code.
+4.      Easy Debugging: If a particular object turns out to be a problem, you can simply remove it from your application and plug in a different object as its replacement. This is analogous to fixing mechanical problems in the real world. If a bolt breaks, you replace it, not the entire machine.	
+
+class
+	A class is a collection of objects/state
+	no object could modify the state of any other object without the appropriate permissions. 
+	Each of these objects could send messages back and forth and these interactions between individual objects gave rise to program flow
+	
+	for example, we may design a class Human, which is a collection of all humans in the world. 
+	Humans have state, such as height, weight, and hair color.  They also have behaviour, 
+	such as walking, talking, eating.  
+	All of the state and behaviour of a human is encapsulated (contained) within the class human.
+
+objects
+	An object is an instance of a class
+
+
+
+Encapsulation
+	 ability of an object to hide its data and methods from the rest of the world
+
+inheritance
+	hierarchies consist of parent child relationships among the classes
+
+
+compiler aand interpretetr
+	http://www.programiz.com/article/difference-compiler-interpreter
+
+mysql OVER sqlserver
+	
+	No ENUM datatype. Yeah, of course I can define a column with a char/varchar type and add a constraint to only allow for particular strings, but this kinda defeats the purpose of memory saving that the ENUM datatype in MySQL offers.
+
+	With MySQL you may insert multiple rows at once elegantly (“INSERT INTO tablename (…), (…), …”), without using the “INSERT INTO tablename SELECT (…) UNION ALL SELECT (…) UNION ALL …” hack. Moreover, the elegant MySQL way also happens to be the standard, a standard that SQL Server doesn’t follow
+
+	Paging is dead-easy on MySQL: SELECT * FROM foo LIMIT 10,20 . With MS SQL Server you have to jump through hoops to do the same thing, especially if your query is not trivial.
+
+	In MySQL, when you want to convert an integer to a hex string, you just call HEX(). In SQL Server you have to call an undocumented function and do some string manipulation to do the exact same thing.
+
+	MySQL runs on every platform, whereas with MS SQL Server you’re stuck with Windows.
+
+	Last but not least, MySQL is free (and when it’s not free, it’s at least cheap) and opensource :-)
+	http://lea.verou.me/2009/05/9-reasons-why-i-prefer-mysql-to-ms-sql-server/
+
+what is a store procedure?
+DBMS:
+
+A DBMS is a storage area that persist the data in files. To perform the database operations, the file should be in use. 
+Relationship can be established between 2 files. 
+There are limitations to store records in a single database file depending upon the database manager used. 
+DBMS allows the relations to be established between 2 files. 
+Data is stored in flat files with metadata. 
+DBMS does not support client / server architecture. 
+DBMS does not follow normalization. Only single user can access the data.
+DBMS does not impose integrity constraints.
+ACID properties of database must be implemented by the user or the developer
+Normal book keeping system, Flat files, MS Excel, FoxPRO, XML, etc.
+
+RDBMS:
+
+RDBMS stores the data in tabular form. 
+It has additional condition for supporting tabular structure or data that enforces relationships among tables. 
+RDBMS supports client/server architecture. 
+RDBMS follows normalization. 
+RDBMS allows simultaneous access of users to data tables.
+RDBMS imposes integrity constraints.
+ACID properties of the database are defined in the integrity constraints.
+SQL Server, Sybase, Oracle, MySQL, IBM DB2, MS Access, etc.
+
+client server architechtute
+ In a client-server database model, data is stored in a central location on a server. 
+ This server can share the data between one or more users, which are referred to as clients.
+

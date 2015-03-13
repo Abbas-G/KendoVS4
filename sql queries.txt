@@ -211,3 +211,75 @@ id int identity(1,1) primary key,
 name varchar(20) null,
 sid bigint references site2(siteid) 
 )
+
+====================TVP=======================================
+
+alter PROCEDURE SelectByIdList(@productIds xml) AS
+
+DECLARE @Products TABLE (ID int) 
+begin
+INSERT INTO @Products (ID) SELECT ParamValues.ID.value('.','VARCHAR(20)')
+FROM @productIds.nodes('/Products/id') as ParamValues(ID) 
+
+SELECT * FROM 
+    @Products
+    
+    end
+    
+EXEC SelectByIdList @productIds='<Products><id>3</id><id>6</id><id>15</id></Products>'
+
+
+create table Product2(
+id int primary key identity(1,1),
+Unit int sparse,
+Name Varchar(20) sparse
+)
+
+create PROCEDURE InsertXMLDataIntoProduct2(@Input XML)
+AS
+BEGIN
+    INSERT INTO Product2(Unit, Name)
+        SELECT
+            XCol.value('(Unit)[1]', 'int'),
+            XCol.value('(Name)[1]', 'VARCHAR(20)')
+        FROM 
+            @input.nodes('/Products/items') AS XTbl(XCol)
+            
+    --SELECT * FROM  Product2
+END
+exec InsertXMLData @Input = N'<Products><items><Name>BMW</Name><Unit>10</Unit></items><items><Name>Audi</Name><Unit>20</Unit></items></Products>'
+
+
+
+
+==C#
+
+ public static string BuildXmlString(string xmlRootName, string[] values)
+        {
+            StringBuilder xmlString = new StringBuilder();
+
+            xmlString.AppendFormat("<{0}>", xmlRootName);
+            for (int i = 0; i < values.Length; i++)
+            {
+                xmlString.AppendFormat("<id>{0}</id>", values[i]);
+            }
+            xmlString.AppendFormat("</{0}>", xmlRootName);
+
+            return xmlString.ToString();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==================================================================

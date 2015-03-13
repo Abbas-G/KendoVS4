@@ -26,7 +26,10 @@
 --stored procedures re-used the cached execution plan
 	http://www.sqlhammer.com/blog/stored-procedures-dynamic-sql-and-execution-plans/
 
---jsonp
+--Dependency Inversion Principle (DIP) and IoC
+	http://www.codeproject.com/Articles/538536/A-curry-of-Dependency-Inversion-Principle-DIP-Inve
+
+--Dependency Injection
 	
 --when static constructor are call/ initialize??
 	When the class is accessed for the first time.
@@ -148,6 +151,10 @@
 
 	4 Table-Valued Parameters in Sql Server:
 		http://sqlhints.com/2011/09/09/table-valued-parameters-in-sql-server/
+
+		ex TVP IN SQL N c# https://lennilobel.wordpress.com/2009/07/29/sql-server-2008-table-valued-parameters-and-c-custom-iterators-a-match-made-in-heaven/
+
+		EX TVP IN SQL  http://blog.sqlauthority.com/2008/08/31/sql-server-table-valued-parameters-in-sql-server-2008/
 
 	5 Sparse Column
 		http://sqlhints.com/2011/11/12/sparse-columns-in-sql-server-2008/
@@ -367,7 +374,16 @@ differ betwn view() redirectoaction() redirecttoroute()
 	http://www.dotnetperls.com/collections
 
 --Generics and Collections
-	http://www.dotnet-tricks.com/Tutorial/csharp/U08E301212-Difference-between-Generics-and-Collections-with-example.html
+	imp: http://www.dotnet-tricks.com/Tutorial/csharp/U08E301212-Difference-between-Generics-and-Collections-with-example.html
+	private T[] Sort(T[] inputArray)
+	{
+ 	//Sort array
+ 	//and return sorted array
+ 	return inputArray;
+	}
+
+	problem with collection sa arraylist
+	
 
 --css3 html5
 

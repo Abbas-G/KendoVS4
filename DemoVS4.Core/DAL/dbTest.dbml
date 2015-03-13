@@ -11,6 +11,13 @@
       <Column Name="UniqueCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Product2" Member="Product2s">
+    <Type Name="Product2">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Unit" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.spUpdateInsertProduct" Method="spUpdateInsertProduct">
     <Parameter Name="ID" Parameter="iD" Type="System.Int32" DbType="Int" />
     <Parameter Name="ProductName" Parameter="productName" Type="System.String" DbType="VarChar(50)" />
@@ -19,6 +26,10 @@
     <Parameter Name="Discontinued" Parameter="discontinued" Type="System.Boolean" DbType="Bit" />
     <Parameter Name="Category" Parameter="category" Type="System.String" DbType="VarChar(50)" />
     <Parameter Name="RetID" Parameter="retID" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.InsertXMLDataIntoProduct2" Method="InsertXMLDataIntoProduct2">
+    <Parameter Name="Input" Parameter="input" Type="System.Xml.Linq.XElement" DbType="Xml" />
     <Return Type="System.Int32" />
   </Function>
 </Database>

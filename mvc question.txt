@@ -237,6 +237,12 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 	such as a database; they can take an action when data is changed, such as raising an event, 
 	or changing the value of other fields.
 
+--use of properties
+	http://stackoverflow.com/questions/1523548/why-we-need-properties-in-c-sharp
+	validate data before allowing a change
+	take an action when data is changed, such as raising an event,or changing the value of other fields
+		
+
 Types of trigger
 
 	trigger is a special kind of a store procedure that executes in response to certain action
@@ -430,11 +436,34 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	
 	StateServer.
  		session data will be stored in a separate computer(server) and the session data will be handled by a windows service.
+		Session state is held in a process called aspnet_state.exe
 	
 	SQLServer.
 		session data will be stored in the SqlServer.
 		The benefit of having this scenario is that the data is stored in a centralized database rather than the server memory.
+		SQL based Session state is configured with aspnet_regsql.exe
 	
+--use of worker process in iis
+	Worker Process: 
+	Worker Process (w3wp.exe) runs the ASP.Net application in IIS. 
+
+	This process is responsible to manage all the request and response that are coming from client system. 
+	All the ASP.Net functionality runs under the scope of worker process. 
+	When a request comes to the server from a client worker process is responsible to generate the request and response. 
+	In a single word we can say worker process is the heart of ASP.NET Web Application which runs on IIS. 
+
+	ADV of HAVing TO MANY  WORKER PROCESS
+	If you're using in-process caching of any kind, including in-process session state, 
+	it can't be shared between the worker processes.  Having multiple worker processes is similar to have multiple load-balanced servers, 
+	and is useful for similar reasons: in case one worker fails, the others can pick up the load.
+
+	http://forums.asp.net/t/1447626.aspx?maximum+number+of+worker+processes
+
+--use of idle time in iis
+
+
+--for performanc refer book "Ultra-Fast ASP.NET: Build Ultra-Fast and Ultra-Scalable web sites using ASP.NET and SQL Server"
+
 --Asp.Net Web API VS Asp.Net MVC
 	http://www.dotnet-tricks.com/Tutorial/webapi/Y95G050413-Difference-between-ASP.NET-MVC-and-ASP.NET-Web-API.html
 	
@@ -534,7 +563,8 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 --Implicit type var And Anonymous Type var
 	http://social.msdn.microsoft.com/Forums/vstudio/en-US/af2d0b6c-f1f3-4007-9f65-4418aa940c82/what-are-implicit-type-var-and-anonymous-types?forum=csharpgeneral
 
---var vs dynamic VS object		
+--var vs dynamic VS object	
+	http://www.dotnet-tricks.com/Tutorial/csharp/5LQ6210314-Differences-between-Object,-Var-and-Dynamic-type.html	
 	var:
 	-it is an implicit type but static (types are checked at compile time)
 	type of variable declared is decided by the compiler at compile time
@@ -717,6 +747,15 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	WHERE NUMBER BETWEEN ((@PageNumber - 1) * @RowspPage + 1) AND (@PageNumber * @RowspPage)
 	ORDER BY ID_EXAMPLE
 
+--query to find % contain
+	http://www.orafaq.com/faq/how_does_one_escape_special_characters_when_writing_sql_queries
+	http://www.techtamasha.com/escape-single-quotes-and-wild-cards-_-in-ms-sql/20
+
+--query to insert '
+	http://stackoverflow.com/questions/1586560/how-do-i-escape-a-single-quote-in-sql-server
+
+--group by with select * works
+	http://stackoverflow.com/questions/21217778/select-multiple-columns-from-table-but-group-by-one
 
 --linq query
 	DataContext context = new DataContext(); 
