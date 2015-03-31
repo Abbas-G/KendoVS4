@@ -31,6 +31,87 @@
 
 --Dependency Injection
 	
+	DIP
+		states that - High-level modules should not depend on low-level modules. Both should depend on abstractions
+	
+	IoC 
+		states that the control of creating the decencies should be with the external system rather than the class itself.
+	
+	example
+		http://www.codeproject.com/Articles/797132/Dependency-Injection-in-MVC-Using-Unity-IoC-Contai
+
+--Razor
+	--section
+
+	--What are RenderBody and RenderPage in ASP.NET MVC?
+
+--Can you change action method name
+	[ActionName("DoAction")] 
+	public ActionResult DoSomething()
+
+
+--area
+	Areas was introduced in Asp.net MVC2 which allow us to organize models, views, and controllers into separate functional sections of the application,
+	such as administration, billing, customer support, and so on.
+
+--Donut caching
+	book
+--output cache in depth
+	http://www.c-sharpcorner.com/UploadFile/abhikumarvatsa/output-caching-in-mvc/
+	http://www.dotnet-tricks.com/Tutorial/mvc/4R5c050113-Understanding-Caching-in-Asp.Net-MVC-with-example.html
+
+--sql profiler vs extended events
+	http://logicalread.solarwinds.com/why-use-sql-server-extended-events-w01/
+
+	ee
+	Microsoft has measured just how lightweight the events architecture that Extended Events use actually is, 
+	and determined that 20,000 events per second firing on a server with a 2 GHz Pentium CPU and 1GB of memory
+	consumed less than 2% of the CPU’s 
+
+	like other new SQL Server features that were embedded in SQL Server Management Studio
+	
+	Troubleshooting blocking and deadlocking
+	Finding long-running queries
+	Tracking DDL operations
+	Logging missing column statistics
+
+	After you start to explore some of the more advanced capabilities of Extended Events, you’ll see it’s just as easy to track events such as the following:
+
+	Long-running physical I/O operations
+	Statements that cause specific wait stats to occur
+	SQL Server memory pressure
+	AlwaysOn Availability Groups events
+
+--tips to improve mvc
+	http://kamranicus.com/blog/2014/01/29/5-tips-to-improve-your-mvc-site/
+
+	Fetch only required data & required variable
+	Output cache
+	Use of partial and childaction to hide url
+
+--passing multiple model value
+	http://www.c-sharpcorner.com/UploadFile/ff2f08/multiple-models-in-single-view-in-mvc/
+
+--passing value from 1 sp to another
+	http://blog.sqlauthority.com/2013/04/07/sql-server-pass-one-stored-procedures-result-as-another-stored-procedures-parameter/
+
+--event handling in mvc
+
+
+--flattern row in sql
+	http://www.codeproject.com/Tips/334400/Concatenate-many-rows-into-a-single-text-string-us
+	http://www.sqlmatters.com/Articles/Converting%20row%20values%20in%20a%20table%20to%20a%20single%20concatenated%20string.aspx
+
+--STUFF method  in sql
+	The STUFF string function inserts a string into another string
+	SET @FullName = 'Clark Kent'
+	SET @Alias = ' "Superman" '
+
+	SELECT STUFF(@FullName, CHARINDEX(' ', @FullName), 1, @Alias) AS [FullName]
+
+
+--pivoting n unpovoting
+	
 --when static constructor are call/ initialize??
 	When the class is accessed for the first time.
 	
@@ -60,13 +141,15 @@
 
 --finally and destructor
 
--Difference Between Finalize and Dispose Method
+--Difference Between Finalize and Dispose Method
 	http://www.dotnet-tricks.com/Tutorial/netframework/P1MK271013-Difference-Between-Finalize-and-Dispose-Method.html
 
 --access modifier
 	http://www.c-sharpcorner.com/uploadfile/puranindia/what-are-access-modifiers-in-C-Sharp/
 
 --limit of namespace
+
+--type in c#
 	
 --access modifier of namespace
 	Namespace will not have access modifier.
@@ -98,7 +181,7 @@
 --sql server 2012 over sqlserver 2008
 	http://www.dotnet-tricks.com/Tutorial/sqlserver2012/W4b4021012-SQL-Server-2012-New-Features-and-Programmability-Enhancements.html
 
-	Conversion Functions
+	New Conversion Functions
 	SQL Serve 2012 has support for new conversion functions TRY_CONVERT, and TRY_PARSE for convering numeric, date, and time values to desired format.
 	These functions are very helpful while programming T-SQL.
 
@@ -160,7 +243,7 @@
 		http://sqlhints.com/2011/11/12/sparse-columns-in-sql-server-2008/
 
 	6 datetime2
-		http://sqlhints.com/2011/09/09/table-valued-parameters-in-sql-server/
+		http://sqlhints.com/2011/09/17/difference-between-datetime-and-datetime2-datatype/
 
 	7 Filtered Indexes
 		http://sqlhints.com/2014/10/06/a-z-of-filtered-indexes-with-examples-in-sql-server/
@@ -205,6 +288,9 @@
 	
 	http://www.dotnet-tricks.com/Tutorial/sqlserver/b4H8260312-Different-Types-of-SQL-Server-Views.html
 
+--Difference between TRUNCATE, DELETE and DROP commands
+	http://www.orafaq.com/faq/difference_between_truncate_delete_and_drop_commands
+
 --Difference between Primary Key and Foreign Key
 	http://www.dotnet-tricks.com/Tutorial/sqlserver/TENc260912-Difference-between-Primary-Key-and-Foreign-Key.html
 
@@ -230,10 +316,13 @@ SQLServer:
 		read this value before the original change has been committed or rolled back
 		
 		 
-			http://www.techrepublic.com/article/using-nolock-and-readpast-table-hints-in-sql-server/
-			also known as READUNCOMMITTED, is applicable to SELECT statements only. NOLOCK indicates that no shared locks are issued against the 	
-			table that would prohibit other transactions from modifying the data in the table.
-			 read a record that was not yet committed
+			http://sqlwithmanoj.com/2013/10/04/difference-between-nolock-and-readpast-table-hints/
+			No shared locks are issued to prevent other transactions from modifying data read by the current transaction, 
+			and exclusive locks set by other transactions do not block the current transaction from reading the locked data. 
+			NOLOCK is equivalent to READUNCOMMITTED.
+			
+			read a record that was not yet committed
+			Specifies that dirty reads are allowed
 
 		READPAST
 			the record I am updating is locked, it is ignored by the READPAST 
@@ -329,10 +418,27 @@ information to be passed back to the client.
  		GO
  		Select * from @TProduct --gives error in next batch
 
+
+--difference between static class and sealed class
+	Sealed classes: 
+	1)Can create instances, but cannot inherit
+	2)Can contain static as well as nonstatic members.
+ 
+	Static classes:
+	1)Can neither create their instances, nor inherit them
+	2)Can have static members only.
+
 mvc: what we have in app class
 customize controller base  class
 inherit static abstract class
 	http://stackoverflow.com/questions/774181/why-cant-i-inherit-static-classes	
+
+can abstract class be static c#
+static class cannot be marked as abstract, because it would be pointless. abstract class makes sense 
+when you want all derived classes to implement same part of the logic. 
+But because static class cannot be derived there is no way other class will implement these gaps.
+
+inherit static class
 
 linq change data type dynamic
 Debugging linq
@@ -387,7 +493,9 @@ differ betwn view() redirectoaction() redirecttoroute()
 
 --css3 html5
 
-
+--groupby
+	http://www.w3schools.com/sql/sql_groupby.asp
+	The GROUP BY statement is used in conjunction with the aggregate functions to group the result-set by one or more columns.
 =================
 http://templates.entheosweb.com/template_number/live_demo.asp?TemplateID=16064
 

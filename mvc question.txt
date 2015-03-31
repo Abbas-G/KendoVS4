@@ -5,6 +5,12 @@ SingleOrDefault()
 http://stackoverflow.com/questions/7663213/in-linq-whats-the-difference-between-firstordefault-and-singleordefault
 http://www.technicaloverload.com/linq-single-vs-singleordefault-vs-first-vs-firstordefault/
 
+which is faster
+	FirstOrDefault, only one row is retrieved from the database so it performs slightly better then SingleOrDefault
+	SingleOrDefault enumerates the entire collection to ensure the item occurs exactly once
+
+	iterate the collection until they find the first match. While SingleOrDefault iterate the whole collection to find one single match.
+
 iqueriable vs iEnumrearable
 http://stackoverflow.com/questions/2433306/whats-the-difference-between-iqueryable-and-ienumerable
 http://rkandhal.com/09/06/ienumerable-vs-icollection-vs-iqueryable-vs-ilist/
@@ -110,7 +116,17 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 					//Can provide default behavior
 				}
  			}
-
+	An inheritance between abstract to abstract classes is possible.
+	We don't need to implement abstract methods of the base abstract class into a derived abstract class. We can implement it later in concrete classes. 
+	abstract class absClassA   
+    	{   
+        //Abstract Method   
+        public abstract void SomeMethod();   
+   	 }   
+  
+    	abstract class absClassB: absClassA //Abstract to Abstract Inheritance   
+    	{   
+   	 }   
 
 	abstract class over interface
 		http://www.codeproject.com/Articles/258173/Interfaces-Vs-Abstract-Classes
@@ -118,7 +134,16 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 --when to use abbstract class?
 	http://www.codeproject.com/Questions/382073/Where-to-Use-Abstact-Class-and-Where-to-Use-Interf
 	http://www.codeproject.com/Questions/43970/Real-world-examples-of-abstract-classes-and-interf
-	
+
+	Interfaces are great for defining a contract with absolutely no reliance on any implementation and
+	abstract base classes are great for providing some default behaviour, 
+	meaning the developer doesn't have to spend ages writing the same thing over and over again.
+
+	advantage of using an interface over an abstract class; that is "Multiple Inheritance Support
+
+	EXAPLE SUPERB
+	http://www.c-sharpcorner.com/UploadFile/d0e913/abstract-class-interface-two-villains-of-every-interview/
+	http://www.c-sharpcorner.com/UploadFile/d0e913/abstract-class-interface-two-villains-of-every-interview756/
 
 --sealed classes and sealed method
 	A sealed class cannot be used as a base class.
@@ -132,6 +157,17 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 	http://stackoverflow.com/questions/14728761/difference-between-virtual-and-abstract-methods
 	http://stackoverflow.com/questions/391483/what-is-the-difference-between-an-abstract-function-and-a-virtual-function
 
+	Virtual methods have an implementation and provide the derived classes with the option of overriding it. Abstract methods do not provide 
+	an implementation and forces the derived classes to override the method.Virtual methods have an implementation 
+	and provide the derived classes with the option of overriding it. Abstract methods do not provide an implementation and forces the derived classes to override the method.
+
+
+	public abstract void AbstractMethod(int i);
+
+	public virtual void VirtualMethod(int i)
+	{
+        // Default implementation which can be overridden by subclasses.
+    	}
 
 --partial class	
 	defination of one file destributed over differ files and compile as single file	
@@ -144,7 +180,7 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
        		We can override a method in base class by creating similar function in derived class
        		this can be achieved by using inheritance principle and using “virtual & override” keywords.
 	
-	-Overriding (eg)
+	-  Overriding (eg)
 		class Base {
    			public virtual void Test() { ... }
 		}
@@ -270,6 +306,9 @@ Types of trigger
 
 http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-parallelism-using-linq-provider
 
+
+--value type vs reference type
+	http://geekswithblogs.net/BlackRabbitCoder/archive/2010/07/29/c-fundamentals-the-differences-between-struct-and-class.aspx
 
 --MS-SQL Server 2005,2008
 
@@ -718,6 +757,16 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	
 	Cluster index generate a binary tree
 	while in non cluster index all information are store at leaf node
+
+	When creating the clustered index, SQL server 2005 reads the Studid column and forms a Binary tree on it. 
+	This binary tree information is then stored separately in the disc
+
+	Non-Clustered column always depends on the Clustered column on the database
+
+--table valued parameters vs temp table
+	http://www.brentozar.com/archive/2014/02/using-sql-servers-table-valued-parameters/
+	http://stackoverflow.com/questions/14173715/temporary-tables-and-table-valued-parameters-in-sql-server
+	http://www.codeproject.com/Articles/18972/Temporary-Tables-vs-Table-Variables-and-Their-Effe
 
 --delete vs drop in sql server
 	Drop table..it will delete complete table from the Database.it can not retrieved bak 
