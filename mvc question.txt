@@ -141,7 +141,7 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 
 	advantage of using an interface over an abstract class; that is "Multiple Inheritance Support
 
-	EXAPLE SUPERB
+	EXAmPLE SUPERB
 	http://www.c-sharpcorner.com/UploadFile/d0e913/abstract-class-interface-two-villains-of-every-interview/
 	http://www.c-sharpcorner.com/UploadFile/d0e913/abstract-class-interface-two-villains-of-every-interview756/
 
@@ -192,6 +192,22 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 --function and procedure
 	http://stackoverflow.com/questions/771949/what-is-the-difference-between-function-and-procedure-in-pl-sql
 	= http://www.dotnet-tricks.com/Tutorial/sqlserver/7EDL150912-Difference-between-Stored-Procedure-and-Function-in-SQL-Server.html
+
+Basic Difference
+Function must return a value but in Stored Procedure it is optional( Procedure can return zero or n values).
+Functions can have only input parameters for it whereas Procedures can have input/output parameters .
+Functions can be called from Procedure whereas Procedures cannot be called from Function.
+Advance Difference
+Procedure allows SELECT as well as DML(INSERT/UPDATE/DELETE) statement in it whereas Function allows only SELECT statement in it.
+Procedures can not be utilized in a SELECT statement whereas Function can be embedded in a SELECT statement.
+Stored Procedures cannot be used in the SQL statements anywhere in the WHERE/HAVING/SELECT section whereas Function can be.
+The most important feature of stored procedures over function is to retention and reuse the execution plan while in case of function it will be compiled every time.
+Functions that return tables can be treated as another rowset. This can be used in JOINs with other tables.
+Inline Function can be though of as views that take parameters and can be used in JOINs and other Rowset operations.
+Exception can be handled by try-catch block in a Procedure whereas try-catch block cannot be used in a Function.
+We can go for Transaction Management in Procedure whereas we can't go in Function.
+
+
 --inline function
 	inline functions are parameterized views. By nature Views do not accept parameters in the search conditions.
 
@@ -772,6 +788,7 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	Drop table..it will delete complete table from the Database.it can not retrieved bak 
 	Delete is used to deleting data from the table.. data can be retrieved using ROLLBAck.
 
+
 --differnce between RANK and DENSE_RANK  function
 	http://stackoverflow.com/questions/12739208/how-to-use-rank-in-sql-server
 
@@ -827,3 +844,96 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 
 --Concurrency in linq to sql
 	http://www.codeproject.com/Articles/38299/How-To-Handle-Concurrency-in-LINQ-to-SQL
+
+
+*************/
+Data Definition Language (DDL) statements are used to define the database structure or schema. Some examples:
+CREATE - to create objects in the database
+ALTER - alters the structure of the database
+DROP - delete objects from the database
+TRUNCATE - remove all records from a table, including all spaces allocated for the records are removed
+COMMENT - add comments to the data dictionary
+RENAME - rename an object
+DML
+
+Data Manipulation Language (DML) statements are used for managing data within schema objects. Some examples:
+SELECT - retrieve data from the a database
+INSERT - insert data into a table
+UPDATE - updates existing data within a table
+DELETE - deletes all records from a table, the space for the records remain
+MERGE - UPSERT operation (insert or update)
+CALL - call a PL/SQL or Java subprogram
+EXPLAIN PLAN - explain access path to data
+LOCK TABLE - control concurrency
+DCL
+
+Data Control Language (DCL) statements. Some examples:
+GRANT - gives user's access privileges to database
+REVOKE - withdraw access privileges given with the GRANT command
+TCL
+
+Transaction Control (TCL) statements are used to manage the changes made by DML statements. It allows statements to be grouped together into logical transactions.
+COMMIT - save work done
+SAVEPOINT - identify a point in a transaction to which you can later roll back
+ROLLBACK - restore database to original since the last COMMIT
+SET TRANSACTION - Change transaction options like isolation level and what rollback segment to use
+
+DELETE (DML)
+The DELETE command is used to remove rows from a table. A WHERE clause can be used to only remove some rows. 
+If no WHERE condition is specified, all rows will be removed.
+After performing a DELETE operation you need to COMMIT or ROLLBACK the transaction to make the change permanent or to undo it. 
+Note that this operation will cause all DELETE triggers on the table to fire.
+
+TRUNCATE
+TRUNCATE removes all rows from a table. The operation cannot be rolled back and no triggers will be fired.
+As such, TRUCATE is faster and doesn't use as much undo space as a DELETE.
+
+DROP
+The DROP command removes a table from the database. All the tables' rows, indexes and privileges will also be removed. No DML triggers will be fired. 
+The operation cannot be rolled back.
+****************/
+
+*******************/
+ASP.NET MVC3
+
+New Project Templates having support for HTML 5 and CSS 3.
+Improved Model validation.
+Razor View Engine introduced with a bundle of new features.
+Having support for Multiple View Engines i.e. Web Forms view engine, Razor or open source. You can follow here for a detailed comparison on difference between WebForm View Engine and Razor View Engine.
+Controller improvements like ViewBag dynamic property and ActionResults Types etc. Dynamic property is a new feature introduced in C# 4.0. ViewBag being a dynamic property has an advantage over ViewData that it doesn’t require checking NULL values. For detailed difference between ViewBag and ViewData can be found here.
+
+ASP.NET MVC 4
+
+ASP.NET Web API, a framework that simplifies the creation of HTTP services and serving a wide range of clients. Follow to create your first ASP.NET Web API service.
+Adaptive rendering and other look-n-feel improvements to Default Project Templates.
+A truly Empty Project Template.
+Based on jQuery Mobile, new Mobile Project Template introduced.
+Support for adding controller to other project folders also.
+Task Support for Asynchronous Controllers.
+Controlling Bundling and Minification through web.config.
+Support for OAuth and OpenID logins using DotNetOpenAuth library.
+Support for Windows Azure SDK 1.6 and new releases.
+
+ASP.NET MVC5
+
+Creating your first ASP.NET MVC 5 Application in 4 simple steps
+ASP.NET Identity for authentication and identity management. Thesedays, modern applications are developed for broader range of clients such as web, mobile in mind. Also, users are actively using their social identities from various social channels like facebook, youtube, twitter etc. ASP.NET Identity is a new Membership system to handle authentication and authorization for variety of clients as well as using user’s existing social identities.
+Authentication Filters for authenticating user by custom or third-party authentication provider.
+With the help of Filter overrides, we can now override filters on a method or controller.
+Bootstrap replaced the default MVC template.
+Attribute Routing is now integrated into MVC5. Basically, MVC Routing is an excellent way to create human friendly and Search Engine Optimized URLs. You can easily get understanding about Routing in ASP.NET MVC here. Attribute based routing enables us to define routes along with action methods as follows:
+  [Route(“Students/{id}”)]
+  public ActionResult GetStudentById(string id)
+{        
+           // code logic here.        
+           return View();
+}
+ASP.NET MVC6 | ASP.NET vNext
+
+Single Programming Model for ASP.NET MVC and ASP.NET Web API.
+Optimized for Cloud Computing.
+Supporting side by side deployment of runtime and framework along with application.
+Out of the box support for dependency injection.
+vNext is Open Source and supports running on multiple platforms including Linux and Mac.
+New JSON-based project Extension.
+In order to dynamically compile code, Roslyn compiler is used.

@@ -82,6 +82,9 @@
 	SQL Server memory pressure
 	AlwaysOn Availability Groups events
 
+--ddl vs dml vs dcl vs tcl
+http://www.orafaq.com/faq/what_are_the_difference_between_ddl_dml_and_dcl_commands
+
 --tips to improve mvc
 	http://kamranicus.com/blog/2014/01/29/5-tips-to-improve-your-mvc-site/
 
@@ -217,14 +220,14 @@
 	awsom http://sqlhints.com/2011/09/11/new-features-in-sql-server-2008/
 
 	1 Variable declaration allows initialization:
-		sqlserver 2008:  DECLARE @COUNT INT
+		sqlserver 2005:  DECLARE @COUNT INT
 				 SET @COUNT =100
-		sqlserver 2012 : DECLARE @COUNT INT =100
+		sqlserver 2008 : DECLARE @COUNT INT =100
 
 	2 Insert multiple rows using single INSERT Statement
-		sqlserver 2008 : INSERT INTO dbo.Employee VALUES(1,'Basavaraj')
+		sqlserver 2005 : INSERT INTO dbo.Employee VALUES(1,'Basavaraj')
 				 INSERT INTO dbo.Employee VALUES(2,'Shashank')
-		sqlserver 2012 : INSERT INTO dbo.Employee 
+		sqlserver 2008 : INSERT INTO dbo.Employee 
 					VALUES(1,'Basavaraj') ,
 				       (2,'Shashank') ,
 				       (3,'Monty')
@@ -241,6 +244,9 @@
 
 	5 Sparse Column
 		http://sqlhints.com/2011/11/12/sparse-columns-in-sql-server-2008/
+		Sparse Column is one more new feature introduced in SQL SERVER 2008. 
+		Storing a null value in a sparse column doesn’t take any space, 
+		but storing a non-null value in sparse column takes 4 bytes extra space than the non-sparse columns of the same data type.
 
 	6 datetime2
 		http://sqlhints.com/2011/09/17/difference-between-datetime-and-datetime2-datatype/
