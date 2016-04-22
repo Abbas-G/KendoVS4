@@ -103,7 +103,7 @@ but because the data is duplicated, the updates and inserts become complex and c
 	ee
 	Microsoft has measured just how lightweight the events architecture that Extended Events use actually is, 
 	and determined that 20,000 events per second firing on a server with a 2 GHz Pentium CPU and 1GB of memory
-	consumed less than 2% of the CPU’s 
+	consumed less than 2% of the CPUâ€™s 
 
 	like other new SQL Server features that were embedded in SQL Server Management Studio
 	
@@ -112,7 +112,7 @@ but because the data is duplicated, the updates and inserts become complex and c
 	Tracking DDL operations
 	Logging missing column statistics
 
-	After you start to explore some of the more advanced capabilities of Extended Events, you’ll see it’s just as easy to track events such as the following:
+	After you start to explore some of the more advanced capabilities of Extended Events, youâ€™ll see itâ€™s just as easy to track events such as the following:
 
 	Long-running physical I/O operations
 	Statements that cause specific wait stats to occur
@@ -324,7 +324,7 @@ http://www.orafaq.com/faq/what_are_the_difference_between_ddl_dml_and_dcl_comman
 	5 Sparse Column
 		http://sqlhints.com/2011/11/12/sparse-columns-in-sql-server-2008/
 		Sparse Column is one more new feature introduced in SQL SERVER 2008. 
-		Storing a null value in a sparse column doesn’t take any space, 
+		Storing a null value in a sparse column doesnâ€™t take any space, 
 		but storing a non-null value in sparse column takes 4 bytes extra space than the non-sparse columns of the same data type.
 
 	6 datetime2
@@ -679,6 +679,7 @@ differ betwn view() redirectoaction() redirecttoroute()
 	The GROUP BY statement is used in conjunction with the aggregate functions to group the result-set by one or more columns.
 =================
 
+<<<<<<< HEAD
 
 stored procedure to store values from another stored procedure
 
@@ -1312,6 +1313,24 @@ log in iis
 cache server
 cahe info save whr?
 relation between session n cookies
+=======
+Deep copy vs shallow copy
+Dictionory take unique data
+Request.UrlReferrer vs Request.ServerVariables
+stored procedure to store values from another stored procedure
+scaling 
+manupulator
+separator
+readmode
+ienumerator n ienumarable
+Dictionory dont find any key
+can i return generic from linq
+reponse.redirect vs server.redirect
+union
+linq left join
+type of authorization (another way other then form)
+oops
+>>>>>>> 64b964d552341022f243b56f344ab9b323ce6958
 
 ==========
 http://templates.entheosweb.com/template_number/live_demo.asp?TemplateID=16064

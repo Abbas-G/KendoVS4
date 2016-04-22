@@ -33,7 +33,9 @@ namespace DemoVS4
                       // new { controller = "AjaxUploader", action = "Index", id = UrlParameter.Optional } 
                     //new { controller = "TVP", action = "xml", id = UrlParameter.Optional } 
                      // new { controller = "ServerInline", action = "Index", id = UrlParameter.Optional } 
-                     new { controller = "Link", action = "Index", id = UrlParameter.Optional } 
+                    // new { controller = "Link", action = "Index", id = UrlParameter.Optional } 
+                   //  new { controller = "MultiModel", action = "tuple", id = UrlParameter.Optional } 
+                      new { controller = "PartialViewChildAction", action = "Index", id = UrlParameter.Optional } 
             );
 
         }

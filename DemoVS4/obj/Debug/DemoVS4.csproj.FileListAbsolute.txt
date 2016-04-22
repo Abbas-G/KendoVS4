@@ -26,3 +26,10 @@ D:\Workspace\RND\extras 2,3,4\workspace\KendoVS4\DemoVS4\bin\DemoVS4.Core.pdb
 D:\Workspace\RND\extras 2,3,4\workspace\KendoVS4\DemoVS4\obj\Debug\DemoVS4.csprojResolveAssemblyReference.cache
 D:\Workspace\RND\extras 2,3,4\workspace\KendoVS4\DemoVS4\obj\Debug\DemoVS4.dll
 D:\Workspace\RND\extras 2,3,4\workspace\KendoVS4\DemoVS4\obj\Debug\DemoVS4.pdb
+D:\eabsolute\kendovs4\KendoVS4\DemoVS4\bin\DemoVS4.dll
+D:\eabsolute\kendovs4\KendoVS4\DemoVS4\bin\DemoVS4.pdb
+D:\eabsolute\kendovs4\KendoVS4\DemoVS4\bin\DemoVS4.Core.dll
+D:\eabsolute\kendovs4\KendoVS4\DemoVS4\bin\DemoVS4.Core.pdb
+D:\eabsolute\kendovs4\KendoVS4\DemoVS4\obj\Debug\DemoVS4.dll
+D:\eabsolute\kendovs4\KendoVS4\DemoVS4\obj\Debug\DemoVS4.pdb
+D:\eabsolute\kendovs4\KendoVS4\DemoVS4\obj\Debug\DemoVS4.csprojResolveAssemblyReference.cache

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Data.Linq;
 using DemoVS4.Core.Manager;
+using System.Text;
 
 namespace DemoVS4.Controllers
 {
@@ -92,6 +93,23 @@ namespace DemoVS4.Controllers
                 tempItems.Add(temp);
 
             }
+            //StringBuilder xmlString = new StringBuilder();
+
+            //xmlString.AppendFormat("<{0}>", "Products");
+            //foreach (DridDataObj m in persons)
+            //{
+            //    DridDataObj temp = new DridDataObj();
+            //    temp = new DridDataObj { ProductID = m.ProductID, ProductName = m.ProductName, UnitPrice = m.UnitPrice, UnitsInStock = m.UnitsInStock, Discontinued = m.Discontinued, Category = m.Category, CreatedDate = m.CreatedDate, Duration = 2 };
+            //    //temp.ProductID = PM.insertUpdate(temp);
+                
+            //    xmlString.AppendFormat("<{0}>", "items");
+            //    xmlString.AppendFormat("<Name>{0}</Name>", m.Name);
+            //    xmlString.AppendFormat("<Unit>{0}</Unit>", m.Unit);
+            //    xmlString.AppendFormat("</{0}>", "items");
+            //    temp.UniqueCode = PM.getUniqueCodeById(temp.ProductID.Value);
+            //    tempItems.Add(temp);
+            //}
+            //xmlString.AppendFormat("</{0}>", "Products");
 
 
             return Json(tempItems);

@@ -2,28 +2,29 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml" >
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Inline</title>
     <link href="<%= Url.Content("~/Content/kendo/style/kendo.common.min.css")%>" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" title="custom_black"  href="<%= Url.Content("~/Content/kendo/style/CustomThemes/custom_black.css")%>"  id="stylesheet"/>
+    <link rel="stylesheet" type="text/css" title="custom_black" href="<%= Url.Content("~/Content/kendo/style/CustomThemes/custom_black.css")%>" id="stylesheet" />
     <script src="<%= Url.Content("~/Content/kendo/js/jquery.min.js")%>"></script>
     <script src="<%= Url.Content("~/Content/kendo/js/kendo.all.min2.js")%>"></script>
     <%--<script src="<%= Url.Content("~/Content/kendo/js/kendo.web.min.js")%>"></script>--%>
 </head>
 <body>
-    <div id="grid"></div>
-    
     <script type="text/x-kendo-template" id="template">
                 <div class="toolbar">
                     <label for="products">Search Products by Category:</label><input id="products" class="k-textbox"/>
                     <input type="button" value="search" onClick="ProductChange()" class="k-button"/>
                 </div>     
                 <button type="button" id="btnExport"  class="k-button" onClick="ExportToCSV()" >Export to csv!</button>
- </script>
-     <script>
-         var xhReq = new XMLHttpRequest();
-         xhReq.open("POST", '<%=Url.Content("~/Grid/GetJsonOutputForFoodUniqueCategory")%>', false);
+    </script>
+    <div id="grid"></div>
+
+
+    <script>
+        var xhReq = new XMLHttpRequest();
+        xhReq.open("POST", '<%=Url.Content("~/Grid/GetJsonOutputForFoodUniqueCategory")%>', false);
          xhReq.send(null);
          var GlobalSearchFOOD = JSON.parse(xhReq.responseText);
          var record = 0;
@@ -112,11 +113,11 @@
                                                 }
                                             }
                                         },
-                                        UnitPrice: { type: "number", validation: { required: true, min: 1} },
+                                        UnitPrice: { type: "number", validation: { required: true, min: 1 } },
                                         Discontinued: { type: "boolean" },
-                                        UnitsInStock: { type: "number", validation: { min: 0, required: true} },
-                                        Category: { type: "string", validation: { required: true} },
-                                        CreatedDate: { type: 'date', validation: { required: true} },
+                                        UnitsInStock: { type: "number", validation: { min: 0, required: true } },
+                                        Category: { type: "string", validation: { required: true } },
+                                        CreatedDate: { type: 'date', validation: { required: true } },
                                         Duration: { type: "number", editable: false }
                                     }
                                 }
@@ -144,7 +145,7 @@
                      name: "my-create",
                      text: "Add new record",
                      iconClass: "k-icon k-add"
-                 }, { text: "", template: kendo.template($("#template").html())}],
+                 }, { text: "", template: kendo.template($("#template").html()) }],
                  columns: [
                             { title: "&nbsp;", template: "#= ++record #", width: 30 },
                             { field: "ProductName", title: "Product Name" },
@@ -156,8 +157,8 @@
                             { field: "CreatedDate", title: "Date", type: "date", format: "{0:MM/dd/yyyy}" /* format: "{0:MM/dd/yyyy h:mm:ss tt}"*/ },
                             { field: "Duration", width: "100px" },
                             { command: ["edit"/*, "destroy"*/], title: "Edit", width: "160px" },
-                            { command: [{ text: 'Delete', click: deleteItem}], title: 'Actions' }
-                            ],
+                            { command: [{ text: 'Delete', click: deleteItem }], title: 'Actions' }
+                 ],
                  editable: "inline",
                  dataBinding: function () {
                      record = (this.dataSource.page() - 1) * this.dataSource.pageSize();
@@ -169,6 +170,7 @@
                      var cancel = $(e.container).parent().find(".k-grid-cancel");
 
                      if (!e.model.ProductID) {
+
                          $(update).html('<span class="k-icon k-update"></span>Add');
                          $(cancel).html('<span class="k-icon k-cancel"></span>Cancel');
                      } else {
@@ -192,7 +194,14 @@
              $('<input required="required" name="' + options.field + '"/>').appendTo(container).kendoComboBox({
                  dataTextField: "Category",
                  dataValueField: "Category",
-                 dataSource: GlobalSearchFOOD
+                 dataSource: GlobalSearchFOOD//,
+                 //                 select: function (e) {
+                 //                     var item = this.dataItem(e.item.index());
+
+                 //                     if (item) {
+                 //                         options.model.set("UnitsInStock", '124');
+                 //                     }
+                 //                 }
 
              });
              $('<span class="k-invalid-msg" data-for="' + options.field + '"></span>').appendTo(container);
@@ -207,33 +216,33 @@
          }
 
          function ProductChange() {
-                /* $.ajax({
-                     url: "/Grid/SearchFOODbyCategory"
-                            , type: "POST"
-                            , data: { searchString: $("#products").val() }
-                            , async: false
-                            , success: function (result) {
-                                //alert(result);
-                                // $("#grid").data("kendoGrid").dataSource.data(JSON.parse(result)); //if return type is string
-                                var grid = $("#grid").data("kendoGrid");
-                                grid.dataSource.filter({});
-                                grid.dataSource.sort({});
-                                grid.dataSource.data(result);
-                            }
-                 });*///working
+             /* $.ajax({
+                  url: "/Grid/SearchFOODbyCategory"
+                         , type: "POST"
+                         , data: { searchString: $("#products").val() }
+                         , async: false
+                         , success: function (result) {
+                             //alert(result);
+                             // $("#grid").data("kendoGrid").dataSource.data(JSON.parse(result)); //if return type is string
+                             var grid = $("#grid").data("kendoGrid");
+                             grid.dataSource.filter({});
+                             grid.dataSource.sort({});
+                             grid.dataSource.data(result);
+                         }
+              });*///working
 
-                   // client side
+             // client side
 
-                   //$("#grid").data("kendoGrid").dataSource.filter({ field: "ProductName", operator: "contains", value: $("#products").val()}); //one parameter
+             //$("#grid").data("kendoGrid").dataSource.filter({ field: "ProductName", operator: "contains", value: $("#products").val()}); //one parameter
 
-                   var kgrid = $("#grid").data("kendoGrid");
-                   var orfilter = { logic: "or", filters: [] };
-                   var andfilter = { logic: "and", filters: [] };
-                   orfilter.filters.push({ field: "ProductName", operator: "contains", value: $("#products").val() },
-                                              { field: "Category", operator: "contains", value: $("#products").val() });
-                   //andfilter.filters.push(orfilter);
-                   //orfilter = { logic: "or", filters: [] };
-                   kgrid.dataSource.filter(orfilter);
+             var kgrid = $("#grid").data("kendoGrid");
+             var orfilter = { logic: "or", filters: [] };
+             var andfilter = { logic: "and", filters: [] };
+             orfilter.filters.push({ field: "ProductName", operator: "contains", value: $("#products").val() },
+                                        { field: "Category", operator: "contains", value: $("#products").val() });
+             //andfilter.filters.push(orfilter);
+             //orfilter = { logic: "or", filters: [] };
+             kgrid.dataSource.filter(orfilter);
          }
 
          function createNew() {
@@ -275,7 +284,7 @@
                                        kendoAlert("Duplicates not allowed!");
                                    }
                                }
-                           });
+                 });
 
 
                  /*//cleint side
@@ -291,91 +300,91 @@
                          //$("#spnDuplicate").text("Duplicates not allowed")
                      }
                  }*/
-             }
-         }
-         function ExportToCSV() {
-             var dataSource = $("#grid").data("kendoGrid").dataSource;
-             var filteredDataSource = new kendo.data.DataSource({
-                 data: dataSource.data(),
-                 filter: dataSource.filter()
-             });
+                                          }
+                                      }
+                                      function ExportToCSV() {
+                                          var dataSource = $("#grid").data("kendoGrid").dataSource;
+                                          var filteredDataSource = new kendo.data.DataSource({
+                                              data: dataSource.data(),
+                                              filter: dataSource.filter()
+                                          });
 
-             filteredDataSource.read();
-             var data = filteredDataSource.view();
+                                          filteredDataSource.read();
+                                          var data = filteredDataSource.view();
 
-             var result = "data:application/vnd.ms-excel,";
+                                          var result = "data:application/vnd.ms-excel,";
 
-             result += "<table><tr><th>ProductID</th><th>ProductName</th><th>UnitPrice</th><th>Discontinued</th><th>UnitsInStock</th><th>Category</th></tr>";
+                                          result += "<table><tr><th>ProductID</th><th>ProductName</th><th>UnitPrice</th><th>Discontinued</th><th>UnitsInStock</th><th>Category</th></tr>";
 
-             for (var i = 0; i < data.length; i++) {
-                 result += "<tr>";
+                                          for (var i = 0; i < data.length; i++) {
+                                              result += "<tr>";
 
-                 result += "<td>";
-                 result += data[i].ProductID;
-                 result += "</td>";
+                                              result += "<td>";
+                                              result += data[i].ProductID;
+                                              result += "</td>";
 
-                 result += "<td>";
-                 result += data[i].ProductName;
-                 result += "</td>";
+                                              result += "<td>";
+                                              result += data[i].ProductName;
+                                              result += "</td>";
 
-                 /*result += "<td>";
-                 result += kendo.format("{0:MM/dd/yyyy}", data[i].OrderDate);
-                 result += "</td>";*/
+                                              /*result += "<td>";
+                                              result += kendo.format("{0:MM/dd/yyyy}", data[i].OrderDate);
+                                              result += "</td>";*/
 
-                 result += "<td>";
-                 result += data[i].UnitPrice;
-                 result += "</td>";
+                                              result += "<td>";
+                                              result += data[i].UnitPrice;
+                                              result += "</td>";
 
-                 result += "<td>";
-                 result += data[i].Discontinued;
-                 result += "</td>";
+                                              result += "<td>";
+                                              result += data[i].Discontinued;
+                                              result += "</td>";
 
-                 result += "<td>";
-                 result += data[i].UnitsInStock;
-                 result += "</td>";
+                                              result += "<td>";
+                                              result += data[i].UnitsInStock;
+                                              result += "</td>";
 
-                 result += "<td>";
-                 result += data[i].Category;
-                 result += "</td>";
+                                              result += "<td>";
+                                              result += data[i].Category;
+                                              result += "</td>";
 
-                 result += "</tr>";
-             }
+                                              result += "</tr>";
+                                          }
 
-             result += "</table>";
-             if (window.navigator.msSaveBlob) {
-                 window.navigator.msSaveBlob(new Blob([result]), 'export.csv');
-             } else {
-                 window.open(result);
-             }
+                                          result += "</table>";
+                                          if (window.navigator.msSaveBlob) {
+                                              window.navigator.msSaveBlob(new Blob([result]), 'export.csv');
+                                          } else {
+                                              window.open(result);
+                                          }
 
 
-             e.preventDefault();
-         }
+                                          e.preventDefault();
+                                      }
 
-         function deleteItem(e) {
-             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-             if (confirm('Are you sure you want to delete : ' + dataItem.name)) {
-                 var grid = $("#grid").data("kendoGrid");
-                 grid.dataSource.remove(dataItem);
-                 grid.dataSource.sync();
-                 grid.refresh();
-             }
-         }
-            
-            </script>
-            
-  <!-- this style is add to solve "validation msg hidding in the bottom of grid" by changing validation style-->          
-  <style>
-#grid .k-tooltip-validation {
-    margin-top: 0 !important;
-    display: block;
-    position: static;
-    padding: 0;
-}
-  
-#grid .k-callout {
-    display: none;
-}
-            </style>
+                                      function deleteItem(e) {
+                                          var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                                          if (confirm('Are you sure you want to delete : ' + dataItem.name)) {
+                                              var grid = $("#grid").data("kendoGrid");
+                                              grid.dataSource.remove(dataItem);
+                                              grid.dataSource.sync();
+                                              grid.refresh();
+                                          }
+                                      }
+
+    </script>
+
+    <!-- this style is add to solve "validation msg hidding in the bottom of grid" by changing validation style-->
+    <style>
+        #grid .k-tooltip-validation {
+            margin-top: 0 !important;
+            display: block;
+            position: static;
+            padding: 0;
+        }
+
+        #grid .k-callout {
+            display: none;
+        }
+    </style>
 </body>
 </html>

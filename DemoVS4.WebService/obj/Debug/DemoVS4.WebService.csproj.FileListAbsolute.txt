@@ -5,3 +5,10 @@ C:\Users\LG\Desktop\KendoVS4\DemoVS4.WebService\bin\DemoVS4.Core.dll
 C:\Users\LG\Desktop\KendoVS4\DemoVS4.WebService\bin\DemoVS4.Core.pdb
 C:\Users\LG\Desktop\KendoVS4\DemoVS4.WebService\obj\Debug\DemoVS4.WebService.dll
 C:\Users\LG\Desktop\KendoVS4\DemoVS4.WebService\obj\Debug\DemoVS4.WebService.pdb
+D:\eabsolute\kendovs4\KendoVS4\DemoVS4.WebService\bin\DemoVS4.WebService.dll
+D:\eabsolute\kendovs4\KendoVS4\DemoVS4.WebService\bin\DemoVS4.WebService.pdb
+D:\eabsolute\kendovs4\KendoVS4\DemoVS4.WebService\bin\DemoVS4.Core.dll
+D:\eabsolute\kendovs4\KendoVS4\DemoVS4.WebService\bin\DemoVS4.Core.pdb
+D:\eabsolute\kendovs4\KendoVS4\DemoVS4.WebService\obj\Debug\DemoVS4.WebService.dll
+D:\eabsolute\kendovs4\KendoVS4\DemoVS4.WebService\obj\Debug\DemoVS4.WebService.pdb
+D:\eabsolute\kendovs4\KendoVS4\DemoVS4.WebService\obj\Debug\DemoVS4.WebService.csprojResolveAssemblyReference.cache

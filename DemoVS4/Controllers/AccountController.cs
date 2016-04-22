@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using DemoVS4.Models;
 using System.Web.Security;
+using System.Linq.Expressions;
 
 namespace DemoVS4.Controllers
 {
@@ -76,6 +77,30 @@ namespace DemoVS4.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("LogOn", "Account");
 
+        }
+    }
+
+    public static class MyExtensionMethods
+    {
+        public static MvcHtmlString MyValidationMessageFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression)
+        {
+            TagBuilder containerDivBuilder = new TagBuilder("div");
+            containerDivBuilder.AddCssClass("field-error-box");
+
+            TagBuilder topDivBuilder = new TagBuilder("div");
+            topDivBuilder.AddCssClass("top");
+
+            TagBuilder midDivBuilder = new TagBuilder("div");
+            midDivBuilder.AddCssClass("mid");
+            //midDivBuilder.InnerHtml = helper.ValidationMessageFor(expression).ToString();
+
+            containerDivBuilder.InnerHtml += topDivBuilder.ToString(TagRenderMode.Normal);
+            containerDivBuilder.InnerHtml += midDivBuilder.ToString(TagRenderMode.Normal);
+
+            return MvcHtmlString.Create(containerDivBuilder.ToString(TagRenderMode.Normal));
+
+            //string htmlString = String.Format("<label><mark>{0}</mark></label>", content);
+            //return new HtmlString(htmlString);
         }
     }
 }

@@ -306,16 +306,16 @@
                            
                            //without ajax
                            /*var xhReq = new XMLHttpRequest();
-                           xhReq.open("POST", '<%=Url.Content("~/Grid/CheckDuplication")%>', false);
-                           xhReq.send(null);
-                           var AllData = JSON.parse(xhReq.responseText);
-                           for (item in AllData) {
-                               if (AllData[item].ProductName == currentProductName) {
-                                   e.preventDefault();
-                                   wnd.content(detailsTemplate({ ProductName: "Product Name '" + currentProductName + "' already exist" }));
-                                   wnd.center().open();
-                               }
-                           }*/
+                           //xhReq.open("POST", '<%=Url.Content("~/Grid/CheckDuplication")%>', false);
+                          // xhReq.send(null);
+                          // var AllData = JSON.parse(xhReq.responseText);
+                          // for (item in AllData) {
+                          //     if (AllData[item].ProductName == currentProductName) {
+                          //         e.preventDefault();
+                          //         wnd.content(detailsTemplate({ ProductName: "Product Name '" + currentProductName + "' already exist" }));
+                          //         wnd.center().open();
+                          //     }
+                          // }*/
 
 
                            //client side
