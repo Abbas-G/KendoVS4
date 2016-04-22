@@ -98,6 +98,8 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 	http://www.codeproject.com/Articles/11155/Abstract-Class-versus-Interface
 	http://www.codeproject.com/Articles/6118/All-about-abstract-classes
 
+	Abstract cannot be instantiated but we can inherit. Interface it cannot be inherit it can be instantiate	
+
 	abstract class can not be sealed class
 	abstract method cannot be private.
 	Abstract and Interfaces can’t be instantiated directly.
@@ -127,9 +129,17 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
     	abstract class absClassB: absClassA //Abstract to Abstract Inheritance   
     	{   
    	 }   
+	
+	The interface can't do anything. It's just a pattern
+	
+	if we add a new method to an Interface then we have to track down all the implementations of the interface 
+	and define implementation for the new method. But if we add a new method to an abstract class then we 
+	have the option of providing default implementation and therefore all the existing code might work properly.
 
 	abstract class over interface
 		http://www.codeproject.com/Articles/258173/Interfaces-Vs-Abstract-Classes
+
+	
 
 --when to use abbstract class?
 	http://www.codeproject.com/Questions/382073/Where-to-Use-Abstact-Class-and-Where-to-Use-Interf
@@ -144,6 +154,9 @@ http://www.codeproject.com/Articles/732425/IEnumerable-Vs-IQueryable
 	EXAmPLE SUPERB
 	http://www.c-sharpcorner.com/UploadFile/d0e913/abstract-class-interface-two-villains-of-every-interview/
 	http://www.c-sharpcorner.com/UploadFile/d0e913/abstract-class-interface-two-villains-of-every-interview756/
+
+--Mutlipe interface having same method oveloaded in derived
+	http://www.c-sharpcorner.com/UploadFile/rohatash/inherit-multiple-interfaces-with-the-same-method-name-in-C-Sharp/
 
 --sealed classes and sealed method
 	A sealed class cannot be used as a base class.
@@ -221,7 +234,8 @@ We can go for Transaction Management in Procedure whereas we can't go in Functio
 		Asynchronous controllers
 	
 	mvc3
-		support for Both Master Page (.master) and Layout Page (_Layout.cshtml)
+		support for Both Master Page (.master) and Layout Page (_Layout.cshtml)  
+			http://forums.asp.net/t/1959864.aspx?Difference+between+Layout+page+and+Master+Page+
 		razor introduce
 		ViewBag introduce
 		Use of NuGet
@@ -326,10 +340,54 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 --value type vs reference type
 	http://geekswithblogs.net/BlackRabbitCoder/archive/2010/07/29/c-fundamentals-the-differences-between-struct-and-class.aspx
 
+	Value types may be created on the stack or heap as appropriate - typically parameters and locals are created on the stack, 
+	members of an enclosing class are typically on the heap.
+	
+	Value types cannot be null - default value of members that are primitive is zero, 
+	default value of members that are a struct is an instance with all struct members defaulted.
+
+	Value type assignments copy all members the whole value - 
+	this copies all members of one value to another making two complete instances.
+	
+	Value types passed by parameter or returned from methods/properties copy whole value - 
+	this behavior is the same as value assignment.
+
+	Value types are destroyed when they pass out of scope - 
+	local variables and parameters are typically cleaned up when scope is exited, 
+	members of an enclosing type are cleaned up when the enclosing type is cleaned up.
+
+
+	Reference types are generally on the heap - it’s always possible compiler may optimize, 
+	but in general you should always think of them as heap objects
+
+	Reference types can be null - default value of members that are reference types members is null.
+
+	Reference type assignment only copies the reference - this decrements/increments reference counts as appropriate.
+	
+	Reference types passed by parameter or returned from methods/properties pass a reference - the reference is copied, 
+	but both references refer to the same original object.
+	
+	Reference types are only destroyed when garbage collected - after all references to the object are determined to be unreachable.
+
 --MS-SQL Server 2005,2008
 
 --Authentication attribute
 	http://codereview.stackexchange.com/questions/7234/mvc-custom-authentication-authorization-and-roles-implementation
+	
+	Authentication is the process of verifying the identity of a user by obtaining some sort of credentials 
+
+	Windows Authentication 
+	Forms Authentication 
+	Passport Authentication 
+
+	<system.web><authentication mode="[Windows|Forms|Passport|None]" >
+
+	Authorization is the process of allowing an authenticated users to access 
+	the resources by checking whether the user has access rights to the system
+	<authorization>
+		<allow roles="Administrators" />
+		<deny users="*" />
+	</authorization>	
 
 --Attributes in DAtaAnnotation
 	--Bind attributes
@@ -583,6 +641,7 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 		Array list size will increase or decrease dynamically it can take any size of values from any data type
 
 --arraylist and list
+	casting required in arraylist
 
 --difference between for and foreach
 	If you are iterating through a collection of items, and do not care about the index values
@@ -788,6 +847,14 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 	Drop table..it will delete complete table from the Database.it can not retrieved bak 
 	Delete is used to deleting data from the table.. data can be retrieved using ROLLBAck.
 
+--delete vs truncate
+	TRUNCATE
+	removes all rows from a table
+	The operation cannot be rolled back
+	no triggers will be fired
+	TRUCATE is faster
+	No WHERE clause can be used to only remove some rows
+	Delete is DML, Truncate is DDL
 
 --differnce between RANK and DENSE_RANK  function
 	http://stackoverflow.com/questions/12739208/how-to-use-rank-in-sql-server
@@ -804,6 +871,8 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
     		FROM Salaries
 	) as SalaryCTE
 	WHERE SalaryRank = @N
+
+	can be achieve by DENSE_RANK() and Rank()
 
 --sql pagination
 	SELECT * FROM (
@@ -845,6 +914,15 @@ http://stackoverflow.com/questions/12505666/crm-2011-server-side-paging-data-par
 --Concurrency in linq to sql
 	http://www.codeproject.com/Articles/38299/How-To-Handle-Concurrency-in-LINQ-to-SQL
 
+-- @helper syntax 
+	@helper methods can contain both content and code, and support the full Razor syntax within them
+	
+--Reusing @helpers across multiple views
+	http://weblogs.asp.net/scottgu/asp-net-mvc-3-and-the-helper-syntax-within-razor
+	
+	The ScottGu.cshtml template in the \App_Code folder above will logically compile down to a class called “ScottGu” 
+	with static members of “DisplayPrice” and “AnotherHelper” within it,
+	@ScottGu.DisplayPrice(MODEL.PRICE);
 
 *************/
 Data Definition Language (DDL) statements are used to define the database structure or schema. Some examples:

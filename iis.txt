@@ -1,0 +1,313 @@
+http://www.interviewwiz.com/iis-interview-questions-and-answers/
+
+http://stackoverflow.com/questions/2147578/asp-net-session-state-and-multiple-worker-processes
+
+iis
+Internet Information Server (IIS) is one of the most popular web servers from Microsoft that is used to host and provide Internet-based services to ASP.NET and ASP Web applications
+When a request comes from client to server IIS takes that request from users and process it and send response back to users.
+
+What is Virtual Directory
+
+If you enable Web-garden mode by setting the webGarden attribute to true in the processModel element of the application's Web.config file, do not use InProc session state mode. If you do, data loss can occur if different requests for the same session are served by different worker processes.
+
+More than one worker process is a "web garden." In-process session state will not work correctly. You'll need to use either a single worker process for your web app, or use a session state server, or SQL Server for session state.
+
+Web Farm and Web Garden
+	http://www.dotnetfunda.com/interviews/show/1456/what-is-web-farm
+	http://www.dotnetfunda.com/articles/show/713/difference-between-web-farm-and-web-garden
+	http://www.dotnetfunda.com/interviews/show/1461/how-we-can-set-the-idle-time-out-of-an-worker-process
+	http://www.dotnetfunda.com/interviews/show/4231/what-is-the-purpose-of-iis-application-pools
+
+Use of Application pool
+	if you wanted every Web Application to execute in a separate process, you simply create an Application Pool for each application	
+	An Application Pool can contain one or more applications and allows us to configure a level of isolation between different Web applications
+
+	Application pools allow you to isolate your applications from one another,
+
+	 you want to isolate all the Web applications running in the same computer, you can do this by creating a separate application pool for every Web application and placing them in their corresponding application pool. Because each application pool runs in its own worker process, errors in one application pool will not affect the applications running in other application pools.
+
+Application pools allow you to isolate your applications from one another,
+
+IIS Worker Process
+An Internet Information Services (IIS) worker process is a windows process (w3wp.exe) which runs Web applications, and is responsible for handling requests sent to a Web Server for a specific application pool.
+
+
+http://www.c-sharpcorner.com/uploadfile/nipuntomar/web-farm-and-web-garden/
+
+session state microsoft
+https://msdn.microsoft.com/en-us/library/ms178586.aspx
+
+They are all listed in SessionStateMode enumeration:
+
+Off - Used to disable sessions on website. 
+InProc - Sessions are stored inside of application's process on web server. Depending of IIS version used that could be aspnet_wp.exe or w3wp.exe. 
+StateServer - Sessions are stored using State Server windows service.
+SQLServer - SQL Server database is used to store sessions' data 
+Custom - Manage session state using custom session state provider. Storage could be anything you implement in provider.
+
+To specify session state mode in web.config, select one of these values for sessionState mode parameter:
+
+<sessionState mode="Off|InProc|StateServer|SQLServer|Custom" />
+
+In-Process Mode
+	In-process mode stores session state values and variables in memory on the local Web server
+
+	caution
+	If you enable Web-garden mode by setting the webGarden attribute to true in the processModel element of the 
+	application's Web.config file, do not use InProc session state mode. If you do, data loss can occur if different 
+	requests for the same session are served by different worker processes.
+
+
+State Server Mode
+	StateServer mode stores session state in a process, referred to as the ASP.NET state service
+	that is separate from the ASP.NET worker process or IIS application pool.
+	
+	Objects stored in session state must be serializable if the mode is StateServer 
+	
+	caution
+	To use StateServer mode, you must first be sure the ASP.NET state service is running on the server
+	The ASP.NET state service is installed as a service when ASP.NET and the .NET Framework are installed.
+
+	To configure
+	Set the mode attribute of the sessionState element to StateServer.
+	Set the stateConnectionString attribute to tcpip=serverName:42424.
+	
+		Caution
+		To improve the security of your application when using StateServer mode, it is recommended that you protect your 
+		stateConnectionString value by encrypting the sessionState section of your configuration file. 
+
+SQL Server Mode
+	SQLServer mode stores session state in a SQL Server database
+
+	Objects stored in session state must be serializable if the mode is SQL Server
+
+	caution
+	To use SQLServer mode, you must first be sure the ASP.NET session state database is installed on SQL Server
+	
+	To configure 
+	Set the mode attribute of the sessionState element to SQLServer.
+	Set the sqlConnectionString attribute to a connection string for your SQL Server database.	
+
+		Caution
+		To improve the security of your application when using StateServer mode, it is recommended that you protect your 
+		stateConnectionString value by encrypting the sessionState section of your configuration file.
+
+Protected Configuration
+	You can use protected configuration to encrypt sensitive information, including user names and passwords, database 	
+	connection strings, and encryption keys, in a Web application configuration file such as the Web.config file
+
+	Encryption and decryption of the contents of a Web.config file is performed using a ProtectedConfigurationProvider 	
+	class.
+
+	You manage protected configuration using the ASP.NET IIS Registration tool (Aspnet_regiis.exe) or the protected 	
+	configuration classes in the System.Configuration namespace.
+
+
+The Session_OnStart Event
+	You can handle the Session_OnStart event by adding a subroutine named Session_OnStart to the Global.asax file
+	The Session_OnStart subroutine is run at the beginning of a request if the request begins a new session
+
+	You can use the Session_OnStart event to initialize session variables as well as to track session-related information.	
+
+The Session_OnEnd Event
+	You can handle the Session_OnEnd event by adding a subroutine named Session_OnEnd to the Global.asax file
+	The Session_OnEnd subroutine is run when the Abandon method has been called or when the session has expired
+
+	You can use the Session_OnEnd event to clean up session-related information such as information for a user that is 
+	tracked in a data source by the SessionID value.
+
+	imp note
+	The Session_OnEnd event is supported only when the session state Mode property is set to InProc
+	If the session state Mode is StateServer or SQLServer, then the Session_OnEnd event in the Global.asax file is ignored
+	because the ASP.NET Session State it's not in memory anymore...
+
+	use an HttpModule TO Create session_onEnd for session state
+	http://www.codeproject.com/Articles/21156/ASP-NET-HttpModule-for-handling-session-end-with-S
+
+cookieless session
+
+As we know HTTP is a stateless protocol and every request to a web page is treated as a new request. Session is a way of maintaining the state of a page.
+These Sessions too use Cookies in the background to associate Sessions with the correct user
+
+Where is ASP.NET storing the session ID when cookies are not being used? In this case, the session ID is inserted in a particular position within the URL
+
+following configuration setting.
+<sessionState cookieless="true" />
+
+http://stackoverflow.com/questions/6695403/asp-net-session-ending-abruptly
+
+Shared Hosting
+	Shared hosting is Web hosting in which the service provider serves pages for multiple Web sites, each having its own Internet domain name, from a single Web server. Most Web hosting companies provide shared hosting. Although shared hosting is a less expensive way for businesses to create a Web presence, it is usually not sufficient for Web sites with high traffic. These sites need a dedicated Web server, either provided by a Web hosting service or maintained in-house.
+
+What is Microsoft .Net Framework
+
+The Microsoft .Net Framework is a platform that provides tools and technologies you need to build Networked Applications as well as Distributed Web Services and Web Applications. The .Net Framework provides the necessary compile time and run-time foundation to build and run any language that conforms to the Common Language Specification (CLS).The main two components of .Net Framework are Common Language Runtime (CLR) and .Net Framework Class Library (FCL).
+
+The Common Language Runtime (CLR) is the runtime environment of the .Net Framework , that executes and manages all running 
+ The .Net Framework Class Library (FCL) is a huge collection of language-independent and type-safe reusable classes
+
+JIT
+	the Managed Code compiled only when it is needed, that is it converts the appropriate instructions to the native code for execution just before when each function is called. This process is called Just In Time (JIT) compilation, also known as Dynamic Translation 
+
+There are three ways of doing authentication and authorization in ASP.NET:-
+• Windows authentication: - In this methodology ASP.NET web pages will use local windows users and groups to authenticate and authorize resources.
+
+• Forms Authentication: - This is a cookie based authentication where username and password are stored on client machines as cookie files or they are sent through URL for every request. Form-based authentication presents the user with an HTML-based Web page that prompts the user for credentials.
+
+• Passport authentication :- Passport authentication is based on the passport website provided
+by the Microsoft .So when user logins with credentials it will be reached to the passport website ( i.e. hotmail,devhood,windows live etc) where authentication will happen. If Authentication is successful it will return a token to your website.
+
+• Anonymous access: - If you do not want any kind of authentication then you will go for Anonymous access.
+
+
+Windows Process Activation Service (WAS)
+
+Windows Process Activation Service (WAS) manages application pool configuration and the creation and lifetime of worker processes for HTTP and other protocols.
+
+The Internet Server Application Programming Interface (ISAPI) 
+
+You can add an ISAPI filter at the server level and the site level. If you add the ISAPI filter at the server level, the filter intercepts all requests made to the server. If you add the ISAPI filter to a specific site, the filter intercepts all requests made to that site.
+
+You can configure the <isapiFilters> element at the server level in the ApplicationHost.config file or at the site level in the appropriate Web.config file.
+
+https://www.iis.net/configreference/system.webserver/isapifilters
+
+For example, you might have an ISAPI filter that captures information about HTTP requests and saves the information to a database.
+
+
+ASP.net
+
+ASP.NET allow programmers  to build dynamic web sites, web applications ,web services and so many strong features. One of the key features of ASP.NET is that it uses an event-based programming model. 
+
+
+Sticky Session
+When you load balance your ASP.Net application(or any web application), the sticky session ensures that all the subsequent request will be send to the server who handled the first request corresponding to that request.
+
+Sticky session use with inproc session mode
+
+How to check if IIS use sticky session?
+
+
+sticky sessions can cause uneven load distribution across servers
+
+http://stackoverflow.com/questions/16194328/enabling-sticky-sessions-on-a-load-balancer
+or 
+http://www.c-sharpcorner.com/UploadFile/25c78a/load-balancing-session-state-configuration/
+
+
+File Replication
+File Replication is also an important features of load balancing you should have replication enabled on the folders of web application so if you upload anything on one server it should replicated to other sites. Following is good link to understand file replication
+
+Difference between Machine.config and web.config
+
+There are two types of configuration files supported by ASP.Net. Configuration files are used to control and manage the behavior of a web application.
+
+Machine.config
+Web.config
+Difference between Machine.Config and Web.Config
+
+Machine.Config
+
+This is automatically installed when you install Visual Studio. Net.
+This is also called machine level configuration file.
+Only one machine.config file exists on a server.
+This file is at the highest level in the configuration hierarchy.
+
+The settings made in the Machine.config file are applied to the whole asp.net applications on your server
+Each .NET Framework version has only one machine.config file
+The machine.config would be to share values between many applications on the server such as SMTP server settings
+
+Web.Config
+
+This is automatically created when you create an ASP.Net web application project.
+This is also called application level configuration file.
+This file inherits setting from the machine.config 
+
+the settings made in the Web.config file are applied to that particular web application only.
+Each web application has its own web.config file. Directories inside a web application can also have web.config files too
+
+If you make any changes to the web.config, web application will immediately load the changes but in case of machine.config you will have to restart the application.
+
+What is HttpHandler
+
+Any class that implements the IHttpHandler interface can perform as a target for the incoming HTTP requests.
+
+public class MyHandler :IHttpHandler
+{
+    public bool IsReusable
+    {
+        get { return false; }
+    }
+    public void ProcessRequest(HttpContext context)
+    {
+		context.Response.Write("Handler Here....");
+    }
+}
+
+What happen when we typr url in browser
+1 browser checks cache; if requested object is in cache and is fresh, skip to #9
+2 browser asks OS for server's IP address
+3 OS makes a DNS lookup and replies the IP address to the browser
+4 browser opens a TCP connection to server (this step is much more complex with HTTPS)
+5 browser sends the HTTP request through TCP connection
+6 browser receives HTTP response and may close the TCP connection, or reuse it for another request
+7 browser checks if the response is a redirect or a conditional response (3xx result status codes), authorization request (401),   error (4xx and 5xx), etc.; these are handled differently from normal responses (2xx)
+8 if cacheable, response is stored in cache
+9 browser decodes response (e.g. if it's gzipped)
+10 browser determines what to do with response (e.g. is it a HTML page, is it an image, is it a sound clip?)
+11 browser renders response, or offers a download dialog for unrecognized types
+
+
+Creating custome extension
+
+http://stackoverflow.com/questions/1027291/how-to-use-custom-file-extension-instead-of-aspx
+
+Just map the customext to PageHandlerFactory in <system.webServer> section of Web.config.
+
+<system.webServer>
+    <handlers>
+        <add name="CustomExtensionHandler" 
+             path="*.customext" 
+             verb="*" 
+             type="System.Web.UI.PageHandlerFactory" 
+             preCondition="integratedMode" />
+    </handlers>
+</system.webServer>
+
+when route engine initiaize
+
+  protected void Application_Start()--> RouteConfig.RegisterRoutes(RouteTable.Routes);--->
+
+	public class RouteConfig
+    {
+        public static void RegisterRoutes(RouteCollection routes)
+        {
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            routes.MapRoute(
+                name: "Default",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Account", action = "LogOn", id = UrlParameter.Optional },
+                namespaces: new[] { "IDTParcel.Web.Controllers" }
+            );
+        }
+    }
+
+lyc cycle of mvc
+
+who to save assemblies to GAC
+https://msdn.microsoft.com/en-us/library/kw5x2w30%28v=vs.90%29.aspx
+
+get an assemblies from GAC
+https://blogs.msdn.microsoft.com/akukreja/2008/05/23/get-dll-out-of-the-gac/
+
+httphandles vs httpmodules
+http://www.codeproject.com/Articles/30907/The-Two-Interceptors-HttpModule-and-HttpHandlers
+
+Data stored in a distributed cache is generally determined by what is most frequently accessed from a given web or application server. As previously requested pieces of data are left unrequested, more recently requested data takes precedence; old data is eventually deleted from the cache.
+
+One of the more common uses of distributed caches is to save users’ web session data. Data caches can be configured in many different ways. For example, there may be many servers spread geographically to better serve global customers. Servers may contain duplicated data for failover or they may include only unduplicated content to better cater to different requesting groups. Distributed caches can combine those approaches.
+
+Distributed cache has become increasingly viable because of the decreasing cost of memory per GB and the low cost and increasing prevalence of 10 gigabit network interfaces.
+
+

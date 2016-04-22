@@ -1,0 +1,12 @@
+Features
+
+Two-way binding, 
+templating, 
+RESTful api handling, 
+modularization, 
+AJAX handling, 
+dependency injection, etc.
+
+
+different ways of communcation
+http://stackoverflow.com/questions/17043804/communication-between-modules-in-angularjs

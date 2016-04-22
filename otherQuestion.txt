@@ -1,5 +1,5 @@
 
---Passing lists to SQL Serve
+--Passing lists to SQL Server
 	Passing lists to SQL Server 2005 with XML Parameters
 		http://weblogs.asp.net/jongalloway//passing-lists-to-sql-server-2005-with-xml-parameters
 		http://www.codeproject.com/Articles/20847/Passing-Arrays-in-SQL-Parameters-using-XML-Data-Ty
@@ -7,6 +7,36 @@
 --Normalization and denormalization
 	http://www.c-sharpcorner.com/Interviews/answer/2054/what-is-denormalization-and-difference-between-normalization
 	http://www.ovaistariq.net/199/databases-normalization-or-denormalization-which-is-the-better-technique/
+
+	Pros and Cons of a Normalized database design.
+
+Normalized tables are usually smaller and have a smaller foot-print because the data is divided vertically among many tables. 
+This allows them to perform better as they are small enough to get fit into the buffer.
+
+The updates are very fast because the data to be updated is located at a single place and there are no duplicates.
+
+Similarly the inserts are very fast because the data has to be inserted at a single place and does not have to be duplicated.
+
+The selects are fast in cases where data has to be fetched from a single table,
+ because normally normalized tables are small enough to get fit into the buffer.
+
+Because the data is not duplicated so there is less need for heavy duty group by or distinct queries.
+Although there seems to be much in favor of normalized tables, with all the pros outlined above, 
+but the main cause of concern with fully normalized tables is that normalized data means joins between tables.
+ And this joining means that read operations have to suffer because indexing strategies do not go well with table joins.
+
+
+Pros and cons of denormalized database design.
+
+
+The data is present in the same table so there is no need for any joins, hence the selects are very fast.
+
+A single table with all the required data allows much more efficient index usage. If the columns are indexed properly, 
+then results can be filtered and sorted by utilizing the same index. While in the case of a normalized table, 
+since the data would be spread out in different tables, this would not be possible.
+
+Although for reasons mentioned above selects can be very fast on denormalized tables,   
+but because the data is duplicated, the updates and inserts become complex and costly.
 
 --Cursor and pointer in sql server
 	http://stackoverflow.com/questions/4222868/what-is-exact-use-of-cursor-in-sql-server
@@ -56,9 +86,16 @@
 
 --Donut caching
 	book
+
 --output cache in depth
 	http://www.c-sharpcorner.com/UploadFile/abhikumarvatsa/output-caching-in-mvc/
 	http://www.dotnet-tricks.com/Tutorial/mvc/4R5c050113-Understanding-Caching-in-Asp.Net-MVC-with-example.html
+
+	It enables us to cache the content returned by any controller method so that the same content does not need to be 
+	generated each time the same controller method is invoked. Output Caching has huge advantages, 
+	such as it reduces server round trips, reduces database server round trips, reduces network traffic etc.
+
+	[OutputCache(Duration = 10, VaryByParam = "name")]
 
 --sql profiler vs extended events
 	http://logicalread.solarwinds.com/why-use-sql-server-extended-events-w01/
@@ -91,6 +128,7 @@ http://www.orafaq.com/faq/what_are_the_difference_between_ddl_dml_and_dcl_comman
 	Fetch only required data & required variable
 	Output cache
 	Use of partial and childaction to hide url
+	Use of helper
 
 --passing multiple model value
 	http://www.c-sharpcorner.com/UploadFile/ff2f08/multiple-models-in-single-view-in-mvc/
@@ -146,15 +184,39 @@ http://www.orafaq.com/faq/what_are_the_difference_between_ddl_dml_and_dcl_comman
 
 --Difference Between Finalize and Dispose Method
 	http://www.dotnet-tricks.com/Tutorial/netframework/P1MK271013-Difference-Between-Finalize-and-Dispose-Method.html
+	Dispose	
+	It is used to free unmanaged resources like files, database connections etc. at any time.	
+
+	Explicitly, it is called by user code and the class which is implementing dispose method, 
+	must has to implement IDisposable interface.	
+	It belongs to IDisposable interface.
+
+	It is always recommended to use Dispose method to clean unmanaged resources. 
+	You should not implement the Finalize method until it is extremely necessary.	
+
+	If you want to implement Finalize method, it is recommended to use Finalize and Dispose method together as shown 
+	 Dispose(true);
+ 	GC.SuppressFinalize(this);
+
+	Finalize
+	It can be used to free unmanaged resources (when you implement it) like files, database connections etc. 
+	held by an object before that object is destroyed.
+
+	Internally, it is called by Garbage Collector and cannot be called by user code.
+	It belongs to Object class.
+
+--managed and unmanaged resources in c# net
 
 --access modifier
 	http://www.c-sharpcorner.com/uploadfile/puranindia/what-are-access-modifiers-in-C-Sharp/
 
 --limit of namespace
 
+--Dynamic action/controller in mvc
+	http://codevoyeur.com/Articles/18/Dynamic-Actions-in-ASP.NET-MVC.aspx 
+
 --type in c#
-	
---access modifier of namespace
+	7--access modifier of namespace
 	Namespace will not have access modifier.
 	http://stackoverflow.com/questions/10711513/access-modifier-for-namespace
 	http://www.c-sharpcorner.com/Interviews/answer/5746/what-is-the-default-access-specifier-within-the-namespaces-i
@@ -166,20 +228,37 @@ http://www.orafaq.com/faq/what_are_the_difference_between_ddl_dml_and_dcl_comman
 
 --assemblies in asp.net
 
+	http://www.c-sharpcorner.com/UploadFile/thiru_ji/1DotnetAssemblies02212007050300AM/1DotnetAssemblies.aspx
+
 	When you compile an application, the MSIL code created is stored in an assembly . 
 	Assemblies include both executable application files that you can run directly from Windows 
 	without the need for any other programs (these have a .exe file extension), and libraries (which have a .dll extension)
 	for use by other applications.
 
+	Microsoft.NET. Dot NET assemblies may or may not be executable, i.e., 
+	they might exist as the executable (.exe) file or dynamic link library (DLL) file.
+
 	Assembly is the smallest unit of deployment of a .net application. It can be a dll or an exe.
 	There are mainly two types to it:
+
+	During the compile time , 
+	the compiler convert the source code an intermediate code which is a Microsoft Intermediate Language (MSIL) .
+	Microsoft Intermediate Language (MSIL) is a CPU-independent set of instructions that can be efficiently
+	 converted to the native code. During the runtime the Common Language Runtime (CLR)'s invokes JIT Just In Time (JIT) compiler
+	converts the Microsoft Intermediate Language (MSIL) code into native code to the Operating System.
 
 	Private Assembly: The dll or exe which is sole property of one application only. It is generally stored in application root folder
 
 	Public/Shared assembly: It is a dll which can be used by multiple applications at a time. A shared assembly is stored in GAC i.e Global Assembly Cache.
 
 	Sounds difficult? Naa....
-	GAC is simply C:\Windows\Assembly folder where you can find the public assemblies/dlls of all the softwares installed in your PC.--get numbers of users session in iis
+	GAC is simply C:\Windows\Assembly folder where you can find the public assemblies/dlls of all the softwares installed in your PC.
+
+--get numbers of users session in iis
+
+
+--JIT
+	During the code execution time, the Managed Code compiled only when it is needed
 
 --sql server 2012 over sqlserver 2008
 	http://www.dotnet-tricks.com/Tutorial/sqlserver2012/W4b4021012-SQL-Server-2012-New-Features-and-Programmability-Enhancements.html
@@ -291,6 +370,8 @@ http://www.orafaq.com/faq/what_are_the_difference_between_ddl_dml_and_dcl_comman
 
 		User Defined Views
 			view on single table or multiple table
+
+	select * fro information_schema.views -- this give all view of db and how it is created with what query	
 	
 	http://www.dotnet-tricks.com/Tutorial/sqlserver/b4H8260312-Different-Types-of-SQL-Server-Views.html
 
@@ -302,6 +383,70 @@ http://www.orafaq.com/faq/what_are_the_difference_between_ddl_dml_and_dcl_comman
 
 --Difference between Primary Key and Unique Key	
 	http://www.dotnet-tricks.com/Tutorial/sqlserver/V2bS260912-Difference-between-Primary-Key-and-Unique-Key.html
+
+--Access Modifiers in c#
+
+Write a sample query for self join?
+
+	Ans: Select e1.ename, e2.empid from emp e1, emp e2 where e1.empid=e2.mgrid;
+
+What is the difference between scope_identity() and current_identity()?
+
+	Ans: Scope_identity and current _identity both are similar and it will return the last identity value generated in the table.
+	Scope_Identity will return the identity value in table that is currently in scope
+
+	http://www.c-sharpcorner.com/Blogs/11257/difference-between-identity-scope_identity-ident_cur.aspx
+
+	SELECT @@IDENTITY: returns the last identity value generated for any table in the current session, 
+				across all scopes(i.e. global scope).
+
+	SELECT IDENT_CURRENT : returns the last identity value generated for any table in the current session 
+				and the current scope(i.e. local scope).Depends on table name passed in parameter
+
+	SELECT SCOPE_IDENTITY(): returns the last identity value generated for a specific table in any session 
+				and any scope(i.e. global scope).
+
+How to change the name of the stored procedure in sql?
+
+	Ans: sp_rename oldtablename newtablename
+
+Change coloumn table
+	For changing the column name
+	Sp_rename  ‘tablename.[Oldcolumnname]’,’newcolumnname’,’Column’
+	Ex:sp_rename ‘tblemp.first’,’namechange’,’Column’
+
+MODIFY COLUMN IN TABLE
+
+	ALTER TABLE table_name
+  	ALTER COLUMN column_name column_type;
+
+MODIFY COLUMN IN TABLE
+	ALTER TABLE table_name
+  	DROP COLUMN column_name;
+
+What is the difference between scope_identity() and current_identity()?
+
+	Ans: Scope_identity and current _identity both are similar and 
+	it will return the last identity value generated in the table.
+
+
+--What is synchronization?
+
+	Ans: The mechanism needed to block one thread access to the data. If the data is being accessed by another thread.
+	Synchronization can be accessed by using system.monitor class
+	A monitor class methods are enter, exit, pulse for this lock statement is also used
+	Suppose if we need to synchronize some data at that time we need to place that data in this block
+	Lock
+	{
+	}
+	Whatever the data has been placed into the lock block that data has been blocked
+
+	nYC http://www.codeproject.com/Articles/26130/Threads-and-Thread-Synchronization-in-C
+
+--b.) What is event bubbling?
+
+	 When child control send events to parent it is termed as event bubbling. 
+	 Server controls like Data grid, Data List, and Repeater can have other child controls inside them.
 
 --get running session 
 	
@@ -392,17 +537,23 @@ information to be passed back to the client.
 			GO
 			Select * from #LocalTemp
 
-		The scope of Local temp table exist to the current session of current user means to the current query window. If you will close the current query window or open a new query window and will try to find above created temp table, it will give you the error.
+		The scope of Local temp table exist to the current session of current user means to the current query window. 
+		If you will close the current query window or open a new query window and will try to find above created temp table, it will give you the error.
 
 		Global Temp Table
 			Global temp tables are available to all SQL Server sessions or connections (means all the user). 
 			Global temporary table name is stared with double hash ("##") sign.
 
+
+			table remains in the database permanently, but the rows exist only within a given connection. When connection is closed, the data in the global temporary table disappears. 
+			However, the table definition remains with the database for access when database is opened next time.
+
 			CREATE TABLE ##GlobalTemp(...)
 
 	Table Variable
 
-		user define function(imp): Table variables are the only way you can use DML statements (INSERT, UPDATE, DELETE) on temporary data within a user-defined function			
+		user define function(imp): Table variables are the only way you can use DML statements (INSERT, UPDATE, DELETE) 
+		on temporary data within a user-defined function			
 
 		This acts like a variable and exists for a particular batch of query execution
 		it gets dropped once it comes out of batch. 
@@ -454,7 +605,8 @@ Equality in JavaScript: === versus ==
 	
 	The == operator will compare for equality after doing any necessary type conversions. 
 	The === operator will not do the conversion, so if two values are not the same type === will simply return false. 
-	It's this case where === will be faster, and may return a different result than ==. In all other cases performance will be the same.
+	It's this case where === will be faster, and may return a different result than ==. 
+	In all other cases performance will be the same.
 
 
 Difference between && and &, || and |
@@ -463,7 +615,18 @@ Difference between && and &, || and |
 
 differ betwn view() redirectoaction() redirecttoroute()		
 	http://www.dotnet-tricks.com/Tutorial/mvc/4XDc110313-return-View()-vs-return-RedirectToAction()-vs-return-Redirect()-vs-return-RedirectToRoute().html
+	
+	vIEW() : This tells MVC to generate HTML to be displayed for the specified view and sends it to the browser. 
+		This acts like as Server.Transfer() in Asp.Net WebForm.
 
+	RedirectToAction() : This tells MVC to redirect to specified action instead of rendering HTML. 
+			In this case, browser receives the redirect notification and make a new request for the specified action. 
+			This acts like as Response.Redirect() in Asp.Net WebForm.
+
+	Redirect():This tells MVC to redirect to specified URL instead of rendering HTML. 
+		In this case, browser receives the redirect notification and make a new request for the specified URL. 
+		This also acts like as Response.Redirect() in Asp.Net WebForm
+	
 
 ---describe xml and json
 	Extensible Markup Language (XML)
@@ -483,7 +646,19 @@ differ betwn view() redirectoaction() redirecttoroute()
 ---describe #table,
 
 --c# collection
-	http://www.dotnetperls.com/collections
+	IMP http://www.dotnetperls.com/collections
+	hashtable -- optimizes lookups. It computes a hash of each key you add. It then uses this hash code to look up the element very quickly
+	dictionary
+	arraylist
+	list
+	bitarray
+	tuple
+	tuple-keyvaluepair
+	stack--LIFO
+	queue
+	sortedset
+	hashset--helps eliminates duplicate strings or elements in an array
+	lazy
 
 --Generics and Collections
 	imp: http://www.dotnet-tricks.com/Tutorial/csharp/U08E301212-Difference-between-Generics-and-Collections-with-example.html
@@ -503,6 +678,642 @@ differ betwn view() redirectoaction() redirecttoroute()
 	http://www.w3schools.com/sql/sql_groupby.asp
 	The GROUP BY statement is used in conjunction with the aggregate functions to group the result-set by one or more columns.
 =================
+
+
+stored procedure to store values from another stored procedure
+
+
+union
+linq left join
+
+
+
+USE OF Dictinory in C#
+	http://www.c-sharpcorner.com/UploadFile/mahesh/dictionary-in-C-Sharp/
+	
+	represent a collection of keys and values pair of data
+	must import the System.Collections.Generic namespace
+
+	As other collection classes, the Dictionary class has Add, Remove, Clear and other collection methods
+
+	Dictionary<string, Int16> AuthorList = new Dictionary<string, Int16>();
+
+	//add
+	AuthorList.Add("Mahesh Chand", 35);
+
+	// Set Item value 
+	AuthorList["Mahesh Chand"] = 20;
+	
+	// Read all data
+            Console.WriteLine("Authors List");
+ 
+            foreach( KeyValuePair<string, Int16> author in AuthorList )
+            {
+                Console.WriteLine("Key = {0}, Value = {1}",
+                    author.Key, author.Value);
+            }
+
+if Dictionary dont find any key
+	Dictionary<,> will throw an exception if you request a missing key, rather than returning null. 
+	(This is a big difference between Dictionary<,> and Hashtable.)
+
+	//using TryGetValue
+	int value;
+	if (dictionary.TryGetValue(key, out value))
+	{
+    	// Key was in dictionary; "value" contains corresponding value
+	} 
+	else 
+	{
+    	// Key wasn't in dictionary; "value" is now 0
+	}
+
+Dictionary<,> vs Hashtable
+	both represent a collection of keys and values pair of data
+	Dictionary is generic type, hash table is not a generic type
+
+	Hashtable numbers = new Hashtable();
+	Dictionary<int, string> dictionary = new Dictionary<int, string >();
+
+	While perform operations Dictionary is faster because there is no boxing/unboxing (valuetypes don't need boxing) 
+	while in Hashtable boxing/unboxing (valuetypes need boxing) will happened and 
+	which may have memory consumption as well as performance penalties.
+
+	When we add the multiple entries in Dictionary, the order in which the entries are added is maintained. 
+	When we retrieve the items from Dictionary we will get the records in the same order we have inserted them. 
+	Whereas we add same records in Hashtable the order is not maintained
+
+	Hashtable numbers = new Hashtable();
+            numbers.Add(1, "one");
+            numbers.Add(2, "two");
+            numbers.Add(3, "three");
+            foreach (DictionaryEntry num in numbers)
+            {
+                MessageBox.Show(num.Key + "   -   " + num.Value);
+            }
+        Dictionary<int, string> dictionary = new Dictionary<int, string >();
+            dictionary.Add(1,"one");
+            dictionary.Add(2,"two");
+            dictionary.Add(3,"three");
+            foreach (KeyValuePair<int,string> pair in dictionary)
+            {
+                MessageBox.Show(pair.Key + "   -   " + pair.Value);
+            }
+
+Dictionary vs List in C#
+	Both lists and dictionaries are used to store collections of data. A Dictionary < int, T > and List < T >
+
+	The Dictionary is based on a hash table, that means it uses a hash lookup, 
+	which is a rather efficient algorithm to look up things, on the other hand, 
+	a list you have to go element by element until it finds the result from beginning to the result each time.
+
+	The Dictionary uses hashing to search for the data. 
+	A Dictionary first calculated a hash value for the key and this hash value leads to the target data bucket. 
+	After that, each element in the bucket needs to be checked for equality. 
+	But actually the list will be faster than the dictionary on the first item search 
+	because nothing to search in the first step. But in the second step, 
+	the list has to look through the first item, and then the second item
+
+IEnumerable vs IEnumerator
+	Both are interface
+	IEnumerable code are clear and can be used in foreach loop
+	IEnumerable defines one method GetEnumerator which returns an IEnumerator
+	IEnumerable doesn’t remember state
+	IEnumerator use While, MoveNext, current to get current record
+	IEnumerator persists state means which row it is reading
+	IEnumerator cannot be used in foreach loop
+	IEnumerator allows readonly access to a collection
+	
+	List<int> ages = new List<int>();
+	ages.Add(10);
+
+	IEnumerable<int> age_IEnumerable = (IEnumerable<int>)ages;
+	foreach (int age in age_IEnumerable)
+	{
+    	Console.WriteLine(age);
+	}
+
+	IEnumerator<int> age_IEnumerator = ages.GetEnumerator();
+	while (age_IEnumerator.MoveNext())
+	{
+    	Console.WriteLine(age_IEnumerator.Current);
+	PrintGreaterThan30(age_IEnumerator);
+	}
+reponse.redirect vs server.redirect
+	
+	Server.Transfer and Response.Redirect both are used to navigate from one page to another page
+	
+	Response.Redirect
+	The Response.Redirect object transfers the page permanently to the next page and ends the processing of the first page 
+	and the new page processing continues on the redirected page 
+	but also it sends a command back to the browser; because of this one extra unnecessary round trip happens.
+
+
+	The suitable uses are:
+
+	To redirect the page from the same as well as a different web server.( html/ .aspx)
+	don't care about causing additional round trips to the server on each request.
+	do not need to preserve the Query String and Form Variables from the original request.
+	want our users to be able to see the new redirected URL, where the page is redirected.
+	want to bookmark the page.
+	
+	Server.Transfer
+
+	Server.Transfer navigates the pages within the same application or within the same server, 
+	the page is still in memory that can read the values directly from page2 on page1, 
+	in other words by using server.Transfer the page is not redirected permanently.
+
+
+	The suitable uses are:
+
+	to transfer the current page request to another .aspx page on the same server.
+	to preserve server resources and avoid the unnecessary round trips to the server.
+	to preserve the Query String and Form Variables.
+	don't need to show the real URL of where we redirected the request in the user's Web Browser.
+	don’t want to bookmark the pages.
+
+Authentication Providers 
+	http://www.codeproject.com/Tips/80141/Authentication-and-Authorization-in-ASP-NET
+	http://www.c-sharpcorner.com/UploadFile/lmoningi/AuthenticationAndAuthorizatio11252005233533PM/AuthenticationAndAuthorizatio.aspx	
+	
+	ASP.NET provides three ways to authenticate a user:
+
+	Forms authentication 
+	Passport authentication
+		Passport authentication lets you to use Microsoft's passport service to authenticate users of your application. 
+		If your users have signed up with passport, and you configure 
+		the authentication mode of the application to the passport authentication, 
+		all authentication duties are offloaded to the passport servers.
+	Windows authentication
+
+	If you have to authenticate users, there are several choices. If all users have accounts on your network, 
+	use Windows authentication in ASP.net with one of the strong IIS authentication settings. 
+	If users don't have network accounts, own custom authentication scheme is preferred, means forms authorization.
+	If different users must have different privileges, impersonation in ASP.net configuration files needs to be turn on.
+
+unobtrusive javascript in mvc
+	http://www.c-sharpcorner.com/Blogs/15651/unobtrusive-javascript-in-mvc-3.aspx
+
+
+oops
+	http://www.dotnet-tricks.com/Tutorial/oops/HQJI280212-Object-Oriented-Programming-Concepts.html
+	http://www.c-sharpcorner.com/UploadFile/66c62d/basic-oops-concept/
+
+garbage collection in c#
+	http://www.dotnet-tricks.com/Tutorial/netframework/0L3P131012-.Net-Garbage-Collection-in-depth.html
+
+	Garbage collector free the memory for objects that are no longer referenced and keeps the memory for future allocations.
+
+	Allow us to develop an application without having worry to free memory.
+	Allocates memory for objects efficiently on the managed heap.
+
+	If there is available free memory, the garbage collector doesn't search the dead objects for memory reclaim and memory allocations has been done very fast. 
+	If the memory is insufficient to create the object, the garbage collector search the dead objects for memory reclaim for the newly object.
+
+	The newest objects are created at higher memory address while oldest memory objects are at lowest memory address with in the heap.
+
+	heap is divided into generations so that it is easy to eliminate the garbage objects
+	
+	The managed heap is organized into three generations so that it can handle short lived and long lived objects efficiently.
+
+	Generation 0 has short-lived objects and collected frequently. The objects that survive the Generation 0 are promoted to Generation 1.
+	Example : A temporary object.
+
+	The objects that survive the Generation 1 are promoted to Generation 2. Basically this generation serves as a buffer between short-lived objects and longest-lived objects.
+	
+	This generation contains the longest lived objects that are promoted from generation 1 and collected infrequently.
+	Example : An object at application level that contains static data which is available for the duration of the process.
+	
+	Garbage Collection Algorithm use determine whether any object in the heap is dead or not being used by the application
+
+Advantage of Garbage Collector
+Allow us to develop an application without having worry to free memory.
+Allocates memory for objects efficiently on the managed heap.
+free the memory for objects that are no longer referenced and keeps the memory for future allocations.
+Provides memory safety by making sure that an object cannot use the content of another object.
+
+can we create instance of abstract class in c#??
+
+scafolding in mvc
+
+default folder in mvc
+	1. Content
+		This folder contains Cascading Style Sheet files and images. 
+		This folder is used for static and publically servable files (*.css). 
+
+	2. Controllers
+		This folder contains C# classes files that are controller classes. 
+		Controllers are responsible for handling end user interaction, manipulating the model 
+		and choosing a view to display the UI. Each controller class inherits a Controller class
+		 or IController interface. Each controller class name has "Controller" as a suffix on the class name. 
+	3. Models
+		This folder contains classes that define objects and the logic for interacting with the database 
+		or data items. The Model is used by both the View and the Controller to view and edit.
+	4. Scripts
+		The Scripts folder is the recommended folder to store Java Script files in our MVC web application. 
+		We put static and publicly accessible files for jQuery and Java Script validation files (*.js) in this folder.
+	5. Views
+		This folder holds views (*.aspx, *.ascx and *.cshtml files). 
+		It is where files for displaying the application's user interface are placed. 
+		The Views folder contains a subfolder for each Controller and Views for the Controller action results. 
+		The View's sub folder is named with the controller-name-prefix and View is named with the controller action. 
+		
+		The Views folder contains a Web.config file. It is not our application's main Web.config file. 
+		It contains a directive instructing the web server not to serve any *.aspx files under /Views because 
+		they should be rendered by a controller, not invoked directly like Web Forms (*.aspx files).
+		It also contains the configuration that is needed to make the standard ASP.NET ASPX pages compiler work properly with ASP.NET MVC view syntax. 
+	6. Views\Shared
+
+	App_Start folder has been introduced in MVC4.
+ 	It contains various configurations files like as BundleConfig.cs, FilterConfig.cs, RouteConfig.cs, WebApiConfig.cs for your application.
+	
+	1 BundleConfig.cs - This is used to create and register bundles for CSS and JS files. By default, various bundles are added in this files including jQuery, jQueryUI, jQuery validation, Modernizr, and Site CSS.
+	2 FIlterConfig.cs - This is used to register global MVC filters like error filters, actions filters etc. By default it contains HandleErrorAttribute filter.
+	3 RouteConfig.cs - This is used to register various route patterns for your ASP.NET MVC application. By default, one route is registered here named as Default Route.
+	4 WebApiConfig.cs - This is used to register various WEB API routes like as ASP.NET MVC, as well as set any additional WEB API configuration settings.
+
+
+	 MVC Web Applications have some other folders that are the same in Web Form Web Applications.
+
+		App_Data: It is used as data storage for the MVC Web Application. 
+			  It is a natural storage point for file-based data stores (*.mdf, *.mdb and *.xml)
+			  because IIS won't serve any files from it but we can access them in our application.
+		
+		Bin: It holds the compiled .NET assembly for our MVC web application and any other assemblies it references. 
+		     IIS expects to determine the DLLs in it. During compilation VS copies 
+		     any referenced DLLs (excepts those from the system-wide global assembly cache) to it. IIS won't serve its content to the public.
+
+
+content in shared folder in mvc
+	
+	The Shared folder is a subfolder of the Views folder. It used for multiple views. 
+	It holds global Master Pages, Error Pages and User Controls used by multiple controllers. 
+	This folder is not associated with any particular Controller.
+
+Jquery interview question
+	http://www.codeproject.com/Articles/618484/Latest-jQuery-interview-questions-and-answers
+	http://www.dotnetfunda.com/interviews/cat/95/jquery
+	http://www.careerride.com/jQuery-Interview-Questions.aspx
+	http://www.toptal.com/jquery/interview-questions#iquestion_form
+
+	scaling in jquery
+	https://api.jqueryui.com/scale-effect/
+	
+	manipulation jquery
+	https://api.jquery.com/category/manipulation/
+
+	separator jquery
+
+
+
+Type in C#
+	http://www.dotnetfunda.com/articles/show/1491/datatypes-in-csharp
+	http://net-informations.com/faq/general/valuetype-referencetype.htm
+
+Stack and Heap
+	http://net-informations.com/faq/net/stack-heap.htm	
+	
+	Stack is used for static memory allocation and Heap for dynamic memory allocation, both stored in the computer's RAM
+	
+	Stack 
+	memory allocation AT compile
+	access to this memory is very fast
+	Stack is always reserved in a LIFO order 
+	This makes it really simple to keep track of the stack
+	You can use the stack if you know exactly how much data you need to allocate before compile time
+	value types are stored in the stack
+
+	HEAP
+	memory allocation AT run time
+	access to this memory is a bit slower
+	You can allocate a block at any time and free it at any time. 
+	This makes it much more complex to keep track of which parts of the heap are allocated or free at any given time.
+	You can use heap if you don't know exactly how much data you will need at runtime or if you need to allocate a lot of data.
+	reference types are stored in the HEAP
+
+
+Classes and Structureshttp:
+
+	//www.c-sharpcorner.com/UploadFile/yougerthen/what-really-make-difference-between-structures-and-classes/
+	
+	Structures are value types and the classes are reference types.
+	Classes can be inherited whereas structures not.
+	A structure can't be abstract, a class can.
+	A structure couldn't have a destructor such as a class.
+	A structure must always have the default parameter less constructor defined as public
+	  so you can't define a private parameter-less constructor as in the following:
+	struct Me
+    	{
+        	private Me()// compile-time error
+        	{
+        	}
+    	}
+     
+	class Me
+         {
+            private Me()// runs Ok
+		{
+		}
+         }
+	
+	You can't use sizeof with classes but you can with structures
+	A structure couldn't be null like a class.
+	Fields can't be directley instantiated within structures but classes allow such operations as in the following:
+	struct myStructure
+    	{
+        	publicstring x = 2;//Not allowed 
+    	}
+    	class myClass
+    	{
+        	publicstring x = 2;//Allowed
+    	}
+		
+	Structures and classes don't adopt the same aproach for the System.Object.Equals() method.
+	
+	 StructurePerson strX =new StructurePerson();
+            strX.LastName = "Bejaoui";
+            strX.FirstName = "Bechir";
+            StructurePerson strY =new StructurePerson();
+            strY.LastName = "Bejaoui";
+            strY.FirstName = "Bechir";
+
+            if (strX.Equals(strY))
+            {
+                Console.WriteLine("strX = strY");
+            }
+            else
+            {
+                Console.WriteLine("strX != strY");
+            }//This code displays strX = strY
+         ClassPerson clsX =new ClassPerson();
+            clsX.LastName = "Bejaoui";
+            clsX.FirstName = "Bechir";
+            ClassPerson clsY =new ClassPerson();
+            clsY.LastName = "Bejaoui";
+            clsY.FirstName = "Bechir";
+            if (clsX.Equals(clsY))
+            {
+                Console.WriteLine("clsX = clsY");
+            }
+            else
+            {
+                Console.WriteLine("clsX != clsY");
+            }//This code displays clsX != clsY
+
+	 ClassPerson clsX =new ClassPerson();
+            clsX.LastName = "Bejaoui";
+            clsX.FirstName = "Bechir";
+            ClassPerson clsY = clsX;
+            if (clsX.Equals(clsY))
+            {
+                Console.WriteLine("clsX = clsY");
+            }
+            else
+            {
+                Console.WriteLine("clsX != clsY");
+            }//This code displays clsX = clsY
+
+What is .Net serialization	
+	http://net-informations.com/faq/net/serialization.htm
+	
+	Serialization can be defined as the process of converting the state of an object instance to a stream of data
+	
+	The advantage of serialization is the ability to transmit data across the network in a cross-platform-compatible format
+
+	Binary Serialization
+	SOAP Serialization
+	XML Serialization
+
+Difference between Shallow copy and Deep copy
+	http://net-informations.com/faq/net/shallow-deep-copy.htm
+
+	http://www.c-sharpcorner.com/UploadFile/56fb14/shallow-copy-and-deep-copy-of-instance-using-C-Sharp/
+
+ 	
+	if you have an object with values and you want to create a copy of that object in 
+	another variable from same type, then you can use shallow copy, all property values 
+	which are of value types will be copied, but if you have a property which is of 
+	reference type then this instance will not be copied, instead you will have a reference to that instance only.
+ 
+	In .Net shallow copy is done by the object method MemberwiseClone().
+	
+	If a field is a reference type, a new copy of the referred object is performed. 
+	A deep copy of an object is a new object with entirely new instance variables, 
+	it does not share objects with the old. While performing Deep Copy the classes to be cloned must be flagged as [Serializable].
+
+Difference between managed and unmanaged code
+	The Managed Code running under a Common Language Runtime cannot be accessed outside the runtime environment 
+	as well as cannot call directly from outside the runtime environment
+
+ 	Managed code is code written in many high-level programming languages that are available for use with the Microsoft .NET Framework,
+	 including VB.NET, C#, J#, JScript.NET etc.
+
+	Unmanaged code compiles straight to machine code and directly executed by the Operating System. 
+
+	All code compiled by traditional C/C++ compilers are Unmanaged Code
+
+ Globalization and localization.
+
+C# 6.0
+
+.net framework version
+	http://www.dotnet-tricks.com/Tutorial/netframework/HJXU171213-A-brief-version-history-of-.NET-Framework.html
+
+- Globalization is a technique to identify the part of a Web application that is different for different languages and separate it out from 
+the web application while in localization you try to configure a Web application so that it can be supported for a specific language or locale.
+
+==tcs
+
+--Features of frame work 4.0
+
+--what is clr
+
+	 The main function of Common Language Runtime (CLR) is to convert the Managed Code into native code
+ and then execute the Program. It acts as a layer between Operating
+ Systems and the applications written in .Net languages.
+
+ it does 4 primary important things- 
+1. Garbage collection 2. CAS (Code Access Security) 
+3. CV (Code Verification) 4. IL to Native translation
+
+--what is garbage collection
+	release unreferenced objects from the memory
+
+--can we call garbage cpllection forcfully
+	System.GC.Collect()	
+
+
+--global assemblies cache (gac)
+	GAC is a central repository (cache) in a system in which assemblies are registered to share among various 
+	applications that execute on local or remote machines
+
+	the GAC is automatically installed with the .NET runtime. The global assembly cache is located in 'Windows/WinNT'
+
+
+--what sp and function
+
+	a function is a stored program that you can pass parameters into and return a value.
+	Useful aggregate functions:
+
+
+AVG() - Returns the average value
+COUNT() - Returns the number of rows
+FIRST() - Returns the first value
+LAST() - Returns the last value
+MAX() - Returns the largest value
+MIN() - Returns the smallest value
+SUM() - Returns the sum
+
+Useful scalar functions:
+
+UCASE() - Converts a field to upper case
+LCASE() - Converts a field to lower case
+MID() - Extract characters from a text field
+LEN() - Returns the length of a text field
+ROUND() - Rounds a numeric field to the number of decimals specified
+NOW() - Returns the current system date and time
+FORMAT() - Formats how a field is to be displayed
+
+Stored procedures are set of Structured Query Language (SQL) statements that perform particular task
+	It helps to reuse the code
+
+A stored procedure is nothing more than prepared SQL code that you save so you can reuse the code over and over again.  
+So if you think about a query that you write over and over again, instead of having to write 
+that query each time you would save it as a stored procedure and then just call the stored procedure to execute 
+the SQL code that you saved as part of the stored procedure.
+
+In addition to running the same SQL code over and over again you also have the ability to pass parameters 
+to the stored procedure, so depending on what the need is the stored procedure can act accordingly based 
+on the parameter values that were passed.
+	
+--Advantages of using stored procedures
+	Stored procedure allows modular programming. 
+	Stored Procedure allows faster execution. 
+		 They are parsed and optimized when they are first executed,
+		 and a compiled version of the stored procedure remains in memory cache for later use
+	Stored Procedure can reduce network traffic. 
+	Stored procedures provide better security to your data
+		Users can be granted permission to execute a stored procedure even 
+		if they do not have permission to execute the procedure's statements directly.	
+
+--we can not create obj of class having prvt constructor
+
+--what is feature of 2012 sql
+
+--use of abstract class
+	Astract class is a special type of class which cannot be instantiated and acts as a base class for other classes
+	Abstract class members marked as abstract must be implemented by derived classes.
+
+	The purpose of an abstract class is to provide basic or default functionality as well as common functionality 
+	that multiple derived classes can share and override.
+
+--type of assemblies
+	http://www.indiabix.com/technical/dotnet/dot-net-assemblies/
+
+	Private Assembly - Refers to the assembly that is used by a single application. 
+	Private assemblies are kept in a local folder in which the client application has been installed.
+	
+	Public or Shared Assembly - Refers to the assembly that is allowed to be shared by multiple applications.
+	 A shared assembly must reside in Global Assembly Cache (GAC) with a strong name assigned to it.
+	
+	For example, imagine that you have created a DLL containing information about your business logic. 
+	This DLL can be used by your client application. In order to run the client application, 
+	the DLL must be included in the same folder in which the client application has been installed. 
+	This makes the assembly private to your application. Now suppose that the DLL needs to be reused in 
+	different applications. Therefore, instead of copying the DLL in every client application folder, 
+	it can be placed in the global assembly cache using the GAC tool. These assemblies are called shared assemblies.	
+
+s--Is versioning applicable to private assemblies?
+
+	No, versioning is not applicable to private assemblies as these assemblies reside in their individual folders. 
+	Versioning can be applied to GAC only.
+
+
+--Boxing unboxing and generics
+When it comes to collections, generics make it possible to avoid boxing/unboxing by utilizing actual T[] arrays internally. 
+List<T> for example uses a T[] array to store its contents.
+
+So for a List<int>, for example, what you'd have in the array would "look" like this:
+
+[ 1 2 3 ]
+Compare this to an ArrayList, which uses an object[] and would therefore "look" something like this:
+
+[ *a *b *c ]
+...where *a, etc. are references to objects (boxed integers):
+
+*a -> 1
+*b -> 2
+*c -> 3
+
+
+What is the difference between .EXE and .DLL files?
+
+EXE
+It is an executable file, which can be run independently.
+EXE is an out-process component, which means that it runs in a separate process.
+It cannot be reused in an application.
+It has a main function.
+
+DLL
+It is Dynamic Link Library that is used as a part of EXE or other DLLs. It cannot be run independently.
+It runs in the application process memory, so it is called as in-process component.
+It can be reused in an application.
+It does not have a main function.
+
+--use of properties
+
+--lyf cyclr of asp
+	http://www.codeproject.com/Articles/667596/ASP-NET-Life-Cycle-Overview
+--scafolding
+	ASP.NET Scaffolding is a code generation framework for ASP.NET Web applications
+	 You add scaffolding to your project when you want to quickly add code that interacts with data 
+
+ExecuteScalar is typically used when your query returns a single value. If it returns more, then the result is the first column of the first row. An example might be SELECT @@IDENTITY AS 'Identity'.
+ExecuteReader is used for any result set with multiple rows/columns (e.g., SELECT col1, col2 from sometable).
+ExecuteNonQuery is typically used for SQL statements without results (e.g., UPDATE, INSERT, etc.).
+
+--core difference between Viewdata and viewbag (why viewbag does not required type check and null check)
+--What is root in Angularjs
+--rootscope vs scope
+--what is selector in jquery
+--extention method use, paramenter squence
+--execution plan in sql, and how to run
+--Iquerable is inherited from ienumerable
+--ienumrator actual use
+--what is route
+--defalut route is index
+--passing multiple view from single controller and binding
+--default method on for a class (while clicking dot we get 4 default method through intelligence)
+
+OOP stands for Object Oriented Programming. It is a programming model that centers on the creation of objects and classes. Unlike structural programming, OOP lets you write shorter codes by being able to reuse codes and create instances of objects.
+
+Cookies are small pieces of information that are stored in a browser. It keeps track of user preference, like what sites are visited, what keywords are used, among others.
+
+left join vs inner join performance sql server
+Default Constraint
+WHile or cursor
+linkedlist vs array
+Which method of T-SQL is better for performance LEFT JOIN or NOT IN when writing query
+	http://blog.sqlauthority.com/2008/04/22/sql-server-better-performance-left-join-or-not-in/
+
+Attribute Routng adv over
+	http://www.exceptionnotfound.net/attribute-routing-vs-convention-routing/
+
+Normalization is used for mainly two purpose,
+
+	Eliminating reduntant(useless) data.
+	Ensuring data dependencies make sense i.e data is logically stored.
+
+Webfarm and webserver
+Worker process
+if its taking long time in printing hello worlf in connection string
+caching store on clients and server
+log in iis
+cache server
+cahe info save whr?
+relation between session n cookies
+
+==========
 http://templates.entheosweb.com/template_number/live_demo.asp?TemplateID=16064
 
 http://stackoverflow.com/questions/26947306/can-i-use-old-kendoui-gpl-license-v3-in-open-source-project-that-provide-payment
