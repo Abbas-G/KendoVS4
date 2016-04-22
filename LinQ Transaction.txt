@@ -1,0 +1,42 @@
+ DataClasses1DataContext dataContext = new DataClasses1DataContext();
+            System.Data.Common.DbTransaction transaction;
+            dataContext.Connection.Open();
+            transaction = dataContext.Connection.BeginTransaction();
+            dataContext.Transaction = transaction;
+
+            try
+            {
+                Table2 tbl2 = new Table2()
+                {
+                    ID = 1,
+                    Value = "Test Data"
+                };
+
+                dataContext.Table2s.InsertOnSubmit(tbl2);
+
+                TestTable tstTbl = new TestTable()
+                {
+                    ID = 1,
+                    Name = "Alpha",
+                    lastname = "Beta"
+                };
+
+                dataContext.TestTables.InsertOnSubmit(tstTbl);
+
+                dataContext.SubmitChanges();
+
+                transaction.Commit();
+            }
+            catch (Exception)
+            {
+                transaction.Rollback();
+                Console.WriteLine("Rolback Done");
+            }
+            finally
+            {
+                if (null != dataContext.Connection)
+                {
+                    dataContext.Connection.Close();
+                }
+            }
+        }
