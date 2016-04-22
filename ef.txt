@@ -1,0 +1,181 @@
+1
+StudentDBEntities entities = new StudentDBEntities();
+
+Inserting
+
+To Insert the record we can write the following code:
+
+
+public void UpdateStudent(Student student){
+	//Add to memory
+	entities.AddToStudents(student);
+	//Save to database
+	entities.SaveChanges();
+}
+1
+2
+3
+4
+5
+6
+public void UpdateStudent(Student student){
+	//Add to memory
+	entities.AddToStudents(student);
+	//Save to database
+	entities.SaveChanges();
+}
+As you can se it's really simple 2 lines of code sample. If you you have entity objects with small amount of data, like, FirstName and LastName you can use next  code to perform inserting:
+
+
+public void UpdateStudent(string firstName, string lastName){
+	var student = new Student() {
+					FirstName = firstName,
+					Lastname = lastName
+					}
+
+	//Add to memory
+	entities.AddToStudents(student);
+	//Save to database
+	entities.SaveChanges();
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+public void UpdateStudent(string firstName, string lastName){
+	var student = new Student() {
+					FirstName = firstName,
+					Lastname = lastName
+					}
+ 
+	//Add to memory
+	entities.AddToStudents(student);
+	//Save to database
+	entities.SaveChanges();
+}
+This will create new istance of Student object with first and last name and perform inserting. For a good coding please use try{}catch{} and check values for null.
+
+Updating
+
+To Update the record we can write the following code :
+
+
+public void UpdateStudent(Student student){
+	var stud = entities.Students.FirstOrDefault(c => c.ID == student.ID);
+	stud.FirstName = student.Forename;
+	stud.LastName = student.Surname;
+	entities.SaveChanges();
+}
+1
+2
+3
+4
+5
+6
+public void UpdateStudent(Student student){
+	var stud = entities.Students.FirstOrDefault(c => c.ID == student.ID);
+	stud.FirstName = student.Forename;
+	stud.LastName = student.Surname;
+	entities.SaveChanges();
+}
+But what if the object we are updating contains a lot of attributes.  Surely updating each attribute seperately before calling a Save is a little overkill.
+
+Luckily we are providied with a solution which allows us to attach to a record within the context, perform a straight replace on the record with the new modified record and save back the changes, and all in just 3 lines of code:
+
+
+public void UpdateStudent(Student student) {
+	entities.Students.Attach(entities.Students.Single(c => c.ID == student.ID));
+	entities.Students.ApplyCurrentValues(student);
+	entities.Savechanges();
+}
+1
+2
+3
+4
+5
+public void UpdateStudent(Student student) {
+	entities.Students.Attach(entities.Students.Single(c => c.ID == student.ID));
+	entities.Students.ApplyCurrentValues(student);
+	entities.Savechanges();
+}
+It makes updating short coded and developer life easier.
+
+Deleting
+
+And finaly, perfoming Insert and Update operations we need to perfome Delete operetion also.
+
+Sample deleting code operetion is below:
+
+
+public void UpdateStudent(Student student) {
+	var stud = (from s1 in entities.Students
+				where s1.ID== student.ID
+				select s1).FirstOrDefault();
+
+	//Delete it from memory
+	entities.DeleteObject(stud);
+	//Save to database
+	entities.SaveChanges();
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+public void UpdateStudent(Student student) {
+	var stud = (from s1 in entities.Students
+				where s1.ID== student.ID
+				select s1).FirstOrDefault();
+ 
+	//Delete it from memory
+	entities.DeleteObject(stud);
+	//Save to database
+	entities.SaveChanges();
+}
+FirstOrDefault - gives us null object or first found record.
+
+Also we can perform deleting by passing just a value of Student Id:
+
+
+public void UpdateStudent(int studentId) {
+	var stud = (from s1 in entities.Students
+				where s1.ID == studentId
+				select s1).FirstOrDefault();
+
+	//Delete it from memory
+	entities.DeleteObject(stud);
+	//Save to database
+	entities.SaveChanges();
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+public void UpdateStudent(int studentId) {
+	var stud = (from s1 in entities.Students
+				where s1.ID == studentId
+				select s1).FirstOrDefault();
+ 
+	//Delete it from memory
+	entities.DeleteObject(stud);
+	//Save to database
+	entities.SaveChanges();
+}
