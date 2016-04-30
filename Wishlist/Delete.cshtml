@@ -1,0 +1,185 @@
+﻿@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/Site.cshtml";
+}
+
+@section ScriptContent{
+    <script src="@Url.Content("~/Content/kendo/js/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Content/kendo/js/kendo.all.min.js")"></script>
+
+    <link rel="stylesheet" type="text/css" title="custom_black" href="@Url.Content("~/Content/kendo/style/kendo.common.min.css")" />
+    <link rel="stylesheet" type="text/css" title="custom_black" href="@Url.Content("~/Content/kendo/style/CustomThemes/custom_gray_yellow.css")" id="stylesheet" />
+}
+
+@section PrimaryNav{
+    <ul>
+        <li>
+            <a href="@Url.Content("~/Home/Dashboard")"><i class="icon-fire"></i>Dashboard</a>
+        </li>
+        <li>
+            <a href="@Url.Content("~/Staff/Index")"><i class="icon-magic"></i>Staff</a>
+        </li>
+        <li>
+            <a href="@Url.Content("~/Buyer/Index")"><i class="icon-picture"></i>Buyer</a>
+        </li>
+        <li>
+            <a href="@Url.Content("~/Inventory/Index")"><i class="icon-leaf"></i>Inventory</a>
+        </li>
+        <li>
+            <a href="@Url.Content("~/Balancing/Index")"><i class="icon-magic"></i>Balancing</a>
+        </li>
+        <li>
+            <a href="@Url.Content("~/Wishlist/Index")" class="active"><i class="icon-leaf"></i>WishList</a>
+        </li>
+        <li>
+            <a href="@Url.Content("~/Account/LogOff")"><i class="icon-off"></i>Logout</a>
+        </li>
+    </ul>
+}
+<ul id="nav-info" class="clearfix">
+    <li><a href="#"><i class="icon-home"></i></a></li>
+    <li ><a href="@Url.Content("~/Wishlist/Index")">Add</a></li>
+    <li class="active"> <a href="@Url.Content("~/Wishlist/Delete")">Delete</a></li>
+</ul>
+
+<div class="demo-section">
+    <h2>Delete Wish List</h2>
+    <p>
+        <label for="TenderId">Tender:</label><input id="TenderId" name="TenderId" style="width: 300px" disabled />
+    </p>
+    <p>
+        <label for="CabinId">Select Cabin:</label><input id="CabinId" name="CabinId" style="width: 300px" onchange="CabinsChange()" />
+    </p>
+    <p class="buyerdiv">
+        <label for="BuyerId">Select Buyer:</label><input id="BuyerId" name="BuyerId" style="width: 300px" onchange="BuyerChange()"  />
+    </p>
+    <p class="buyerdiv">
+        <label for="txtAddWishList"> Wish List:</label><input id="txtAddWishList" name="txtAddWishList" multiple="multiple" data-placeholder="Select Identity..." required style="width: 300px" />
+    </p>
+
+    <input type="button" class="k-button" value="Delete Wish List" id="btnApprove" onclick="Approve()" />
+</div>
+<div id="TargetDiv">
+
+</div>
+
+
+<script>
+    var xhReqtender = new XMLHttpRequest();
+    xhReqtender.open("POST", '@Url.Content("~/Inventory/GetJsonOutputForTender")', false);
+    xhReqtender.send(null);
+    var GlobalTenderValue = JSON.parse(xhReqtender.responseText);
+    $("#TenderId").kendoDropDownList({
+        dataTextField: "Value",
+        dataValueField: "Key",
+        dataSource: GlobalTenderValue
+    });
+    var cabins;
+    var buyers;
+    var inv;
+    var inventoryDS;
+    $(document).ready(function () {
+
+        cabins = $("#CabinId").kendoDropDownList({
+            dataTextField: "Value",
+            dataValueField: "Id",
+            dataSource: [
+            { Id: 1, Value: 'Cabin1' },
+            { Id: 2, Value: 'Cabin2' },
+            { Id: 3, Value: 'Cabin3' },
+            { Id: 4, Value: 'Cabin4' },
+            { Id: 5, Value: 'Cabin5' },
+            { Id: 6, Value: 'Cabin6' },
+            { Id: 7, Value: 'Cabin7' },
+            { Id: 8, Value: 'Cabin8' },
+            { Id: 9, Value: 'Cabin9' },
+            { Id: 10, Value: 'Cabin10' }
+            ]
+        }).data("kendoDropDownList");
+        $(".buyerdiv").hide();
+
+        inv = $("#txtAddWishList").kendoMultiSelect({
+            dataTextField: "Value",
+            dataValueField: "Id",
+            dataSource: inventoryDS
+        })
+
+    });
+    function CabinsChange() {
+        $(".buyerdiv").show();
+        fadeinout();
+        var xhReqtender = new XMLHttpRequest();
+        xhReqtender.open("POST", '@Url.Content("~/Wishlist/GetJsonOutputForAllBuyerByCabin")' + '?tenderid=' + $("#TenderId").val() + '&cabinid=' + $("#CabinId").val(), false);
+        xhReqtender.send(null);
+        var GlobalTenderValue = JSON.parse(xhReqtender.responseText);
+        $("#BuyerId").val("");
+        buyers = $("#BuyerId").kendoDropDownList({
+            dataTextField: "Value",
+            dataValueField: "Id",
+            dataSource: GlobalTenderValue
+        }).data("kendoDropDownList");
+
+        if ($("#TenderId").val() != '') {
+            xhReqtender = new XMLHttpRequest();
+            xhReqtender.open("POST", '@Url.Content("~/Inventory/GetAllInventoryBuyerId")' + '?tenderid=' + $("#TenderId").val() + '&cabinid=' + $("#CabinId").val() + '&BuyerId=' + $("#BuyerId").val(), false);
+            xhReqtender.send(null);
+            var inventoryDS = JSON.parse(xhReqtender.responseText);
+            console.log(inventoryDS);
+            var multiselect = $("#txtAddWishList").data("kendoMultiSelect");
+            multiselect.setDataSource(inventoryDS);
+        }
+        fadeover();
+    }
+
+    function BuyerChange() {
+        fadeinout();
+        if ($("#TenderId").val() != '') {
+            var xhReqtender = new XMLHttpRequest();
+            xhReqtender.open("POST", '@Url.Content("~/Inventory/GetAllInventoryBuyerId")' + '?tenderid=' + $("#TenderId").val() + '&cabinid=' + $("#CabinId").val() + '&BuyerId=' + $("#BuyerId").val(), false);
+            xhReqtender.send(null);
+            var inventoryDS = JSON.parse(xhReqtender.responseText);
+            var multiselect = $("#txtAddWishList").data("kendoMultiSelect");
+            multiselect.setDataSource(inventoryDS);
+        }
+        fadeover();
+    }
+    var wnd, detailsTemplate;
+
+    function Approve() {
+        var multiSelect = $("#txtAddWishList").data("kendoMultiSelect");
+        var valueAddWishList = multiSelect.value();
+
+        if ($("#BuyerId").val() != '' && valueAddWishList != '') {
+            fadeinout();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Content("~/Wishlist/DeleteWishList")',
+                cache: false,
+                data: { 'tenderid': $("#TenderId").val(), 'cabinid': $("#CabinId").val(), 'buyerid': $("#BuyerId").val(), 'wishlist': '' + $("#txtAddWishList").data("kendoMultiSelect").value() + '' },
+                success: function (html, textStatus, XMLHttpRequest) {
+                    if (XMLHttpRequest.getResponseHeader('X-LOGON') == "true") {
+                        window.location = '@Url.Content("~/Account/LogOn")';
+                        window.location.reload();
+                    }
+                    else {
+                        $('#TargetDiv').html(html.Message);
+                        clear();
+                        fadeover();
+                        location.reload();
+                    }
+                },
+                error: function (msg) {
+                    fadeover();
+                    $('#msg').html("Cabin, buyer not matched!");
+                    alert("Cabin, buyer & parcel did not matched!");
+                }
+            });
+        } else {
+            alert("Wish List and Buyer are required!..")
+        }
+    }
+    function clear() {
+        $("#txtAddWishList").val('');
+    }
+
+</script>
