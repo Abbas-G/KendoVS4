@@ -38,6 +38,24 @@ since the data would be spread out in different tables, this would not be possib
 Although for reasons mentioned above selects can be very fast on denormalized tables,   
 but because the data is duplicated, the updates and inserts become complex and costly.
 
+--contraint in swl server
+
+
+ALTER TABLE dbo.DocExc 
+   ADD ColumnD int NULL 
+   CONSTRAINT CHK_ColumnD_DocExc 
+   CHECK (ColumnD > 10 AND ColumnD < 50);
+GO
+-- Adding values that will pass the check constraint
+INSERT INTO dbo.DocExc (ColumnD) VALUES (49);
+GO
+-- Adding values that will fail the check constraint
+INSERT INTO dbo.DocExc (ColumnD) VALUES (55);
+GO
+
+-- default constraint
+OrderDate date DEFAULT GETDATE()
+
 --Cursor and pointer in sql server
 	http://stackoverflow.com/questions/4222868/what-is-exact-use-of-cursor-in-sql-server
 	http://www.mssqlcity.com/Articles/General/UseCursor.htm
@@ -129,6 +147,7 @@ http://www.orafaq.com/faq/what_are_the_difference_between_ddl_dml_and_dcl_comman
 	Output cache
 	Use of partial and childaction to hide url
 	Use of helper
+	use of antiforgettoken
 
 --passing multiple model value
 	http://www.c-sharpcorner.com/UploadFile/ff2f08/multiple-models-in-single-view-in-mvc/

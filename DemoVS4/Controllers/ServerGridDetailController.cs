@@ -23,6 +23,9 @@ namespace DemoVS4.Controllers
 
         public JsonResult GetJsonOutputForGridDataSelect(int? skip, int? take, int? page, int? pageSize, string group)
         {
+            DemoVS4.Core.DAL.dbTestDataContext ctx = new Core.DAL.dbTestDataContext();
+            System.Data.Common.DbTransaction transaction = ctx.Connection.BeginTransaction();
+            ctx.Transaction = ctx.Connection.BeginTransaction();
             var sorterCollection = KendoGridSorterCollection.BuildCollection(Request);
             var filterCollection = KendoGridFilterCollection.BuildCollection(Request);
 

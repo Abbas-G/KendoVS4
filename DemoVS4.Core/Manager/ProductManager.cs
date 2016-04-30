@@ -24,15 +24,38 @@ namespace DemoVS4.Core.Manager
 
         public bool DeleteRecordById(int? id)
         {
-            DemoVS4.Core.DAL.Product l = ctx.Products.Where(x => x.ProductID == id).FirstOrDefault();
-            if (l != null)
+            System.Data.Common.DbTransaction transaction;
+            ctx.Connection.Open();
+            transaction = ctx.Connection.BeginTransaction();
+            ctx.Transaction = transaction;
+
+            try
             {
-                ctx.Products.DeleteOnSubmit(l);
-                ctx.SubmitChanges();
-                return true;
+                DemoVS4.Core.DAL.Product l = ctx.Products.Where(x => x.ProductID == id).FirstOrDefault();
+                if (l != null)
+                {
+                    ctx.Products.DeleteOnSubmit(l);
+                    ctx.SubmitChanges();
+                    transaction.Commit();
+                    return true;
+                }
+                else
+                    return false;
+
+                
             }
-            else
+            catch (Exception)
+            {
+                transaction.Rollback();
                 return false;
+            }
+            finally
+            {
+                if (null != ctx.Connection)
+                {
+                    ctx.Connection.Close();
+                }
+            }
         }
 
     }
