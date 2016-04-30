@@ -40,3 +40,26 @@
                 }
             }
         }
+=========================================================================
+using (var scope = new TransactionScope())
+            {
+                InventoryTbl _InventoryTbl = new InventoryTbl();
+                _InventoryTbl.CreatedDate = System.DateTime.Now;
+                _InventoryTbl.ModifiedDate = System.DateTime.Now;
+                _InventoryTbl.IsActive = true;
+                _InventoryTbl.IsDelete = false;
+                _InventoryTbl.ParcelName = "Abbas2";
+                _InventoryTbl.Photo = "xx2";
+                _InventoryTbl.Weight = "1.01";
+                _InventoryTbl.InvoiceNo = "xx2";
+                _InventoryTbl.Discription = "xx2";
+
+                _RHJewelEntities.InventoryTbls.Add(_InventoryTbl);
+                //Save to database
+                _RHJewelEntities.SaveChanges();
+                //_RHJewelEntities.Database.Connection.Close();
+                scope.Complete();
+            }
+           
+
+            return View();

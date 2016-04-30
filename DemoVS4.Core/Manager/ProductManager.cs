@@ -41,7 +41,7 @@ namespace DemoVS4.Core.Manager
                 }
                 else
                     return false;
-
+                 
                 
             }
             catch (Exception)
