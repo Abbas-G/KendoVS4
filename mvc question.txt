@@ -711,6 +711,7 @@ Collection classes are specialized classes for data storage and retrieval. These
 	where to use? http://www.codeproject.com/Articles/393229/dynamic-type-in-Csharp-Where-and-how-to-use-Ho	
 	http://www.codeproject.com/Tips/460614/Difference-between-var-and-dynamic-in-Csharp
 
+	where to use dynamic ? http://www.codeproject.com/Articles/393229/dynamic-type-in-Csharp-Where-and-how-to-use-Ho
 	object
 	Object is the base class for all derived classes. It provides some methods and capabilities. 
 	All derived types can be referenced through the object base type
